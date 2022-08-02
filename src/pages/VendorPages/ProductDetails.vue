@@ -7,7 +7,7 @@
       <div class="column q-gutter-y-md">
         <div class="border-radius bg-white">
           <div class="images q-py-md q-px-lg">
-            <div
+            <!-- <div
               class="input border-radius column flex-center relative-position"
             >
               <input
@@ -27,11 +27,11 @@
               <div class="text-primary absolute-bottom text-center q-mb-md">
                 Upload Images
               </div>
-            </div>
+            </div> -->
 
             <div
               v-show="!images[0]"
-              v-for="n in 3"
+              v-for="n in 4"
               :key="n"
               class="image border-radius flex flex-center"
             >
@@ -135,7 +135,7 @@
 
         <div class="row border-radius bg-white q-pa-md">
           <q-btn
-            label="Upload Product "
+            label="Save Changes "
             class="bordered-btn full-width"
             color="primary"
             no-caps
