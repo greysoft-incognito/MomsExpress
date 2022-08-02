@@ -1,4 +1,6 @@
 // app global css in SCSS form
+
+// Remove background color on hover
 .non_hover_btn .q-focus-helper {
   position: static;
   top: 0;
@@ -11,6 +13,29 @@
   color: #1976d2 !important;
 }
 
+// Table head Font size
 th {
   font-size: 1.2rem !important;
+}
+
+//Text editor for adding new product
+.ql-editor {
+  height: 45vh !important;
+}
+.ql-toolbar {
+  border: 1px solid #1976d2 !important;
+}
+
+.ql-toolbar {
+  span:nth-child(3),
+  span:nth-child(7),
+  span:nth-child(8),
+  span:nth-child(9) {
+    display: none;
+  }
+}
+.ql-container {
+  background-color: white !important;
+  // border: none !important;
+  padding: 2% 0 0 1%;
 }

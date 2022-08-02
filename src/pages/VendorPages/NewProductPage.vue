@@ -18,13 +18,6 @@
                 @input="selectImgFile"
                 style="display: none"
               />
-              <!-- <v-input
-                type="file"
-                multiple
-                ref="userAvatar"
-                style="display: none"
-                v-model="pictures"
-              /> -->
               <q-icon
                 name="add"
                 size="3.5rem"
@@ -60,39 +53,60 @@
           <div class="product-input">
             <div>
               <label class="text-grey-9">Name</label>
-              <q-input class="q-mt-xs" v-model="productName" outlined dense />
-            </div>
-            <div>
-              <label class="text-grey-9">Quantity</label>
               <q-input
+                placeholder="Name of product..."
                 class="q-mt-xs"
-                v-model.number="quantity"
+                v-model="productName"
                 outlined
                 dense
               />
             </div>
-            <div>
-              <label class="text-grey-9">Weight</label>
-              <q-input class="q-mt-xs" outlined dense />
-            </div>
           </div>
 
           <div class="q-mt-lg">
-            <label for="">Description</label>
+            <label for="">Short Description</label>
             <q-input
               v-model="description"
               type="textarea"
-              placeholder="Please describe the product with details information..."
+              class="q-mt-xs"
+              placeholder="Short description of the product ..."
               outlined
             />
+          </div>
+
+          <div class="q-mt-lg">
+            <label class="text-grey-9">Product Details</label>
+            <vue-editor class="q-mt-xs" v-model="content"></vue-editor>
           </div>
         </div>
       </div>
 
       <div class="column q-gutter-y-md">
         <div class="product-price border-radius bg-white q-pa-md">
-          <div class="text-h5 text-bold q-my-sm">Pricing</div>
-          <q-input outlined v-model="price">
+          <label class="text-grey-9">Type of product Unit</label>
+          <q-select
+            outlined
+            v-model="category"
+            :options="categories"
+            class="q-mt-xs"
+            label="Product Unit..."
+            dense
+          />
+        </div>
+
+        <div class="product-price border-radius bg-white q-pa-md">
+          <label class="text-grey-9">No. of Stock</label>
+          <q-input
+            placeholder="Product stock eg. 10"
+            class="q-mt-xs"
+            outlined
+            dense
+          />
+        </div>
+
+        <div class="product-price border-radius bg-white q-pa-md">
+          <label class="text-grey-9">Price</label>
+          <q-input dense outlined v-model="price">
             <template v-slot:prepend>
               N <q-separator class="q-ml-md" vertical
             /></template>
@@ -100,52 +114,50 @@
         </div>
 
         <div class="product-price border-radius bg-white q-pa-md">
-          <div class="text-h5 text-bold q-my-sm">Category</div>
-          <div class="text-caption">
-            Please select a cetegpry that fits this product
-          </div>
-          <q-select
-            outlined
-            v-model="category"
-            :options="categories"
-            label="Categories..."
-          />
+          <label class="text-grey-9">Discounted Price</label>
+          <q-input dense outlined v-model="discount">
+            <template v-slot:prepend>
+              N <q-separator class="q-ml-md" vertical
+            /></template>
+          </q-input>
         </div>
 
         <div class="product-price border-radius bg-white q-pa-md">
-          <div class="text-h5 text-bold q-my-sm">Discount</div>
-          <q-input outlined v-model="discount">
-            <template v-slot:append>
-              <q-separator class="q-mr-md" vertical />
-              %
-            </template>
-          </q-input>
+          <label class="text-grey-9">Category</label>
+          <q-select
+            outlined
+            dense
+            v-model="category"
+            :options="categories"
+            label=" Select a product cetegory..."
+          />
+        </div>
+
+        <div class="row border-radius bg-white q-pa-md">
+          <q-btn
+            label="Upload Product "
+            class="bordered-btn full-width"
+            color="primary"
+            no-caps
+            size="1.1rem"
+          />
         </div>
       </div>
-    </div>
-
-    <div class="row q-mt-xl">
-      <!-- <q-space /> -->
-      <q-btn
-        flat
-        label="Update Product Details"
-        class="bg-primary bordered-btn"
-        text-color="white"
-        @click="addProduct()"
-        no-caps
-        size="1.3rem"
-      />
-      <q-space />
     </div>
   </q-page>
 </template>
 
 <script>
 import { ref } from "vue";
-import { Notify } from "quasar";
+import { VueEditor } from "vue3-editor";
+
 export default {
+  components: {
+    VueEditor,
+  },
   data() {
     return {
+      content: "<span>Write something ...</span>",
       filePreview: null,
       arr: [],
       images: [],
@@ -162,8 +174,8 @@ export default {
     };
   },
   methods: {
-    chooseFile() {
-      // this.$refs.fileInput.click();
+    show() {
+      console.log(this.content);
     },
     selectImgFile() {
       let fileInput = this.$refs.fileInput;
@@ -184,39 +196,39 @@ export default {
       }
       console.log(this.arr);
     },
-    addProduct() {
-      console.log("hello");
-      let formData = new FormData();
-      formData.append("productName", this.productName);
-      formData.append("price", this.price);
-      formData.append("quantity", this.quantity);
-      formData.append("category", this.category);
-      formData.append("subcategory", this.subcategory);
-      for (let i = 0; i < this.arr.length; i++) {
-        formData.append("img", this.arr[i]);
-      }
-      formData.append("color", this.description);
-      formData.append("size", this.discount);
-      console.log(formData);
-      if (
-        this.productName !== "" &&
-        this.price !== "" &&
-        this.quantity !== ""
-      ) {
-        this.$store
-          .dispatch("moduleExample/addProduct", { formData })
-          .then((response) => {
-            console.log(response);
-            // this.icon = false;
-            // this.getProducts();
-          });
-      } else {
-        Notify.create({
-          message: "You can't leave any field empty.",
-          color: "red",
-        });
-      }
-    },
+    // addProduct() {
+    //   console.log("hello");
+    //   let formData = new FormData();
+    //   formData.append("productName", this.productName);
+    //   formData.append("price", this.price);
+    //   formData.append("quantity", this.quantity);
+    //   formData.append("category", this.category);
+    //   formData.append("subcategory", this.subcategory);
+    //   for (let i = 0; i < this.arr.length; i++) {
+    //     formData.append("img", this.arr[i]);
+    //   }
+    //   formData.append("color", this.description);
+    //   formData.append("size", this.discount);
+    //   console.log(formData);
+    //   if (
+    //     this.productName !== "" &&
+    //     this.price !== "" &&
+    //     this.quantity !== ""
+    //   ) {
+    //     this.$store
+    //       .dispatch("moduleExample/addProduct", { formData })
+    //       .then((response) => {
+    //         console.log(response);
+    //         // this.icon = false;
+    //         // this.getProducts();
+    //       });
+    //   } else {
+    //     Notify.create({
+    //       message: "You can't leave any field empty.",
+    //       color: "red",
+    //     });
+    //   }
+    // },
     // getCategories() {
     //   this.$store.dispatch("moduleExample/getCategories").then((response) => {
     //     for (let item of response.categories) {
@@ -232,9 +244,6 @@ export default {
 </script>
 
 <style scoped lang="css">
-.container {
-  max-width: 600px;
-}
 .previewBlock {
   display: block;
   cursor: pointer;
@@ -252,15 +261,6 @@ export default {
 }
 .border-radius {
   border-radius: 10px;
-}
-
-.product-input {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  gap: 8px;
-}
-.product-price {
-  /* width: 30%; */
 }
 
 .images {

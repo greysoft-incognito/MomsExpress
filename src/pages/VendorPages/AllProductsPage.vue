@@ -15,9 +15,9 @@
           <q-btn
             class="text-subtitle2 q-mx-md"
             no-caps
-            rounded
             label="New Product"
             icon="add"
+            to="/new_product"
             color="primary"
           />
         </template>
