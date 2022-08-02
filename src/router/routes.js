@@ -40,6 +40,7 @@ const routes = [
       },
       {
         path: "settings",
+        name: "Settings",
         component: () => import("src/pages/VendorPages/StoreSettingsPage.vue"),
       },
     ],

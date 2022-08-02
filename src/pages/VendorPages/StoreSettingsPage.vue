@@ -1,11 +1,57 @@
 <template>
-  <q-page class="flex flex-center"> settings </q-page>
+  <q-page class="q-px-lg q-py-xl">
+    <div class="q-px-md">
+      <div class="text-h6">{{ $route.name }}</div>
+      <div class="text-weight-thin">Lorem Store Name</div>
+    </div>
+    <div class="q-gutter-y-md full-width q-pa-md">
+      <q-card style="border-radius: 15px" flat class="q-px-sm q-py-md">
+        <q-tabs
+          v-model="tab"
+          dense
+          class="text-grey"
+          active-color="primary"
+          indicator-color="primary"
+          align="left"
+          no-caps
+        >
+          <q-tab name="store" label="Store details" />
+          <q-tab name="user" label="User details" />
+          <q-tab name="bank" label="Bank Information" />
+        </q-tabs>
+
+        <q-separator />
+
+        <q-tab-panels v-model="tab" animated>
+          <q-tab-panel name="store">
+            <StoreDetails />
+          </q-tab-panel>
+
+          <q-tab-panel name="user">
+            <UserDetails />
+          </q-tab-panel>
+
+          <q-tab-panel name="bank">
+            <BankDetails />
+          </q-tab-panel>
+        </q-tab-panels>
+      </q-card>
+    </div>
+  </q-page>
 </template>
 
 <script>
-import { defineComponent } from "vue";
+import { ref } from "vue";
+import StoreDetails from "src/components/Vendor/Settings/StoreDetails.vue";
+import UserDetails from "src/components/Vendor/Settings/UserDetails.vue";
+import BankDetails from "src/components/Vendor/Settings/BankDetails.vue";
 
-export default defineComponent({
-  name: "DashboardPage",
-});
+export default {
+  setup() {
+    return {
+      tab: ref("store"),
+    };
+  },
+  components: { StoreDetails, UserDetails, BankDetails },
+};
 </script>
