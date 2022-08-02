@@ -4,60 +4,72 @@
     <div class="text-weight-thin">Lorem Store Name</div>
     <div class="q-pa-md">
       <q-table
-        :grid="tableLayout"
-        :filter="filter"
-        :rows="rows"
-        :columns="columns"
-        row-key="id"
-        :pagination="pagination"
+        title="Treats"
         flat
+        :rows="records"
+        :columns="columns"
+        row-key="name"
+        class="q-pt-md"
       >
         <template v-slot:top-left>
           <q-btn
-            color="primary"
-            icon="add"
-            label="New Product"
-            rounded
-            no-caps
-          />
-        </template>
-        <template v-slot:top-right>
-          <q-input
-            borderless
-            dense
-            debounce="300"
-            v-model="filter"
-            placeholder="Search"
-          >
-            <template v-slot:append>
-              <q-icon name="search" />
-            </template>
-          </q-input>
-          <q-btn
-            flat
             class="text-subtitle2 q-mx-md"
             no-caps
-            :label="tableLayout ? 'Row' : 'Grid'"
-            :icon="tableLayout ? 'fas fa-grip-lines' : 'fa-solid fa-border-all'"
+            rounded
+            label="New Product"
+            icon="add"
             color="primary"
-            @click="toggleLayout"
           />
         </template>
         <template v-slot:body="props">
-          <q-tr class="q-pl-md" :props="props">
-            <q-td key="id" :props="props">
-              {{ props.row.id }}
+          <q-tr :props="props">
+            <q-td key="check" class="text-center">
+              <q-checkbox key="check" v-model="val" />
             </q-td>
-            <q-td key="customer" :props="props">
-              {{ props.row.customer }}
+            <q-td key="calories" style="width: 135px">
+              <img class="image" :src="props.row.calories" />
             </q-td>
-            <q-td key="status" :props="props">{{ props.row.status }} </q-td>
-            <q-td key="phone" :props="props">
-              {{ props.row.phone }}
+            <q-td key="name">
+              <div class="text-h6 text-bold">
+                {{ props.row.name }}
+              </div>
+              <div class="q-my-xs">
+                <span class="q-ml-xs text-bold">0</span>
+                <span class="text-weight-light q-my-auto q-ml-sm">
+                  In Stock</span
+                >
+              </div>
+              <div class="q-my-xs">
+                <q-toggle
+                  :label="toggle"
+                  color="green"
+                  dense
+                  size="1.7rem"
+                  :class="toggle === 'Disabled' ? 'text-grey' : 'text-green'"
+                  false-value="Disabled"
+                  true-value="Enabled"
+                  v-model="toggle"
+                />
+              </div>
             </q-td>
-            <q-td key="total" :props="props">{{ props.row.total }}</q-td>
-            <q-td key="date" :props="props">{{ props.row.date }}</q-td>
-            <q-td key="action" :props="props">{{ props.row.action }}</q-td>
+            <q-td class="text-bold" key="fat">
+              <div class="text-h6 text-weight-light">
+                ${{ props.row.fat * 1000 }}
+              </div>
+            </q-td>
+            <q-td class="text-center" key="fat">
+              <div class="text-h6 text-weight-light">Lorem Category</div>
+            </q-td>
+            <q-td class="text-right" style="width: 135px" key="carbs">
+              <!-- {{ props.row.carbs }} -->
+              <q-btn
+                flat
+                icon="chevron_right"
+                size="2rem"
+                class="non_hover_btn"
+                color="grey"
+              />
+            </q-td>
           </q-tr>
         </template>
       </q-table>
@@ -66,162 +78,134 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
 const columns = [
   {
-    name: "id",
+    name: "check",
+    label: "",
+    align: "left",
+  },
+  {
+    name: "name",
     required: true,
-    label: "Order (#)",
-    align: "center",
-    style: "width: 50px; padding: 0 30px",
-    field: (row) => row.id,
-    format: (val) => `${val}`,
-    sortable: true,
+    label: "Product",
+    style: "width: 10px",
+    align: "left",
+    field: (row) => row.name,
+    // format: (val) => `${val}`,
   },
   {
-    name: "customer",
+    name: "calories",
     align: "center",
-    label: "Customer",
-    field: "customer",
+    label: "",
+    field: "calories",
   },
   {
-    name: "status",
-    label: "Status",
-    align: "center",
-    field: "status",
-    sortable: true,
-    style: "width: 20px",
-    sort: (a, b) => parseInt(a, 10) - parseInt(b, 10),
+    name: "name",
+    required: true,
+    label: "Price",
+    style: "width: 10px",
+    align: "left",
+    field: (row) => row.name,
+    // format: (val) => `${val}`,
   },
-  { name: "phone", label: "Phone", align: "center", field: "phone" },
-  { name: "total", label: "Total", align: "center", field: "total" },
-  { name: "date", label: "Date", align: "center", field: "date" },
   {
-    name: "action",
-    label: "Action",
-    field: "action",
+    name: "fat",
     align: "center",
+    label: "Category",
+    field: "fat",
   },
+  { name: "carbs", align: "center", label: "", field: "carbs" },
 ];
 
 const rows = [
   {
-    id: "Frozen Yogurt",
-    customer: 159,
-    status: 6.0,
-    phone: 24,
-    total: "1%",
-    date: 4.0,
-    action: 87,
+    name: "Frozen Yogurt",
+    calories: "https://cdn.quasar.dev/img/parallax2.jpg",
+    fat: 6.0,
+    carbs: 24,
   },
   {
-    id: "Ice cream sandwich",
-    customer: 237,
-    status: 9.0,
-    phone: 37,
-    total: "1%",
-    date: 4.3,
-    action: 129,
+    name: "Ice cream sandwich",
+    calories: "https://cdn.quasar.dev/img/parallax2.jpg",
+    fat: 9.0,
+    carbs: 37,
   },
   {
-    id: "Eclair",
-    customer: 262,
-    status: 16.0,
-    phone: 23,
-    total: "7%",
-    date: 6.0,
-    action: 337,
+    name: "Eclair",
+    calories: "https://cdn.quasar.dev/img/parallax2.jpg",
+    fat: 16.0,
+    carbs: 23,
   },
   {
-    id: "Cupcake",
-    customer: 305,
-    status: 3.7,
-    phone: 67,
-    total: "8%",
-    date: 4.3,
-    action: 413,
+    name: "Cupcake",
+    calories: "https://cdn.quasar.dev/img/parallax2.jpg",
+    fat: 3.7,
+    carbs: 67,
   },
   {
-    id: "Gingerbread",
-    customer: 356,
-    status: 16.0,
-    phone: 49,
-    total: "16%",
-    date: 3.9,
-    action: 327,
+    name: "Gingerbread",
+    calories: "https://cdn.quasar.dev/img/parallax2.jpg",
+    fat: 16.0,
+    carbs: 49,
   },
   {
-    id: "Jelly bean",
-    customer: 375,
-    status: 0.0,
-    phone: 94,
-    total: "0%",
-    date: 0.0,
-    action: 50,
+    name: "Jelly bean",
+    calories: "https://cdn.quasar.dev/img/parallax2.jpg",
+    fat: 0.0,
+    carbs: 94,
   },
   {
-    id: "Lollipop",
-    customer: 392,
-    status: 0.2,
-    phone: 98,
-    total: "2%",
-    date: 0,
-    action: 38,
+    name: "Lollipop",
+    calories: "https://cdn.quasar.dev/img/parallax2.jpg",
+    fat: 0.2,
+    carbs: 98,
   },
   {
-    id: "Honeycomb",
-    customer: 408,
-    status: 3.2,
-    phone: 87,
-    total: "45%",
-    date: 6.5,
-    action: 562,
+    name: "Honeycomb",
+    calories: "https://cdn.quasar.dev/img/parallax2.jpg",
+    fat: 3.2,
+    carbs: 87,
   },
   {
-    id: "Donut",
-    customer: 452,
-    status: 25.0,
-    phone: 51,
-    total: "22%",
-    date: 4.9,
-    action: 326,
+    name: "Donut",
+    calories: "https://cdn.quasar.dev/img/parallax2.jpg",
+    fat: 25.0,
+    carbs: 51,
   },
   {
-    id: "KitKat",
-    customer: 518,
-    status: 26.0,
-    phone: 65,
-    total: "6%",
-    date: 7,
-    action: 54,
+    name: "KitKat",
+    calories: "https://cdn.quasar.dev/img/parallax2.jpg",
+    fat: 26.0,
+    carbs: 65,
   },
 ];
 
-const tableLayout = null;
-
-const pagination = {
-  sortBy: "id",
-  descending: "",
-  rowsPerPage: "10",
-};
-
 export default {
   setup() {
+    const hasData = ref(true);
+    const val = ref(false);
+    const toggle = ref("");
+
     return {
+      hasData,
+      val,
+      toggle: "Enabled",
+      selected: ref([rows[1]]),
+
       columns,
-      rows: ref(rows),
-      filter: ref(""),
-      tableLayout: ref(false),
-      pagination,
+
+      records: computed(() => (hasData.value === true ? rows : [])),
     };
   },
-  methods: {
-    toggleLayout() {
-      this.tableLayout = !this.tableLayout;
-      console.log(this.tableLayout);
-    },
-  },
-  mounted() {},
 };
 </script>
+
+<style scoped>
+.image {
+  height: 110px;
+  width: 110px;
+  margin-right: 3%;
+}
+</style>

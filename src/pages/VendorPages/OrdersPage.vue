@@ -49,7 +49,26 @@
             </q-td>
             <q-td key="total" :props="props">{{ props.row.total }}</q-td>
             <q-td key="date" :props="props">{{ props.row.date }}</q-td>
-            <q-td key="action" :props="props">{{ props.row.action }}</q-td>
+            <q-td key="action" :props="props" style="width: 160px">
+              <div class="row justify-center">
+                <q-btn
+                  color="grey"
+                  round
+                  class="q-mx-sm non_hover_btn"
+                  flat
+                  size="0.6rem"
+                  icon="fas fa-eye"
+                />
+                <q-btn
+                  color="grey"
+                  round
+                  class="q-mx-sm non_hover_btn"
+                  flat
+                  size="0.6rem"
+                  icon="fas fa-print"
+                />
+              </div>
+            </q-td>
           </q-tr>
         </template>
       </q-table>
@@ -91,7 +110,7 @@ const columns = [
   { name: "date", label: "Date", align: "center", field: "date" },
   {
     name: "action",
-    label: "Action",
+    label: "",
     field: "action",
     align: "center",
   },

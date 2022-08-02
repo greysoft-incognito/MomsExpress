@@ -30,6 +30,7 @@ const routes = [
       },
       {
         path: "new_product",
+        name: "Add New Product",
         component: () => import("src/pages/VendorPages/NewProductPage.vue"),
       },
       {
