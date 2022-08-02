@@ -20,6 +20,7 @@ const routes = [
       },
       {
         path: "transaction_history",
+        name: "Transaction HIstory",
         component: () =>
           import("src/pages/VendorPages/TransactionHistoryPage.vue"),
       },

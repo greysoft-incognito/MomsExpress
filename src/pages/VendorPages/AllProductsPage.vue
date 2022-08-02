@@ -1,7 +1,9 @@
 <template>
   <q-page class="q-px-lg q-py-xl">
-    <div class="text-h6">{{ $route.name }}</div>
-    <div class="text-weight-thin">Lorem Store Name</div>
+    <div class="q-px-md">
+      <div class="text-h6">{{ $route.name }}</div>
+      <div class="text-weight-thin">Lorem Store Name</div>
+    </div>
     <div class="q-pa-md">
       <q-table
         title="Treats"
@@ -21,10 +23,22 @@
             color="primary"
           />
         </template>
+
+        <template v-slot:top-right>
+          <q-btn
+            class="text-subtitle2 q-mx-md"
+            no-caps
+            label="Delete"
+            icon="delete"
+            to="/new_product"
+            color="red"
+            disable
+          />
+        </template>
         <template v-slot:body="props">
           <q-tr :props="props">
             <q-td key="check" class="text-center">
-              <q-checkbox key="check" v-model="val" />
+              <ProductsCheckbox />
             </q-td>
             <q-td key="calories" style="width: 135px">
               <img class="image" :src="props.row.calories" />
@@ -40,25 +54,18 @@
                 >
               </div>
               <div class="q-my-xs">
-                <q-toggle
-                  :label="toggle"
-                  color="green"
-                  dense
-                  size="1.7rem"
-                  :class="toggle === 'Disabled' ? 'text-grey' : 'text-green'"
-                  false-value="Disabled"
-                  true-value="Enabled"
-                  v-model="toggle"
-                />
+                <ProductsToggle />
               </div>
             </q-td>
             <q-td class="text-bold" key="fat">
-              <div class="text-h6 text-weight-light">
+              <div class="text-subtitle1 text-weight-light">
                 ${{ props.row.fat * 1000 }}
               </div>
             </q-td>
             <q-td class="text-center" key="fat">
-              <div class="text-h6 text-weight-light">Lorem Category</div>
+              <div class="text-h6 text-subtitle1 text-weight-light">
+                Lorem Category
+              </div>
             </q-td>
             <q-td class="text-right" style="width: 135px" key="carbs">
               <!-- {{ props.row.carbs }} -->
@@ -68,6 +75,7 @@
                 size="2rem"
                 class="non_hover_btn"
                 color="grey"
+                :ripple="false"
               />
             </q-td>
           </q-tr>
@@ -79,6 +87,8 @@
 
 <script>
 import { ref, computed } from "vue";
+import ProductsCheckbox from "src/components/Vendor/ProductsCheckbox.vue";
+import ProductsToggle from "src/components/Vendor/ProductsToggle.vue";
 
 const columns = [
   {
@@ -185,20 +195,14 @@ const rows = [
 export default {
   setup() {
     const hasData = ref(true);
-    const val = ref(false);
-    const toggle = ref("");
-
     return {
       hasData,
-      val,
-      toggle: "Enabled",
       selected: ref([rows[1]]),
-
       columns,
-
       records: computed(() => (hasData.value === true ? rows : [])),
     };
   },
+  components: { ProductsCheckbox, ProductsToggle },
 };
 </script>
 

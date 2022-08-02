@@ -16,7 +16,7 @@
         <q-input
           placeholder="search forcustomers, orders and  products"
           class="search_input"
-          rounded
+          borderless
         >
           <template v-slot:prepend>
             <q-icon name="search" color="primary" />
@@ -36,12 +36,13 @@
           icon="fas fa-bell "
         />
         <q-separator class="q-ma-xs" vertical />
-        <q-btn-dropdown
-          flat
-          color="primary"
-          no-caps
-          label="Lorem Dude Fullname"
-        >
+        <q-btn-dropdown flat color="primary" no-caps class="non_hover_btn">
+          <template v-slot:label>
+            <q-avatar color="grey-3" class="q-mr-md">
+              <q-icon color="primary" name="person" />
+            </q-avatar>
+            <div>Lorem Dude Fullname</div>
+          </template>
           <q-list>
             <q-item clickable v-close-popup @click="onItemClick">
               <q-item-section>

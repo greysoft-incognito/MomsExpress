@@ -1,5 +1,5 @@
 <template>
-  <q-item clickable tag="a" exact exact-active-class="primary" :href="link">
+  <q-item clickable :to="link" exact exact-active-class="primary">
     <q-item-section v-if="icon" avatar>
       <q-icon :name="icon" />
     </q-item-section>
