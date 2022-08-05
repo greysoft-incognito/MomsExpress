@@ -44,15 +44,21 @@
             <div>Lorem Dude Fullname</div>
           </template>
           <q-list>
-            <q-item clickable v-close-popup @click="onItemClick">
+            <q-item clickable v-close-popup to="/settings">
               <q-item-section>
-                <q-item-label>Photos</q-item-label>
+                <q-item-label>
+                  <q-icon name="person" size="0.8rem" />
+                  Profile
+                </q-item-label>
               </q-item-section>
             </q-item>
 
-            <q-item clickable v-close-popup @click="onItemClick">
+            <q-item clickable v-close-popup>
               <q-item-section>
-                <q-item-label>Videos</q-item-label>
+                <q-item-label>
+                  <q-icon name="logout" size="0.8rem" />
+                  Logout
+                </q-item-label>
               </q-item-section>
             </q-item>
           </q-list>

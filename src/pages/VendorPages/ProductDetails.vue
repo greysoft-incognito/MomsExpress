@@ -1,7 +1,13 @@
 <template>
-  <q-page class="q-px-lg q-py-xl">
-    <div class="text-h6">{{ $route.name }}</div>
-    <div class="text-weight-thin">Lorem Store Name</div>
+  <q-page class="q-px-lg q-py-md">
+    <div class="row items-center">
+      <BackButton routeTo="/products" />
+
+      <div>
+        <div class="text-h6">{{ $route.name }}</div>
+        <div class="text-weight-thin">Lorem Store Name</div>
+      </div>
+    </div>
 
     <div class="main q-my-lg q-pr-md">
       <div class="column q-gutter-y-md">
@@ -150,10 +156,12 @@
 <script>
 import { ref } from "vue";
 import { VueEditor } from "vue3-editor";
+import BackButton from "src/components/Vendor/BackButton.vue";
 
 export default {
   components: {
     VueEditor,
+    BackButton,
   },
   data() {
     return {

@@ -5,7 +5,6 @@
     <div class="q-pa-md">
       <q-table
         :grid="tableLayout"
-        title="Treats"
         :filter="filter"
         :rows="rows"
         :columns="columns"
@@ -25,7 +24,7 @@
               <q-icon name="search" />
             </template>
           </q-input>
-          <q-btn
+          <!-- <q-btn
             flat
             class="text-subtitle2 q-mx-md"
             no-caps
@@ -33,12 +32,12 @@
             :icon="tableLayout ? 'fas fa-grip-lines' : 'fa-solid fa-border-all'"
             color="primary"
             @click="toggleLayout"
-          />
+          /> -->
         </template>
         <template v-slot:body="props">
           <q-tr class="q-pl-md" :props="props">
-            <q-td key="id" :props="props">
-              {{ props.row.id }}
+            <q-td key="index" class="text-center" :props="props">
+              {{ props.row.index }}
             </q-td>
             <q-td key="customer" :props="props">
               {{ props.row.customer }}
@@ -81,14 +80,9 @@ import { ref } from "vue";
 
 const columns = [
   {
-    name: "id",
-    required: true,
-    label: "Order (#)",
-    align: "center",
-    style: "width: 50px; padding: 0 30px",
-    field: (row) => row.id,
-    format: (val) => `${val}`,
-    sortable: true,
+    name: "index",
+    label: "#",
+    field: "index",
   },
   {
     name: "customer",
@@ -217,6 +211,10 @@ const pagination = {
   rowsPerPage: "10",
 };
 
+rows.forEach((row, index) => {
+  row.index = index + 1;
+});
+
 export default {
   setup() {
     return {
@@ -228,10 +226,10 @@ export default {
     };
   },
   methods: {
-    toggleLayout() {
-      this.tableLayout = !this.tableLayout;
-      console.log(this.tableLayout);
-    },
+    // toggleLayout() {
+    //   this.tableLayout = !this.tableLayout;
+    //   console.log(this.tableLayout);
+    // },
   },
   mounted() {},
 };

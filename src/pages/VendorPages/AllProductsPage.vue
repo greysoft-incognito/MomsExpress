@@ -19,7 +19,7 @@
             no-caps
             label="New Product"
             icon="add"
-            to="/new_product"
+            to="new_product"
             color="primary"
           />
         </template>
@@ -30,7 +30,6 @@
             no-caps
             label="Delete"
             icon="delete"
-            to="/new_product"
             color="red"
             disable
           />
@@ -73,7 +72,7 @@
                 flat
                 icon="chevron_right"
                 size="1.8rem"
-                to="/product_detail"
+                to="vendor/product_detail"
                 class="non_hover_btn"
                 color="grey"
                 :ripple="false"

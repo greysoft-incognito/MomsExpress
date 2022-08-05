@@ -19,11 +19,12 @@
       </div>
 
       <div class="middle_card bg-white">
-        <div class="q-pa-md text-bold">Top Customers</div>
+        <div class="q-pa-md text-bold">Newly Registered</div>
         <q-separator class="q-mt-xs q-mb-md" />
 
         <div class="q-px-md">
           <div
+            @click="this.$router.push('/user_detail')"
             v-for="n in 9"
             :key="n"
             class="user_item q-my-sm q-px-sm q-py-md row justify-between"
@@ -35,40 +36,35 @@
         </div>
       </div>
     </div>
-
-    <div class="bottom_cards q-mt-xl">
-      <BottomCards />
-    </div>
   </q-page>
 </template>
 
 <script>
 import { defineComponent } from "vue";
 import VueApexCharts from "vue3-apexcharts";
-import TopCards from "../../components/Vendor/Dashboard/TopCards.vue";
-import BottomCards from "../../components/Vendor/Dashboard/BottomCards.vue";
+import TopCards from "../../components/Admin/Dashboard/TopCards.vue";
 
 const cards = [
   {
-    title: "Total Sales",
+    title: "Total Users",
     symbol: "$",
     icon: "fa-caret-up",
     icon_color: "green",
   },
   {
-    title: "Sales today",
+    title: "Total No. of Buyers",
     symbol: "$",
     icon: "fa-caret-down",
     icon_color: "red",
   },
   {
-    title: "Total customers",
+    title: "Total No. of Sellers ",
     symbol: "",
     icon: "fa-caret-up",
     icon_color: "green",
   },
   {
-    title: "New customers",
+    title: "No. of visitors",
     symbol: "",
     icon: "fa-caret-down",
     icon_color: "red",
@@ -80,15 +76,18 @@ export default defineComponent({
   components: {
     apexchart: VueApexCharts,
     TopCards,
-    BottomCards,
   },
   data() {
     return {
       cards,
       series: [
         {
-          name: "Session Duration",
+          name: "Buyers",
           data: [45, 52, 38, 24, 33, 26, 21, 20, 6, 8, 15, 10],
+        },
+        {
+          name: "Vendors",
+          data: [33, 26, 21, 20, 6, 45, 52, 38, 24, 8, 15, 10],
         },
       ],
       chartOptions: {
@@ -107,7 +106,7 @@ export default defineComponent({
           dashArray: [0, 8, 5],
         },
         title: {
-          text: "Sales Report",
+          text: "Users Report",
           align: "left",
         },
         legend: {
@@ -195,12 +194,10 @@ export default defineComponent({
   grid-template-columns: 2fr 1fr;
   gap: 20px;
 }
-.middle_card {
-  /* height: 60vh; */
-}
+
 .bottom_cards {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 2fr;
   gap: 20px;
 }
 .bottom_card {
@@ -209,8 +206,14 @@ export default defineComponent({
 .vue-apexcharts {
   min-height: 50vh !important;
 }
+
 .user_item {
   background-color: rgb(173, 215, 230, 0.3);
   border-radius: 10px;
+}
+
+.user_item:hover {
+  cursor: pointer;
+  background-color: rgb(128, 128, 128, 0.2);
 }
 </style>

@@ -27,7 +27,6 @@
 import { defineComponent, ref } from "vue";
 import EssentialLink from "components/EssentialLink.vue";
 import links from "../functions/vendorDrawerLinks.js";
-// import links from "../functions/adminDrawerLinks.js";
 import Header from "src/components/Layout/Header.vue";
 
 export default defineComponent({

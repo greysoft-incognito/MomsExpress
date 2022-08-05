@@ -1,5 +1,15 @@
 // app global css in SCSS form
 
+// Active drawer link
+.q-item.q-router-link--active,
+.q-item--active {
+  // background: rgba(255, 255, 255, 0.2);
+  border-left: 3px solid #1976d2 !important;
+  // box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
 // Remove background color on hover
 .non_hover_btn .q-focus-helper {
   position: static;
@@ -38,4 +48,14 @@ th {
   background-color: white !important;
   // border: none !important;
   padding: 2% 0 0 1%;
+}
+
+// Hide table head for issues
+.issues thead {
+  display: none !important;
+}
+
+.q-table--no-wrap th,
+.q-table--no-wrap td {
+  white-space: normal !important;
 }

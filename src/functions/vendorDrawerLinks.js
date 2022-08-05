@@ -1,27 +1,27 @@
 const links = [
   {
-    title: "My store",
-    icon: "school",
-    link: "",
+    title: "Dashboard",
+    icon: "dashboard",
+    link: "/",
   },
   {
     title: "Customers",
-    icon: "code",
+    icon: "people",
     link: "customers",
   },
   {
     title: "Orders",
-    icon: "code",
+    icon: "bookmark_border",
     link: "orders",
   },
   {
     title: " Transaction History",
-    icon: "chat",
+    icon: "receipt",
     link: "transaction_history",
   },
   {
-    title: "Products",
-    icon: "record_voice_over",
+    title: "Product",
+    icon: "view_module",
     link: "products",
   },
   {
@@ -31,12 +31,12 @@ const links = [
   },
   {
     title: "Marketing",
-    icon: "public",
+    icon: "access_time",
     link: "offers",
   },
   {
     title: "Settings ",
-    icon: "favorite",
+    icon: "settings",
     link: "settings",
   },
 ];
