@@ -1,7 +1,7 @@
 <template>
   <q-page class="q-px-lg q-py-md">
     <div class="row items-center">
-      <BackButton routeTo="/products" />
+      <BackButton routeTo="/vendor/products" />
 
       <div>
         <div class="text-h6">{{ $route.name }}</div>

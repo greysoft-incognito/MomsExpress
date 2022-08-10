@@ -44,7 +44,7 @@
             <div>Lorem Dude Fullname</div>
           </template>
           <q-list>
-            <q-item clickable v-close-popup to="/settings">
+            <q-item clickable v-close-popup to="/vendor/settings">
               <q-item-section>
                 <q-item-label>
                   <q-icon name="person" size="0.8rem" />

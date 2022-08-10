@@ -95,7 +95,7 @@ const columns = [
     label: "Status",
     align: "center",
     field: "status",
-    sortable: true,
+    // sortable: true,
     style: "width: 20px",
     sort: (a, b) => parseInt(a, 10) - parseInt(b, 10),
   },

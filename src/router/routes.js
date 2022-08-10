@@ -1,47 +1,14 @@
 const routes = [
   {
     path: "/",
-    component: () => import("layouts/MainLayout.vue"),
+    component: () => import("pages/IndexPage.vue"),
+  },
+  {
+    path: "/vendor",
+    component: () => import("layouts/VendorLayout.vue"),
     children: [
-      // {
-      //   path: "",
-      //   name: "Home",
-      //   component: () => import("src/pages/AdminPages/DashboardPage.vue"),
-      // },
-      // {
-      //   path: "categories",
-      //   name: "Categories",
-      //   component: () => import("src/pages/AdminPages/CategoriesPage.vue"),
-      // },
-      // {
-      //   path: "user_detail",
-      //   name: "User Detail",
-      //   component: () =>
-      //     import("src/pages/AdminPages/SingleUserDetailsPage.vue"),
-      // },
-      // {
-      //   path: "buyers",
-      //   name: "Buyers",
-      //   component: () => import("src/pages/AdminPages/BuyersPage.vue"),
-      // },
-      // {
-      //   path: "vendors",
-      //   name: "Vendors",
-      //   component: () => import("src/pages/AdminPages/SellersPage.vue"),
-      // },
-      // {
-      //   path: "issues",
-      //   name: "Issues",
-      //   component: () => import("src/pages/AdminPages/IssuesPage.vue"),
-      // },
-      // {
-      //   path: "marketing",
-      //   name: "Marketing",
-      //   component: () => import("src/pages/AdminPages/MarketingPage.vue"),
-      // },
-
       {
-        path: "",
+        path: "/vendor",
         name: "Home",
         component: () => import("src/pages/VendorPages/DashboardPage.vue"),
       },
@@ -84,6 +51,48 @@ const routes = [
         path: "settings",
         name: "Settings",
         component: () => import("src/pages/VendorPages/StoreSettingsPage.vue"),
+      },
+    ],
+  },
+  {
+    path: "/admin",
+    component: () => import("layouts/AdminLayout.vue"),
+    children: [
+      {
+        path: "/admin",
+        name: "Dashboard",
+        component: () => import("src/pages/AdminPages/DashboardPage.vue"),
+      },
+      {
+        path: "categories",
+        name: "Categories",
+        component: () => import("src/pages/AdminPages/CategoriesPage.vue"),
+      },
+      {
+        path: "user_detail",
+        name: "User Detail",
+        component: () =>
+          import("src/pages/AdminPages/SingleUserDetailsPage.vue"),
+      },
+      {
+        path: "buyers",
+        name: "Buyers",
+        component: () => import("src/pages/AdminPages/BuyersPage.vue"),
+      },
+      {
+        path: "vendors",
+        name: "Vendors",
+        component: () => import("src/pages/AdminPages/SellersPage.vue"),
+      },
+      {
+        path: "issues",
+        name: "Issues",
+        component: () => import("src/pages/AdminPages/IssuesPage.vue"),
+      },
+      {
+        path: "marketing",
+        name: "Marketing",
+        component: () => import("src/pages/AdminPages/MarketingPage.vue"),
       },
     ],
   },

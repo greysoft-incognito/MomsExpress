@@ -25,9 +25,9 @@
 
 <script>
 import { defineComponent, ref } from "vue";
-import EssentialLink from "components/AdminEssentialLink.vue";
-import links from "../functions/adminDrawerLinks.js";
-import Header from "src/components/Layout/AdminHeader.vue";
+import EssentialLink from "components/VendorEssentialLink.vue";
+import links from "../functions/vendorDrawerLinks.js";
+import Header from "src/components/Layout/VendorHeader.vue";
 
 export default defineComponent({
   name: "MainLayout",

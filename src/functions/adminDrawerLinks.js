@@ -2,32 +2,32 @@ const links = [
   {
     title: "Dashboard",
     icon: "dashboard",
-    link: "/",
+    link: "/admin",
   },
   {
     title: "Categories",
     icon: "category",
-    link: "categories",
+    link: "/admin/categories",
   },
   {
     title: "Users",
     icon: "people",
-    link: "buyers",
+    link: "/admin/buyers",
   },
   {
     title: "Sellers",
     icon: "chat",
-    link: "vendors",
+    link: "/admin/vendors",
   },
   {
     title: "Issues",
     icon: "chat",
-    link: "issues",
+    link: "/admin/issues",
   },
   {
     title: "Marketing ",
     icon: "rss_feed",
-    link: "marketing",
+    link: "/admin/marketing",
   },
 ];
 

@@ -2,22 +2,22 @@ const links = [
   {
     title: "Dashboard",
     icon: "dashboard",
-    link: "/",
+    link: "/vendor",
   },
   {
     title: "Customers",
     icon: "people",
-    link: "customers",
+    link: "/vendor/customers",
   },
   {
     title: "Orders",
     icon: "bookmark_border",
-    link: "orders",
+    link: "/vendor/orders",
   },
   {
     title: " Transaction History",
     icon: "receipt",
-    link: "transaction_history",
+    link: "/vendor/transaction_history",
   },
   {
     title: "Product",
@@ -32,12 +32,12 @@ const links = [
   {
     title: "Marketing",
     icon: "access_time",
-    link: "offers",
+    link: "/vendor/offers",
   },
   {
     title: "Settings ",
     icon: "settings",
-    link: "settings",
+    link: "/vendor/settings",
   },
 ];
 

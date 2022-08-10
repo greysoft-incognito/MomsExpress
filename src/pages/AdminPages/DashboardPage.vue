@@ -24,7 +24,7 @@
 
         <div class="q-px-md">
           <div
-            @click="this.$router.push('/user_detail')"
+            @click="this.$router.push('/admin/user_detail')"
             v-for="n in 9"
             :key="n"
             class="user_item q-my-sm q-px-sm q-py-md row justify-between"
