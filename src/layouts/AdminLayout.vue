@@ -28,6 +28,7 @@ import { defineComponent, ref } from "vue";
 import EssentialLink from "components/AdminEssentialLink.vue";
 import links from "../functions/adminDrawerLinks.js";
 import Header from "src/components/Layout/AdminHeader.vue";
+import Footer from "src/components/Layout/Footer.vue";
 
 export default defineComponent({
   name: "MainLayout",
@@ -35,6 +36,7 @@ export default defineComponent({
   components: {
     EssentialLink,
     Header,
+    Footer,
   },
 
   setup() {

@@ -1,25 +1,39 @@
 <template>
-  <q-layout view="lHh Lpr lFf" class="bg-grey-2">
+  <q-layout view="lhh Lpr lFf" class="bg-grey-2">
+    <q-header class="bg-white">
+      <Header1 />
+      <Header2 />
+      <Header3 />
+    </q-header>
+
     <q-page-container>
       <router-view />
     </q-page-container>
-    <Footer />
+
+    <!-- <q-footer>
+      <Footer />
+    </q-footer> -->
   </q-layout>
 </template>
 
 <script>
 import { defineComponent, ref } from "vue";
-import EssentialLink from "components/EssentialLink.vue";
-import links from "../functions/vendorDrawerLinks.js";
+import EssentialLink from "components/AdminEssentialLink.vue";
+import links from "../functions/adminDrawerLinks.js";
 import Footer from "src/components/Layout/Footer.vue";
-// import links from "../functions/adminDrawerLinks.js";
-// import Header from "src/components/Layout/Header.vue";
+import Header1 from "../components/Layout/Homepage/Header1.vue";
+import Header2 from "../components/Layout/Homepage/Header2.vue";
+import Header3 from "../components/Layout/Homepage/Header3.vue";
 
 export default defineComponent({
   name: "MainLayout",
 
   components: {
+    EssentialLink,
     Footer,
+    Header1,
+    Header2,
+    Header3,
   },
 
   setup() {
@@ -37,4 +51,10 @@ export default defineComponent({
 });
 </script>
 
-<style scoped></style>
+<style>
+@media screen and (min-width: 1500px) {
+  .big_screen_padding {
+    padding: 0 15%;
+  }
+}
+</style>
