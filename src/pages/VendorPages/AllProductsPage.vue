@@ -19,7 +19,7 @@
             no-caps
             label="New Product"
             icon="add"
-            to="/new_product"
+            to="/vendor/new_product"
             color="primary"
           />
         </template>
@@ -30,7 +30,6 @@
             no-caps
             label="Delete"
             icon="delete"
-            to="/new_product"
             color="red"
             disable
           />
@@ -72,7 +71,8 @@
               <q-btn
                 flat
                 icon="chevron_right"
-                size="2rem"
+                size="1.8rem"
+                to="/vendor/product_detail"
                 class="non_hover_btn"
                 color="grey"
                 :ripple="false"
@@ -87,8 +87,8 @@
 
 <script>
 import { ref, computed } from "vue";
-import ProductsCheckbox from "src/components/Vendor/ProductsCheckbox.vue";
-import ProductsToggle from "src/components/Vendor/ProductsToggle.vue";
+import ProductsCheckbox from "src/components/Vendor/Products/ProductsCheckbox.vue";
+import ProductsToggle from "src/components/Vendor/Products/ProductsToggle.vue";
 
 const columns = [
   {

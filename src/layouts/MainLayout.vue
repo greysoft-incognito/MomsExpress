@@ -1,39 +1,86 @@
 <template>
-  <q-layout view="lHh Lpr lFf" class="bg-grey-2">
-    <q-header elevated class="layout_header bg-white">
-      <Header :toggleLeftDrawer="toggleLeftDrawer" />
+  <q-layout view="lhh Lpr lff" class="bg-grey-2">
+    <q-header class="bg-white">
+      <Header1 :alert="alert" />
+      <Header2 />
+      <Header3 />
     </q-header>
-
-    <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
-      <q-list>
-        <q-item-label header> Essential Links </q-item-label>
-
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
-      </q-list>
-    </q-drawer>
 
     <q-page-container>
       <router-view />
+      <q-btn label="why" color="primary" @click="alert = !alert" />
     </q-page-container>
+
+    <q-dialog v-model="alert">
+      <q-card style="width: 500px; max-width: 80vw">
+        <q-card-section class="row">
+          <q-space />
+          <q-btn
+            icon="close"
+            class="close_btn"
+            flat
+            round
+            dense
+            v-close-popup
+          />
+        </q-card-section>
+
+        <q-card-section class="q-pt-none">
+          <q-tabs
+            v-model="tab"
+            dense
+            class="text-grey"
+            active-color="primary"
+            indicator-color="primary"
+            align="justify"
+          >
+            <q-tab name="Signin" label="Sign In" />
+            <q-tab name="signup" label="Sign Up" />
+          </q-tabs>
+
+          <q-separator />
+
+          <q-tab-panels v-model="tab" animated>
+            <q-tab-panel name="Signin">
+              <Login />
+            </q-tab-panel>
+
+            <q-tab-panel name="signup">
+              <Signup />
+            </q-tab-panel>
+          </q-tab-panels>
+        </q-card-section>
+      </q-card>
+    </q-dialog>
+
+    <q-footer>
+      <Footer />
+    </q-footer>
   </q-layout>
 </template>
 
 <script>
 import { defineComponent, ref } from "vue";
-import EssentialLink from "components/EssentialLink.vue";
-import links from "../functions/vendorDrawerLinks.js";
-import Header from "src/components/Layout/Header.vue";
+import EssentialLink from "components/AdminEssentialLink.vue";
+import links from "../functions/adminDrawerLinks.js";
+import Footer from "src/components/Layout/Footer.vue";
+import Header1 from "../components/Layout/Homepage/Header1.vue";
+import Header2 from "../components/Layout/Homepage/Header2.vue";
+import Header3 from "../components/Layout/Homepage/Header3.vue";
+import Login from "../components/Authentication.vue/Login.vue";
+import Signup from "src/components/Authentication.vue/Signup.vue";
 
 export default defineComponent({
   name: "MainLayout",
 
   components: {
     EssentialLink,
-    Header,
+    Footer,
+    Header1,
+    Header2,
+    Header3,
+    Login,
+    Signup,
   },
 
   setup() {
@@ -42,6 +89,9 @@ export default defineComponent({
     return {
       essentialLinks: links,
       leftDrawerOpen,
+      tab: ref("Signin"),
+      customModel: ref("no"),
+      alert: ref(true),
       toggleLeftDrawer() {
         leftDrawerOpen.value = !leftDrawerOpen.value;
       },
@@ -51,4 +101,10 @@ export default defineComponent({
 });
 </script>
 
-<style scoped></style>
+<style>
+@media screen and (min-width: 1500px) {
+  .big_screen_padding {
+    padding: 0 15%;
+  }
+}
+</style>

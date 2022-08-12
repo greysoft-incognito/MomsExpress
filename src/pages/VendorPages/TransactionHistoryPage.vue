@@ -5,7 +5,6 @@
     <div class="q-pa-md">
       <q-table
         :grid="tableLayout"
-        title="Treats"
         :filter="filter"
         :rows="rows"
         :columns="columns"
