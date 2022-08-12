@@ -1,7 +1,7 @@
 <template>
   <div class="big_screen_padding bg-white main_container">
     <div class="row q-my-sm text-bold justify-between">
-      <div class="text-h6 text-bold">KItchen Utensils</div>
+      <div class="text-h6 text-bold">Clothings and Apparel</div>
       <router-link to="#">
         <span>More Products</span> <q-icon name="chevron_right" />
       </router-link>

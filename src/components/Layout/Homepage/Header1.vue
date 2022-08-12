@@ -6,12 +6,13 @@
         <router-link class="q-mx-sm" to="/">Blog</router-link>
         <router-link class="q-mx-sm" to="/">Contact Us</router-link>
         <router-link class="q-mx-sm" to="/">My Account</router-link>
-        <div class="auth">
-          <router-link to="/">
+        <q-btn label="why" color="primary" @click="alert = !alert" />
+        <div class="auth text-black">
+          <div @click="!alert">
             <q-icon name="person" size="1.2rem" class="q-mr-xs" />
-            <span>Sign in</span></router-link
-          >
-          <div class="q-mx-sm text-black">/</div>
+            <span>Sign in</span>
+          </div>
+          <span class="q-mx-sm">/</span>
           <router-link to="/">Register</router-link>
         </div>
       </div>
@@ -21,7 +22,7 @@
 
 <script>
 export default {
-  props: ["toggleLeftDrawer"],
+  props: ["alert"],
   methods: {},
 };
 </script>

@@ -32,43 +32,21 @@
 
       <!-- <q-separator /> -->
 
-      <q-tab-panels v-model="tab" animated>
+      <q-tab-panels v-model="tab">
         <q-tab-panel name="new_arrivals">
-          <div class="products">
-            <div
-              v-for="n in 10"
-              :key="n"
-              class="column q-mb-md text-center product_tile border_card"
-            >
-              <q-img class="border_card" src="Images/2-1.jpg" />
-              <div class="text-subtitle1 q-mt-sm">Cooking Pot</div>
-              <div class="row justify-center q-my-sm">
-                <q-rating
-                  v-model="ratingModel"
-                  size="1.2rem"
-                  color="grey"
-                  :color-selected="ratingColors"
-                />
-                <span>( 2 reviews)</span>
-              </div>
-              <div class="text-bold">$53.00</div>
-            </div>
-          </div>
+          <NewArrivals />
         </q-tab-panel>
 
         <q-tab-panel name="best_seller">
-          <div class="text-h6">Mails</div>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          <BestSeller />
         </q-tab-panel>
 
         <q-tab-panel name="most_popular">
-          <div class="text-h6">Alarms</div>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          <MostPopular />
         </q-tab-panel>
 
         <q-tab-panel name="featured">
-          <div class="text-h6">Movies</div>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          <Featured />
         </q-tab-panel>
       </q-tab-panels>
     </div>
@@ -77,6 +55,10 @@
 
 <script>
 import { ref } from "vue";
+import NewArrivals from "./PopularDepartment.vue/NewArrivals.vue";
+import BestSeller from "./PopularDepartment.vue/BestSeller.vue";
+import MostPopular from "./PopularDepartment.vue/MostPopular.vue";
+import Featured from "./PopularDepartment.vue/Featured.vue";
 
 export default {
   setup() {
@@ -86,6 +68,7 @@ export default {
       ratingColors: ["green"],
     };
   },
+  components: { NewArrivals, BestSeller, MostPopular, Featured },
 };
 </script>
 
