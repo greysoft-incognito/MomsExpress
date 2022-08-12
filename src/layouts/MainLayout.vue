@@ -1,14 +1,13 @@
 <template>
   <q-layout view="lhh Lpr lff" class="bg-grey-2">
     <q-header class="bg-white">
-      <Header1 :alert="alert" />
+      <Header1 :toggleAuthForm="toggleAuthForm" @clicked="authTypeChecker" />
       <Header2 />
       <Header3 />
     </q-header>
 
     <q-page-container>
       <router-view />
-      <q-btn label="why" color="primary" @click="alert = !alert" />
     </q-page-container>
 
     <q-dialog v-model="alert">
@@ -85,17 +84,24 @@ export default defineComponent({
 
   setup() {
     const leftDrawerOpen = ref(false);
+    const alert = ref(false);
 
     return {
       essentialLinks: links,
       leftDrawerOpen,
       tab: ref("Signin"),
       customModel: ref("no"),
-      alert: ref(true),
-      toggleLeftDrawer() {
-        leftDrawerOpen.value = !leftDrawerOpen.value;
+      alert,
+      toggleAuthForm() {
+        alert.value = !alert.value;
       },
     };
+  },
+  methods: {
+    authTypeChecker(value) {
+      if (value === "register") this.tab = "signup";
+      if (value === "login") this.tab = "Signin";
+    },
   },
   mounted() {},
 });

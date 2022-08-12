@@ -6,14 +6,15 @@
         <router-link class="q-mx-sm" to="/">Blog</router-link>
         <router-link class="q-mx-sm" to="/">Contact Us</router-link>
         <router-link class="q-mx-sm" to="/">My Account</router-link>
-        <q-btn label="why" color="primary" @click="alert = !alert" />
         <div class="auth text-black">
-          <div @click="!alert">
+          <div @click="login">
             <q-icon name="person" size="1.2rem" class="q-mr-xs" />
             <span>Sign in</span>
           </div>
           <span class="q-mx-sm">/</span>
-          <router-link to="/">Register</router-link>
+          <div @click="register">
+            <span>Register</span>
+          </div>
         </div>
       </div>
     </div>
@@ -22,8 +23,17 @@
 
 <script>
 export default {
-  props: ["alert"],
-  methods: {},
+  props: ["toggleAuthForm"],
+  methods: {
+    login() {
+      this.$emit("clicked", "login");
+      this.toggleAuthForm();
+    },
+    register() {
+      this.$emit("clicked", "register");
+      this.toggleAuthForm();
+    },
+  },
 };
 </script>
 
@@ -53,8 +63,10 @@ export default {
   font-size: 0.8rem;
 }
 
-.right a:hover {
+.right a:hover,
+.auth div:hover {
   color: #1976d2;
+  cursor: pointer;
 }
 
 .auth {
