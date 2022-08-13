@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="lhh Lpr lff" class="bg-grey-2">
+  <q-layout view="lhh Lpr lff">
     <q-header class="bg-white">
       <Header1 :toggleAuthForm="toggleAuthForm" @clicked="authTypeChecker" />
       <Header2 />
@@ -66,8 +66,8 @@ import Footer from "src/components/Layout/Footer.vue";
 import Header1 from "../components/Layout/Homepage/Header1.vue";
 import Header2 from "../components/Layout/Homepage/Header2.vue";
 import Header3 from "../components/Layout/Homepage/Header3.vue";
-import Login from "../components/Authentication.vue/Login.vue";
-import Signup from "src/components/Authentication.vue/Signup.vue";
+import Login from "../components/Authentication/Login.vue";
+import Signup from "src/components/Authentication/Signup.vue";
 
 export default defineComponent({
   name: "MainLayout",
