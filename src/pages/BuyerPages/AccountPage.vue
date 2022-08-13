@@ -66,7 +66,7 @@
 import { ref } from "vue";
 import AccountDetails from "./AccountPages/AccountDetails.vue";
 import Addresses from "./AccountPages/Addresses.vue";
-import Ordes from "./AccountPages/Ordes.vue";
+import Ordes from "./AccountPages/Orders.vue";
 import Wishlist from "./AccountPages/Wishlist.vue";
 
 export default {
