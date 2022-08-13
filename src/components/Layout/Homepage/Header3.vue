@@ -2,7 +2,10 @@
   <q-toolbar class="header3 big_screen_padding">
     <div class="row full-width">
       <div class="categories text-black">
-        <q-list bordered>
+        <q-list
+          @mouseover="showCategories = true"
+          @click="showCategories = !showCategories"
+        >
           <q-item clickable>
             <q-item-section avatar>
               <q-icon name="menu" />
@@ -14,47 +17,18 @@
           </q-item>
         </q-list>
 
-        <q-list class="categories_list" separator>
-          <q-item clickable class="q-px-lg row items-center">
-            <q-icon name="settings" class="q-mr-sm" />
-            <span>Category x</span></q-item
+        <q-list
+          class="categories_list"
+          :class="showCategories ? 'show_category' : 'hide_category'"
+          separator
+          @mouseleave="showCategories = false"
+        >
+          <q-item
+            v-for="n in 10"
+            :key="n"
+            clickable
+            class="q-px-lg row items-center"
           >
-          <q-item clickable class="q-px-lg row items-center">
-            <q-icon name="settings" class="q-mr-sm" />
-            <span>Category x</span></q-item
-          >
-          <q-item clickable class="q-px-lg row items-center">
-            <q-icon name="settings" class="q-mr-sm" />
-            <span>Category x</span></q-item
-          >
-          <q-item clickable class="q-px-lg row items-center">
-            <q-icon name="settings" class="q-mr-sm" />
-            <span>Category x</span></q-item
-          >
-          <q-item clickable class="q-px-lg row items-center">
-            <q-icon name="settings" class="q-mr-sm" />
-            <span>Category x</span></q-item
-          >
-          <q-item clickable class="q-px-lg row items-center">
-            <q-icon name="settings" class="q-mr-sm" />
-            <span>Category x</span></q-item
-          >
-          <q-item clickable class="q-px-lg row items-center">
-            <q-icon name="settings" class="q-mr-sm" />
-            <span>Category x</span></q-item
-          >
-
-          <q-item clickable class="q-px-lg row items-center">
-            <q-icon name="settings" class="q-mr-sm" />
-            <span>Category x</span></q-item
-          >
-
-          <q-item clickable class="q-px-lg row items-center">
-            <q-icon name="settings" class="q-mr-sm" />
-            <span>Category x</span></q-item
-          >
-
-          <q-item clickable class="q-px-lg row items-center">
             <q-icon name="settings" class="q-mr-sm" />
             <span>Category x</span></q-item
           >
@@ -83,9 +57,16 @@
 </template>
 
 <script>
+import { ref } from "vue";
 export default {
   props: ["toggleLeftDrawer"],
+  setup() {
+    return {
+      showCategories: ref(false),
+    };
+  },
   methods: {},
+  mounted() {},
 };
 </script>
 
@@ -111,6 +92,13 @@ export default {
   z-index: 1;
   width: 100%;
   background-color: white;
+}
+.hide_category {
+  display: none;
+}
+
+.show_category {
+  display: block !important;
 }
 
 .header3 {

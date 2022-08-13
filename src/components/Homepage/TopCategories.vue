@@ -5,32 +5,7 @@
     </div>
 
     <div class="cards_container">
-      <div class="column bg-grey-2 border_card">
-        <q-img class="border_card" src="Images/2-1.jpg" />
-        <div class="text-center text-subtitle1 text-bold q-my-xs">Fashion</div>
-      </div>
-
-      <div class="column bg-grey-2 border_card">
-        <q-img class="border_card" src="Images/2-1.jpg" />
-        <div class="text-center text-subtitle1 text-bold q-my-xs">Fashion</div>
-      </div>
-
-      <div class="column bg-grey-2 border_card">
-        <q-img class="border_card" src="Images/2-1.jpg" />
-        <div class="text-center text-subtitle1 text-bold q-my-xs">Fashion</div>
-      </div>
-
-      <div class="column bg-grey-2 border_card">
-        <q-img class="border_card" src="Images/2-1.jpg" />
-        <div class="text-center text-subtitle1 text-bold q-my-xs">Fashion</div>
-      </div>
-
-      <div class="column bg-grey-2 border_card">
-        <q-img class="border_card" src="Images/2-1.jpg" />
-        <div class="text-center text-subtitle1 text-bold q-my-xs">Fashion</div>
-      </div>
-
-      <div class="column bg-grey-2 border_card">
+      <div v-for="n in 6" :key="n" class="column bg-grey-2 border_card">
         <q-img class="border_card" src="Images/2-1.jpg" />
         <div class="text-center text-subtitle1 text-bold q-my-xs">Fashion</div>
       </div>

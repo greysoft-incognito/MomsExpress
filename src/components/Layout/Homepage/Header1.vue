@@ -5,7 +5,7 @@
       <div class="right">
         <router-link class="q-mx-sm" to="/">Blog</router-link>
         <router-link class="q-mx-sm" to="/">Contact Us</router-link>
-        <router-link class="q-mx-sm" to="/">My Account</router-link>
+        <router-link class="q-mx-sm" to="/account">My Account</router-link>
         <div class="auth text-black">
           <div @click="login">
             <q-icon name="person" size="1.2rem" class="q-mr-xs" />
