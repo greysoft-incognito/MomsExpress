@@ -17,7 +17,7 @@
           </q-item>
         </q-list>
 
-        <q-list
+        <q-card
           class="categories_list"
           :class="showCategories ? 'show_category' : 'hide_category'"
           separator
@@ -42,7 +42,7 @@
             flat
             size="0.8rem"
           />
-        </q-list>
+        </q-card>
       </div>
 
       <div class="nav_links row q-ml-lg text-black items-center">
