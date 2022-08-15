@@ -13,8 +13,16 @@ const routes = [
         component: () => import("pages/IndexPage.vue"),
       },
       {
+        path: "/vendor_page",
+        component: () => import("pages/SingleVendorPage.vue"),
+      },
+      {
         path: "/cart",
         component: () => import("pages/CartPage.vue"),
+      },
+      {
+        path: "/checkout",
+        component: () => import("pages/CheckoutPage.vue"),
       },
       {
         path: "/account",

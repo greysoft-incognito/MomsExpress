@@ -21,7 +21,11 @@
           <q-separator />
           <q-tab name="wishlist" :ripple="false" label="Wishlist" />
           <q-separator />
-          <q-tab @click="this.$router.push('/')" :ripple="false" label="Cart" />
+          <q-tab
+            @click="this.$router.push('/cart')"
+            :ripple="false"
+            label="Cart"
+          />
           <q-separator />
           <q-tab
             @click="this.$router.push('/')"
@@ -64,19 +68,19 @@
 
 <script>
 import { ref } from "vue";
-import AccountDetails from "./AccountPages/AccountDetails.vue";
-import Addresses from "./AccountPages/Addresses.vue";
-import Ordes from "./AccountPages/Orders.vue";
-import Wishlist from "./AccountPages/Wishlist.vue";
+import AccountDetails from "components/Buyer/AccountComponents/AccountDetails.vue";
+import Addresses from "components/Buyer/AccountComponents/Addresses.vue";
+import Ordes from "components/Buyer/AccountComponents/Orders.vue";
+import Wishlist from "components/Buyer/AccountComponents/Wishlist.vue";
 
 export default {
   setup() {
     return {
-      tab: ref("orders"),
+      tab: ref("accountDetails"),
       splitterModel: ref(20),
     };
   },
-  components: { AccountDetails, Addresses, Ordes, Wishlist },
+  components: { Addresses, Ordes, Wishlist, AccountDetails },
 };
 </script>
 
