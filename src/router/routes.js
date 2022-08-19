@@ -13,6 +13,18 @@ const routes = [
         component: () => import("pages/IndexPage.vue"),
       },
       {
+        path: "/loginn",
+        component: () => import("pages/Auth/Login.vue"),
+      },
+      {
+        path: "/vendorOnboard",
+        component: () => import("pages/Auth/VendorOnboard.vue"),
+      },
+      {
+        path: "/register",
+        component: () => import("pages/Auth/Register.vue"),
+      },
+      {
         path: "/vendor_page",
         component: () => import("pages/SingleVendorPage.vue"),
       },

@@ -54,6 +54,11 @@
 <script>
 export default {
   props: ["toggleLeftDrawer"],
+  data() {
+    return {
+      cartNumber: "",
+    };
+  },
   methods: {},
 };
 </script>

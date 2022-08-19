@@ -28,6 +28,12 @@
           />
           <q-separator />
           <q-tab
+            @click="this.$router.push('/vendorOnboard')"
+            :ripple="false"
+            label="Become a Vendor"
+          />
+          <q-separator />
+          <q-tab
             @click="this.$router.push('/')"
             :ripple="false"
             label="Logout"
