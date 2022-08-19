@@ -178,5 +178,18 @@ export default {
       alert: ref(false),
     };
   },
+  created() {
+    this.getCategories();
+  },
+  methods: {
+    getCategories() {
+      this.$api
+        .post("product/store")
+        .then((resp) => {
+          console.log(resp);
+        })
+        .catch((err) => console.log(err));
+    },
+  },
 };
 </script>
