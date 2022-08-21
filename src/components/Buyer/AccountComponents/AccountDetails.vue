@@ -52,10 +52,4 @@
 <script>
 export default {};
 </script>
-<style scoped>
-.fullname {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15px;
-}
-</style>
+<style scoped></style>

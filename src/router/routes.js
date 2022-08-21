@@ -40,6 +40,10 @@ const routes = [
         path: "/account",
         component: () => import("pages/BuyerPages/AccountPage.vue"),
       },
+      {
+        path: "/product_detail",
+        component: () => import("pages/ProductDetailPage.vue"),
+      },
     ],
   },
   {
