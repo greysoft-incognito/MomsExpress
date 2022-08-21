@@ -29,6 +29,10 @@ const routes = [
         component: () => import("pages/SingleVendorPage.vue"),
       },
       {
+        path: "/category",
+        component: () => import("pages/SingleCategoryPage.vue"),
+      },
+      {
         path: "/cart",
         component: () => import("pages/CartPage.vue"),
       },
