@@ -3,7 +3,11 @@
     <div class="text-h6">{{ $route.name }}</div>
     <div class="text-weight-thin">Lorem Store Name</div>
     {{ images }}
-    {{ imagesArr }}
+    <!-- {{ imagesArr }} -->
+    <!-- {{ getCategory }} -->
+    {{ getSt }}
+    {{ catIds }}
+    {{ catNames }}
     <form @submit.prevent="uploadProduct">
       <div class="main q-my-lg q-pr-md">
         <div class="column q-gutter-y-md">
@@ -102,6 +106,10 @@
                   dense
                   name="name"
                 />
+
+                <div class="error" v-if="errors.name">
+                  {{ errors.name[0] }}
+                </div>
               </div>
             </div>
 
@@ -115,6 +123,10 @@
                 outlined
                 name="description"
               />
+
+              <div class="error" v-if="errors.description">
+                {{ errors.description[0] }}
+              </div>
             </div>
 
             <div class="q-my-lg">
@@ -127,15 +139,22 @@
         <div class="column q-gutter-y-md">
           <div class="product-price border-radius bg-white q-pa-md">
             <label class="text-grey-9">Type of product Unit</label>
-            <q-select
+            <!-- <q-select
               outlined
               v-model="category"
-              :options="categories"
+              :options="getCategory"
               class="q-mt-xs"
               label="Product Unit..."
               dense
               name="category"
-            />
+            /> -->
+            <select v-model="category" name="" id="">
+              <option :value="catIds[0]">{{ catNames[0] }}</option>
+              <option :value="catIds[1]">{{ catNames[1] }}</option>
+            </select>
+            <div class="error" v-if="errors.category">
+              {{ errors.category[0] }}
+            </div>
           </div>
 
           <div class="product-price border-radius bg-white q-pa-md">
@@ -148,6 +167,10 @@
               dense
               name="stock"
             />
+
+            <div class="error" v-if="errors.stock">
+              {{ errors.stock[0] }}
+            </div>
           </div>
 
           <div class="product-price border-radius bg-white q-pa-md">
@@ -157,6 +180,9 @@
                 N <q-separator class="q-ml-md" vertical
               /></template>
             </q-input>
+            <div class="error" v-if="errors.price">
+              {{ errors.price[0] }}
+            </div>
           </div>
 
           <div class="product-price border-radius bg-white q-pa-md">
@@ -174,9 +200,13 @@
               outlined
               dense
               v-model="category"
-              :options="categories"
+              :options="getCategory.id"
               label=" Select a product cetegory..."
             />
+
+            <div class="error" v-if="errors.category">
+              {{ errors.category[0] }}
+            </div>
           </div>
 
           <div class="row border-radius bg-white q-pa-md">
@@ -216,6 +246,7 @@ export default {
       filePreview: null,
       arr: [],
       images: [],
+      errors: [],
       colors: [],
       categories: ["1", "2", "3"],
       productName: ref(""),
@@ -231,7 +262,34 @@ export default {
       images: [],
       imagesArr: [],
       loading: false,
+      getCategory: [],
+      catIds: [],
+      catNames: [],
     };
+  },
+  created() {
+    this.getCategories();
+  },
+  computed: {
+    getSt() {
+      let categoriesId = [];
+      let categoriesName = [];
+      this.getCategory.map((item) => {
+        let keys = Object.values(item);
+        // let keys = Object.keys(item);
+        // keys.find((ele) => {
+        //   if (ele === "id") {
+        //     categoriesId.push(ele);
+        //   } else if (ele === "name") {
+        //     categoriesName.push(ele);
+        //   }
+        // });
+        console.log(keys[0]);
+        this.catIds.push(keys[0]);
+        this.catNames.push(keys[1]);
+      });
+      // console.log(pages);
+    },
   },
   methods: {
     show() {
@@ -304,17 +362,53 @@ export default {
         .post("product/store", productData)
         .then((resp) => {
           this.$q.notify({
-            message: resp.data.message,
+            message: resp.data.message || "Product Created",
             color: "green",
             position: "top",
             timeout: 3000,
           });
           console.log(resp);
           this.loading = false;
+          this.category = "";
+          this.productName = "";
+          this.description = "";
+          this.price = "";
+          this.stock = "";
+          this.imagesArr = "";
+          this.images = [];
         })
         .catch(({ response }) => {
           this.loading = false;
+          this.$q.notify({
+            message: response.data.message || response.data.payload,
+            color: "red",
+            position: "top",
+            timeout: 3000,
+          });
+          this.errors = response.data.errors;
+          setTimeout(() => {
+            this.errors = [];
+          }, 7000);
+          console.log(response);
+        });
+    },
 
+    getCategories() {
+      this.$api
+        .get("categories")
+        .then((resp) => {
+          console.log(resp);
+          this.getCategory = resp.data.data;
+          this.loading = false;
+        })
+        .catch(({ response }) => {
+          this.loading = false;
+          this.$q.notify({
+            message: response.data.message || response.data.payload,
+            color: "red",
+            position: "top",
+            timeout: 3000,
+          });
           this.errors = response.data.errors;
           setTimeout(() => {
             this.errors = [];
@@ -413,5 +507,15 @@ export default {
 .image {
   border: 2px solid rgb(128, 128, 128, 0.5);
   color: rgb(128, 128, 128, 0.5);
+}
+
+.error {
+  color: red;
+}
+select {
+  width: 100%;
+  border: 1px solid gray;
+  padding: 0.4rem;
+  margin-top: 0.3rem;
 }
 </style>
