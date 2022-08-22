@@ -1,9 +1,10 @@
 <template>
-  <q-page class="q-px-lg q-py-xl">
-    <div class="text-h6">{{ $route.name }}</div>
-    <div class="text-weight-thin">Lorem Store Name</div>
-    {{ images }}
-    {{ imagesArr }}
+  <q-page class="q-px-lg q-py-md">
+    <div class="route_name">
+      <div class="text-h6">{{ $route.name }}</div>
+      <div class="text-weight-thin">Lorem Store Name</div>
+    </div>
+
     <form @submit.prevent="uploadProduct">
       <div class="main q-my-lg q-pr-md">
         <div class="column q-gutter-y-md">
@@ -12,23 +13,22 @@
               <div
                 class="input border-radius column flex-center relative-position"
               >
-                <!-- <input
-                class="form-control form-control-lg"
-                ref="fileInput"
-                multiple
-                type="file"
-                @input="selectImgFile"
-                style="display: none"
-               
-              /> -->
                 <input
+                  class="form-control form-control-lg"
+                  ref="fileInput"
+                  multiple
+                  type="file"
+                  @input="selectImgFile"
+                  style="display: none"
+                />
+                <!-- <input
                   style="display: none"
                   class="form-control form-control-lg"
                   type="file"
                   name="images[]"
                   ref="fileInput"
                   @change="onChange"
-                />
+                /> -->
                 <q-icon
                   name="add"
                   size="3.5rem"
@@ -40,7 +40,7 @@
                 </div>
               </div>
 
-              <div
+              <!-- <div
                 v-show="!images[1]"
                 v-for="n in 1"
                 :key="n"
@@ -69,24 +69,24 @@
                 @click="chooseFile"
                 :style="{ 'background-image': `url(${images[2]})` }"
                 class="image border-radius flex flex-center"
-              ></div>
-              <!-- <div
-              v-show="!images[0]"
-              v-for="n in 3"
-              :key="n"
-              class="image border-radius flex flex-center"
-            >
-              Product Image
-            </div>
+              ></div> -->
+              <div
+                v-show="!images[0]"
+                v-for="n in 3"
+                :key="n"
+                class="image border-radius flex flex-center"
+              >
+                Product Image
+              </div>
 
-            <div
-              v-show="images[0]"
-              v-for="image in images"
-              :key="image"
-              @click="chooseFile"
-              :style="{ 'background-image': `url(${image})` }"
-              class="image border-radius flex flex-center"
-            ></div> -->
+              <div
+                v-show="images[0]"
+                v-for="image in images"
+                :key="image"
+                @click="chooseFile"
+                :style="{ 'background-image': `url(${image})` }"
+                class="image border-radius flex flex-center"
+              ></div>
             </div>
           </div>
 
@@ -124,7 +124,7 @@
           </div>
         </div>
 
-        <div class="column q-gutter-y-md">
+        <div class="side_bar q-gutter-y-md">
           <div class="product-price border-radius bg-white q-pa-md">
             <label class="text-grey-9">Type of product Unit</label>
             <q-select
@@ -178,8 +178,7 @@
               label=" Select a product cetegory..."
             />
           </div>
-
-          <div class="row border-radius bg-white q-pa-md">
+          <div class="row q-pa-md">
             <q-btn
               label="Upload Product "
               class="bordered-btn full-width"
@@ -234,94 +233,105 @@ export default {
     };
   },
   methods: {
-    show() {
-      console.log(this.content);
-    },
     selectImgFile() {
       let fileInput = this.$refs.fileInput;
       let imgFile = fileInput.files;
-      for (let i = 0; i < imgFile.length; i++) {
-        this.arr.push(imgFile[i]);
-      }
+      // for (let i = 0; i < imgFile.length; i++) {
+      //   // if (!this.arr.includes(imgFile[i]))
+      //   this.arr.push(imgFile[i]);
+      // }
+      imgFile.forEach((item) => {
+        this.arr.push(item);
+      });
+      let filteredList = [...new Set(this.arr.map(JSON.stringify))].map(
+        JSON.parse
+      );
+      // let uniqueChars = [...new Set(this.arr)];
+
+      console.log(filteredList);
 
       for (let i = 0; i < this.arr.length; i++) {
         let reader = new FileReader();
         let a;
         reader.onload = (e) => {
           a = e.target.result;
-          this.images.push(a);
+          if (!this.images.includes(a)) {
+            this.images.push(a);
+          }
         };
         reader.readAsDataURL(this.arr[i]);
         this.$emit("fileInput", this.arr[i]);
       }
       console.log(this.arr);
+      // console.log(imgFile);
     },
-    onChange(e) {
-      let files = e.target.files;
-      this.createFile(files[0]);
-      this.files = files;
-      this.imagesArr.push(this.files);
-    },
-    createFile(file) {
-      if (!file.type.match("image.*")) {
-        alert("Select an image");
-        return;
-      }
-      let img = new Image();
-      let reader = new FileReader();
-      let vm = this;
+    // onChange(e) {
+    //   let files = e.target.files;
+    //   this.createFile(files[0]);
+    //   this.files = files;
+    //   this.imagesArr.push(this.files);
+    // },
+    // createFile(file) {
+    //   if (!file.type.match("image.*")) {
+    //     alert("Select an image");
+    //     return;
+    //   }
+    //   let img = new Image();
+    //   let reader = new FileReader();
+    //   let vm = this;
 
-      reader.onload = function (e) {
-        vm.image = e.target.result;
-      };
-      reader.readAsDataURL(file);
-      this.images.push(this.image);
-    },
+    //   reader.onload = function (e) {
+    //     vm.image = e.target.result;
+    //   };
+    //   reader.readAsDataURL(file);
+    //   this.images.push(this.image);
+    // },
 
-    uploadProduct() {
-      console.log("first");
-      const name = this.productName;
-      const description = this.description;
-      const price = this.price;
-      const category = this.category;
-      const stock = this.stock;
+    // uploadProduct() {
+    //   console.log("first");
+    //   const name = this.productName;
+    //   const description = this.description;
+    //   const price = this.price;
+    //   const category = this.category;
+    //   const stock = this.stock;
 
-      let imagesOne = this.imagesArr.length ? this.imagesArr[0][0] : "";
-      let imagesTwo = this.imagesArr.length ? this.imagesArr[1][0] : "";
-      let imagesThree = this.imagesArr.length ? this.imagesArr[2][0] : "";
+    //   let imagesOne = this.imagesArr.length ? this.imagesArr[0][0] : "";
+    //   let imagesTwo = this.imagesArr.length ? this.imagesArr[1][0] : "";
+    //   let imagesThree = this.imagesArr.length ? this.imagesArr[2][0] : "";
 
-      let productData = new FormData();
-      this.loading = true;
-      productData.append("name", name);
-      productData.append("description", description);
-      productData.append("images[]", imagesOne);
-      productData.append("images[]", imagesTwo);
-      productData.append("images[]", imagesThree);
-      productData.append("price", price);
-      productData.append("category", category);
-      productData.append("stock", stock);
-      this.$api
-        .post("product/store", productData)
-        .then((resp) => {
-          this.$q.notify({
-            message: resp.data.message,
-            color: "green",
-            position: "top",
-            timeout: 3000,
-          });
-          console.log(resp);
-          this.loading = false;
-        })
-        .catch(({ response }) => {
-          this.loading = false;
+    //   let productData = new FormData();
+    //   this.loading = true;
+    //   productData.append("name", name);
+    //   productData.append("description", description);
+    //   productData.append("images[]", imagesOne);
+    //   productData.append("images[]", imagesTwo);
+    //   productData.append("images[]", imagesThree);
+    //   productData.append("price", price);
+    //   productData.append("category", category);
+    //   productData.append("stock", stock);
+    //   this.$api
+    //     .post("product/store", productData)
+    //     .then((resp) => {
+    //       this.$q.notify({
+    //         message: resp.data.message,
+    //         color: "green",
+    //         position: "top",
+    //         timeout: 3000,
+    //       });
+    //       console.log(resp);
+    //       this.loading = false;
+    //     })
+    //     .catch(({ response }) => {
+    //       this.loading = false;
 
-          this.errors = response.data.errors;
-          setTimeout(() => {
-            this.errors = [];
-          }, 7000);
-          console.log(response);
-        });
-    },
+    //       this.errors = response.data.errors;
+    //       setTimeout(() => {
+    //         this.errors = [];
+    //       }, 7000);
+    //       console.log(response);
+    //     });
+    // },
+
     // addProduct() {
     //   console.log("hello");
     //   let formData = new FormData();
@@ -413,5 +423,32 @@ export default {
 .image {
   border: 2px solid rgb(128, 128, 128, 0.5);
   color: rgb(128, 128, 128, 0.5);
+}
+@media screen and (max-width: 1200px) {
+  .main {
+    grid-template-columns: 1fr;
+  }
+  .side_bar {
+    /* display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px; */
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .route_name {
+    display: none;
+  }
+  .images {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .image,
+  .input {
+    height: 120px;
+    background-size: cover;
+  }
 }
 </style>

@@ -119,3 +119,10 @@ a {
 .expansion_container .q-item__section--side > .q-icon {
   font-size: 1rem;
 }
+
+//Vendor pages route name
+@media screen and (max-width: 770px) {
+  .route_name {
+    display: none;
+  }
+}

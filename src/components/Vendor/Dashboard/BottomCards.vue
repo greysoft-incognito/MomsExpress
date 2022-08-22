@@ -26,11 +26,21 @@
   </div>
 
   <div class="bottom_card bg-white">
-    <div class="q-pa-md text-bold">Some other stuff</div>
+    <div class="q-pa-md text-bold">Recent Customers</div>
     <q-separator class="q-mt-xs q-mb-md" />
 
     <q-scroll-area style="height: 40vh; width: 100%">
-      <UserTimeline />
+      <div class="q-px-md">
+        <div
+          v-for="n in 8"
+          :key="n"
+          class="user_item q-my-sm q-px-sm q-py-md row justify-between"
+        >
+          <div>Lorem dude</div>
+          <div>Buyer</div>
+          <div class="text-caption">2mins ago</div>
+        </div>
+      </div>
     </q-scroll-area>
   </div>
 </template>
