@@ -1,5 +1,5 @@
 <template>
-  <q-toolbar class="q-my-sm">
+  <q-toolbar class="q-my-sm layout_header">
     <q-btn
       flat
       dense
@@ -11,10 +11,13 @@
       color="primary"
     />
 
-    <div class="row justify-between full-width">
+    <div class="row justify-between items-center full-width">
+      <div class="text-subtitle1 page_title text-bold text-black q-ml-sm">
+        {{ $route.name }}
+      </div>
       <div>
         <q-input
-          placeholder="search forcustomers, orders and  products"
+          placeholder="Search for  products..."
           class="search_input"
           borderless
         >
@@ -26,22 +29,27 @@
       </div>
 
       <div class="row text-black items-center">
-        <q-separator class="q-ma-xs" vertical />
+        <q-separator class="q-my-xs q-mx-sm header_sep" vertical />
         <q-btn
-          color="grey"
+          color="grey "
           size="0.8rem"
           round
           outline
-          class="q-mx-md"
+          class="notification"
           icon="fas fa-bell "
         />
-        <q-separator class="q-ma-xs" vertical />
-        <q-btn-dropdown flat color="primary" no-caps class="non_hover_btn">
+        <q-separator class="q-my-xs q-ml-sm header_sep" vertical />
+        <q-btn-dropdown
+          flat
+          color="primary"
+          no-caps
+          class="non_hover_btn header_dropdown"
+        >
           <template v-slot:label>
-            <q-avatar color="grey-3" class="q-mr-md">
+            <q-avatar color="grey-3" class="q-mr-md header_avatar">
               <q-icon color="primary" name="person" />
             </q-avatar>
-            <div>Lorem Dude Fullname</div>
+            <div class="username">Lorem Dude Fullname</div>
           </template>
           <q-list>
             <q-item clickable v-close-popup to="/vendor/settings">
@@ -77,13 +85,61 @@ export default {
 
 <style scoped>
 .layout_header {
-  height: 70px !important;
+  /* height: 70px !important; */
 }
 .search_input {
-  width: 400px;
+  width: 350px;
 }
+@media screen and (max-width: 950px) {
+  .search_input {
+    width: 250px !important;
+    text-overflow: ellipsis;
+  }
+  .header_dropdown {
+    font-size: 0.8rem !important;
+  }
+  .header_avatar {
+    font-size: 1.8rem !important;
+  }
+  .notification {
+    font-size: 0.6rem !important;
+  }
+}
+
+@media screen and (max-width: 820px) {
+  .search_input {
+    width: 210px !important;
+    text-overflow: ellipsis;
+    font-size: 0.8rem;
+  }
+  .header_dropdown {
+    font-size: 0.8rem !important;
+  }
+  .header_avatar {
+    font-size: 1.6rem !important;
+  }
+  .notification {
+    font-size: 0.5rem !important;
+  }
+}
+
+@media screen and (max-width: 770px) {
+  .search_input,
+  .username {
+    display: none;
+  }
+  .header_avatar {
+    margin: 0;
+  }
+
+  .layout_header {
+    margin: 0;
+  }
+}
+
 @media screen and (min-width: 770px) {
-  .hamburger_btn {
+  .hamburger_btn,
+  .page_title {
     display: none;
   }
 }
