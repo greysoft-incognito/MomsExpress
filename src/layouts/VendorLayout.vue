@@ -4,7 +4,13 @@
       <Header :toggleLeftDrawer="toggleLeftDrawer" />
     </q-header>
 
-    <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
+    <q-drawer
+      width="250"
+      :breakpoint="770"
+      v-model="leftDrawerOpen"
+      show-if-above
+      bordered
+    >
       <div style="height: 70px" class="flex flex-center q-px-md">
         <q-img src="Images/lorem_logo.svg" />
       </div>

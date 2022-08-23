@@ -20,7 +20,10 @@
               <q-separator spaced />
               <div class="row text-subtitle1 q-my-xs justify-between q-px-sm">
                 <span>Total Amount</span>
-                <span class="text-bold"> $1000 </span>
+                <span class="text-bold">
+                  {{ this.$store.cart.totalPrice }}
+                </span>
+                <!-- <span class="text-bold"> $1000 </span> -->
               </div>
               <q-btn
                 label="Proceed To Checkout"

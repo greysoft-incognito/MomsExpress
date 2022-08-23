@@ -7,42 +7,21 @@ export const useCartStore = defineStore("cart", {
     meals: [
       {
         id: 0,
-        img: "/images/swallow1.jpeg",
+        img: "Images/2-1.jpg",
         name: "Jollof Rice",
         price: 700,
         quantity: 1,
       },
       {
         id: 1,
-        img: "/images/greyeats1.jpeg",
+        img: "Images/2-1.jpg",
         name: "Jollof Rice",
         price: 700,
         quantity: 1,
       },
       {
         id: 2,
-        img: "/images/greyeats2.jpeg",
-        name: "Jollof Rice",
-        price: 700,
-        quantity: 1,
-      },
-      {
-        id: 3,
-        img: "/images/greyeats3.jpeg",
-        name: "Jollof Rice",
-        price: 700,
-        quantity: 1,
-      },
-      {
-        id: 4,
-        img: "/images/greyeats4.jpeg",
-        name: "Jollof Rice",
-        price: 700,
-        quantity: 1,
-      },
-      {
-        id: 5,
-        img: "/images/greyeats5.jpeg",
+        img: "Images/2-1.jpg",
         name: "Jollof Rice",
         price: 700,
         quantity: 1,
@@ -51,11 +30,16 @@ export const useCartStore = defineStore("cart", {
   }),
   getters: {
     cart: (state) => state.meals,
-    total: (state) => {
+    totalPrice: (state) => {
       return Object.keys(state.plate).reduce((acc, id) => {
         return acc + state.meals[id].price * state.plate[id].quantity;
       }, 0);
     },
+    // totalPrice: (state) => {
+    //   return Object.keys(state.plate).reduce((acc, id) => {
+    //     return acc + state.meals[id].price * state.plate[id].quantity;
+    //   }, 0);
+    // },
   },
   actions: {
     addToplate(meal, id) {
@@ -77,14 +61,16 @@ export const useCartStore = defineStore("cart", {
       console.log(this.meals[id]);
       if (this.meals[id]) {
         this.meals[id].quantity += 1;
-        console.log(this.plate[id])
-
+        console.log(this.plate[id]);
       } else {
         this.meals[id] = {
           id,
           quantity: 1,
         };
       }
+
+      let cart_items = JSON.parse(localStorage.getItem('pinia_cart'))
+      console.log(cart_items.meals)
     },
     remove(id) {
       if (!this.meals[id]) {
@@ -92,7 +78,7 @@ export const useCartStore = defineStore("cart", {
       }
 
       this.meals[id].quantity -= 1;
-      console.log(this.plate[id])
+      console.log(this.plate[id]);
 
       if (this.meals[id].quantity <= 0) {
         alert("Cannot Subtract");
@@ -101,12 +87,12 @@ export const useCartStore = defineStore("cart", {
       }
     },
 
-    removeFromCart(id){
-        console.log(id)
-        console.log(this.plate)
+    removeFromCart(id) {
+      console.log(id);
+      console.log(this.plate);
 
-        this.plate = this.plate.filter(items=> items.id !== id)
-        console.log(this.plate)
-    }
+      this.plate = this.plate.filter((items) => items.id !== id);
+      console.log(this.plate);
+    },
   },
 });

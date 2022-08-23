@@ -1,38 +1,30 @@
 <template>
-  <q-page class="q-px-lg q-py-xl">
-    <div class="text-h6">{{ $route.name }}</div>
-    <div class="text-weight-thin">Lorem Store Name</div>
+  <q-page class="q-px-lg q-py-lg">
+    <div class="route_name">
+      <div class="text-h6">{{ $route.name }}</div>
+      <div class="text-weight-thin">Lorem Store Name</div>
+    </div>
 
     <div class="top_cards q-mt-lg">
       <TopCards :cards="cards" />
     </div>
 
     <div class="middle_cards q-mt-xl">
-      <div class="graph_container middle_card q-pa-md bg-white">
-        <div id="chart">
-          <apexchart
-            type="area"
-            :options="chartOptions"
-            :series="series"
-          ></apexchart>
-        </div>
+      <div id="chart" class="middle_card q-pa-md bg-white">
+        <apexchart
+          type="line"
+          :options="chartOptionsA"
+          :series="seriesA"
+        ></apexchart>
       </div>
 
-      <div class="middle_card bg-white">
-        <div class="q-pa-md text-bold">Top Customers</div>
-        <q-separator class="q-mt-xs q-mb-md" />
-
-        <div class="q-px-md">
-          <div
-            v-for="n in 9"
-            :key="n"
-            class="user_item q-my-sm q-px-sm q-py-md row justify-between"
-          >
-            <div>tobiikupolati@gmail.com</div>
-            <div>Buyer</div>
-            <div>2mins ago</div>
-          </div>
-        </div>
+      <div id="chart" class="middle_card q-pa-md bg-white">
+        <apexchart
+          type="pie"
+          :options="chartOptionsB"
+          :series="seriesB"
+          width="500"
+        ></apexchart>
       </div>
     </div>
 
@@ -85,13 +77,13 @@ export default defineComponent({
   data() {
     return {
       cards,
-      series: [
+      seriesA: [
         {
           name: "Session Duration",
           data: [45, 52, 38, 24, 33, 26, 21, 20, 6, 8, 15, 10],
         },
       ],
-      chartOptions: {
+      chartOptionsA: {
         chart: {
           type: "line",
           zoom: {
@@ -128,18 +120,18 @@ export default defineComponent({
         },
         xaxis: {
           categories: [
-            "01 Jan",
-            "02 Jan",
-            "03 Jan",
-            "04 Jan",
-            "05 Jan",
-            "06 Jan",
-            "07 Jan",
-            "08 Jan",
-            "09 Jan",
-            "10 Jan",
-            "11 Jan",
-            "12 Jan",
+            " Jan",
+            " Feb",
+            " Mar",
+            " Apr",
+            " May",
+            " Jun",
+            " Jul",
+            " Aug",
+            " Sep",
+            " Oct",
+            " Nov",
+            " Dec",
           ],
         },
         tooltip: {
@@ -171,6 +163,47 @@ export default defineComponent({
           borderColor: "#f1f1f1",
         },
       },
+      seriesB: [44, 55, 41, 17, 15],
+      chartOptionsB: {
+        chart: {
+          type: "donut",
+        },
+        responsive: [
+          {
+            breakpoint: 565,
+            options: {
+              chart: {
+                width: 400,
+              },
+              legend: {
+                position: "bottom",
+              },
+            },
+          },
+          {
+            breakpoint: 500,
+            options: {
+              chart: {
+                width: 350,
+              },
+              legend: {
+                position: "bottom",
+              },
+            },
+          },
+          {
+            breakpoint: 425,
+            options: {
+              chart: {
+                width: 300,
+              },
+              legend: {
+                position: "bottom",
+              },
+            },
+          },
+        ],
+      },
     };
   },
 });
@@ -192,12 +225,10 @@ export default defineComponent({
 }
 .middle_cards {
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 20px;
 }
-.middle_card {
-  /* height: 60vh; */
-}
+
 .bottom_cards {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -207,10 +238,45 @@ export default defineComponent({
   height: 50vh;
 }
 .vue-apexcharts {
-  min-height: 50vh !important;
+  min-height: 100% !important;
+}
+.apexcharts-svg,
+.apexcharts-canvas,
+.apexcharts-inner {
+  height: 100% !important;
+  width: 100% !important;
 }
 .user_item {
   background-color: rgb(173, 215, 230, 0.3);
   border-radius: 10px;
+}
+@media screen and (max-width: 1150px) {
+  .top_cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .middle_cards {
+    grid-template-columns: 1fr;
+  }
+  .bottom_cards {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media screen and (max-width: 930px) {
+  .bottom_cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 770px) {
+  .route_name {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .top_cards {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
 </style>
