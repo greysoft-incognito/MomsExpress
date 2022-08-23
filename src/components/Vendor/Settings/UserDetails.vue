@@ -76,4 +76,9 @@ export default {};
 .input_field {
   width: 50%;
 }
+@media screen and (max-width: 1200px) {
+  .input_field {
+    width: 100%;
+  }
+}
 </style>

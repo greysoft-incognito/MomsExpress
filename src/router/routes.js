@@ -48,6 +48,10 @@ const routes = [
         path: "/product_detail",
         component: () => import("pages/ProductDetailPage.vue"),
       },
+      {
+        path: "/become_a_vendor",
+        component: () => import("pages/VendorLandingPage.vue"),
+      },
     ],
   },
   {
