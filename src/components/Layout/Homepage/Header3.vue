@@ -28,6 +28,7 @@
             :key="n"
             clickable
             class="q-px-lg row items-center"
+            to="/category"
           >
             <q-icon name="settings" class="q-mr-sm" />
             <span>Category x</span></q-item
@@ -49,8 +50,8 @@
         <router-link class="q-mx-md" to="/">Home</router-link>
         <router-link class="q-mx-md" to="/">Shop</router-link>
         <router-link class="q-mx-md" to="/">Vendor</router-link>
-        <router-link class="q-mx-md" to="/">Trending</router-link>
-        <router-link class="q-mx-md" to="/">New</router-link>
+        <router-link class="q-mx-md" to="/category">Trending</router-link>
+        <router-link class="q-mx-md" to="/category">New</router-link>
       </div>
     </div>
   </q-toolbar>

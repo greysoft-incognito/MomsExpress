@@ -1,14 +1,23 @@
 <template>
   <q-page class="q-px-lg q-py-md">
-    <div class="row items-center">
-      <BackButton routeTo="/vendor/products" />
+    <!-- <div class="row items-center"> -->
 
-      <div>
-        <div class="text-h6">{{ $route.name }}</div>
-        <div class="text-weight-thin">Lorem Store Name</div>
-      </div>
+    <div class="route_name">
+      <div class="text-h6">{{ $route.name }}</div>
+      <div class="text-weight-thin">Lorem Store Name</div>
     </div>
+    <!-- </div> -->
 
+    <!-- <q-btn
+      dense
+      icon="chevron_left"
+      size="0.9rem"
+      class="non_hover_btn"
+      flat
+      @click="toggleLeftDrawer"
+      color="primary"
+      :to="routeTo"
+    /> -->
     <div class="main q-my-lg q-pr-md">
       <div class="column q-gutter-y-md">
         <div class="border-radius bg-white">
@@ -139,7 +148,7 @@
           />
         </div>
 
-        <div class="row border-radius bg-white q-pa-md">
+        <div class="row q-pa-md">
           <q-btn
             label="Save Changes "
             class="bordered-btn full-width"
@@ -181,70 +190,7 @@ export default {
       discount: ref(""),
     };
   },
-  methods: {
-    show() {
-      console.log(this.content);
-    },
-    selectImgFile() {
-      let fileInput = this.$refs.fileInput;
-      let imgFile = fileInput.files;
-      for (let i = 0; i < imgFile.length; i++) {
-        this.arr.push(imgFile[i]);
-      }
-
-      for (let i = 0; i < this.arr.length; i++) {
-        let reader = new FileReader();
-        let a;
-        reader.onload = (e) => {
-          a = e.target.result;
-          this.images.push(a);
-        };
-        reader.readAsDataURL(this.arr[i]);
-        this.$emit("fileInput", this.arr[i]);
-      }
-      console.log(this.arr);
-    },
-    // addProduct() {
-    //   console.log("hello");
-    //   let formData = new FormData();
-    //   formData.append("productName", this.productName);
-    //   formData.append("price", this.price);
-    //   formData.append("quantity", this.quantity);
-    //   formData.append("category", this.category);
-    //   formData.append("subcategory", this.subcategory);
-    //   for (let i = 0; i < this.arr.length; i++) {
-    //     formData.append("img", this.arr[i]);
-    //   }
-    //   formData.append("color", this.description);
-    //   formData.append("size", this.discount);
-    //   console.log(formData);
-    //   if (
-    //     this.productName !== "" &&
-    //     this.price !== "" &&
-    //     this.quantity !== ""
-    //   ) {
-    //     this.$store
-    //       .dispatch("moduleExample/addProduct", { formData })
-    //       .then((response) => {
-    //         console.log(response);
-    //         // this.icon = false;
-    //         // this.getProducts();
-    //       });
-    //   } else {
-    //     Notify.create({
-    //       message: "You can't leave any field empty.",
-    //       color: "red",
-    //     });
-    //   }
-    // },
-    // getCategories() {
-    //   this.$store.dispatch("moduleExample/getCategories").then((response) => {
-    //     for (let item of response.categories) {
-    //       this.categories.push(item.name);
-    //     }
-    //   });
-    // },
-  },
+  methods: {},
   mounted() {
     // this.getCategories();
   },
@@ -295,5 +241,32 @@ export default {
 .image {
   border: 2px solid rgb(128, 128, 128, 0.5);
   color: rgb(128, 128, 128, 0.5);
+}
+@media screen and (max-width: 1200px) {
+  .main {
+    grid-template-columns: 1fr;
+  }
+  .side_bar {
+    /* display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px; */
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .route_name {
+    display: none;
+  }
+  .images {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .image,
+  .input {
+    height: 120px;
+    background-size: cover;
+  }
 }
 </style>

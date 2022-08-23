@@ -3,7 +3,7 @@
     <div class="q-py-md row">
       <q-space />
       <q-btn
-        label="Save changes"
+        label="New Bank"
         class="bordered-btn"
         icon="add"
         color="primary"
@@ -19,6 +19,7 @@
       :rows="rows"
       :columns="columns"
       row-key="name"
+      class="bank_table"
     />
 
     <q-dialog v-model="alert">
@@ -105,54 +106,19 @@ const columns = [
 
 const rows = [
   {
-    name: "Frozen Yogurt",
-    calories: 159,
-    fat: 6.0,
-    carbs: 24,
-    protein: 4.0,
-    sodium: 87,
-    calcium: "14%",
-    iron: "1%",
+    name: " First Bank",
+    calories: 101265459,
+    fat: "Lorem person Dude",
   },
   {
-    name: "Ice cream sandwich",
-    calories: 237,
-    fat: 9.0,
-    carbs: 37,
-    protein: 4.3,
-    sodium: 129,
-    calcium: "8%",
-    iron: "1%",
+    name: "First Bank",
+    calories: 201265437,
+    fat: "Lorem person Dude",
   },
   {
-    name: "Eclair",
-    calories: 262,
-    fat: 16.0,
-    carbs: 23,
-    protein: 6.0,
-    sodium: 337,
-    calcium: "6%",
-    iron: "7%",
-  },
-  {
-    name: "Cupcake",
-    calories: 305,
-    fat: 3.7,
-    carbs: 67,
-    protein: 4.3,
-    sodium: 413,
-    calcium: "3%",
-    iron: "8%",
-  },
-  {
-    name: "Gingerbread",
-    calories: 356,
-    fat: 16.0,
-    carbs: 49,
-    protein: 3.9,
-    sodium: 327,
-    calcium: "7%",
-    iron: "16%",
+    name: "First Bank",
+    calories: 201265462,
+    fat: "Lorem person Dude",
   },
 ];
 
@@ -166,3 +132,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.bank_table .q-table--no-wrap th,
+.bank_table .q-table--no-wrap td {
+  white-space: nowrap !important;
+}
+</style>

@@ -45,6 +45,7 @@
         <q-btn
           icon="chevron_left"
           label="Continue Shopping"
+          to="/"
           class="q-mt-lg q-mb-xl bg-primary"
           text-color="white"
           flat

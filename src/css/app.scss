@@ -49,6 +49,11 @@ p {
 th {
   font-size: 1.1rem !important;
 }
+@media screen and (max-width: 950px) {
+  th {
+    font-size: 0.9rem !important;
+  }
+}
 
 //Text editor for adding new product
 .ql-editor {

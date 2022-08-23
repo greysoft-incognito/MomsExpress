@@ -1,8 +1,10 @@
 <template>
-  <q-page class="q-px-lg q-py-xl">
-    <div class="text-h6">{{ $route.name }}</div>
-    <div class="text-weight-thin">Lorem Store Name</div>
-    <div class="q-pa-md">
+  <q-page class="q-px-lg q-py-md table_page">
+    <div class="route_name">
+      <div class="text-h6">{{ $route.name }}</div>
+      <div class="text-weight-thin">Lorem Store Name</div>
+    </div>
+    <div class="q-mt-md">
       <q-table
         :grid="tableLayout"
         :filter="filter"
@@ -43,7 +45,7 @@
             <q-td key="customer" style="width: 20%" :props="props"
               >tobiikupolati@gmail.com
             </q-td>
-            <q-td key="order" class="text-" style="width: 20%" :props="props">
+            <q-td key="order" class="order" style="width: 20%" :props="props">
               Bag, shoe, face, cap(2)
             </q-td>
             <q-td key="status" style="width: 10%" :props="props">
@@ -209,3 +211,25 @@ export default {
   mounted() {},
 };
 </script>
+
+<style scoped>
+@media screen and (max-width: 500px) {
+  .table_page {
+    padding: 2.5%;
+  }
+  .order {
+    width: 30% !important;
+  }
+}
+
+@media screen and (min-width: 1500px) {
+  .table_page {
+    padding: 2% 5%;
+  }
+}
+
+.q-table--no-wrap th,
+.q-table--no-wrap td {
+  white-space: nowrap !important;
+}
+</style>

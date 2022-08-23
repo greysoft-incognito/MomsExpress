@@ -76,6 +76,7 @@
         <q-btn
           icon="chevron_left"
           label="Back to Cart"
+          to="/cart"
           class="q-mt-lg q-mb-xl bg-primary"
           text-color="white"
           flat

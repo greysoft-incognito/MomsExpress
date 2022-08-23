@@ -1,10 +1,10 @@
 <template>
-  <q-page class="q-px-lg q-py-xl">
-    <div class="q-px-md">
+  <q-page class="q-px-lg q-py-md table_page">
+    <div class="route_name">
       <div class="text-h6">{{ $route.name }}</div>
       <div class="text-weight-thin">Lorem Store Name</div>
     </div>
-    <div class="q-gutter-y-md full-width q-pa-md">
+    <div class="q-gutter-y-md full-width q-mt-md">
       <q-card style="border-radius: 15px" flat class="q-px-sm q-py-md">
         <q-tabs
           v-model="tab"
@@ -55,3 +55,16 @@ export default {
   components: { StoreDetails, UserDetails, BankDetails },
 };
 </script>
+<style scoped>
+@media screen and (max-width: 500px) {
+  .table_page {
+    padding: 2.5%;
+  }
+}
+
+@media screen and (min-width: 1500px) {
+  .table_page {
+    padding: 2% 5%;
+  }
+}
+</style>

@@ -1,8 +1,10 @@
 <template>
-  <q-page class="q-px-lg q-py-xl">
-    <div class="text-h6">{{ $route.name }}</div>
-    <div class="text-weight-thin">Lorem Store Name</div>
-    <div class="q-pa-md">
+  <q-page class="q-px-lg table_page q-py-md">
+    <div class="route_name">
+      <div class="text-h6">{{ $route.name }}</div>
+      <div class="text-weight-thin">Lorem Store Name</div>
+    </div>
+    <div class="q-mt-md">
       <q-table
         :grid="tableLayout"
         :filter="filter"
@@ -11,8 +13,9 @@
         row-key="id"
         :pagination="pagination"
         flat
+        class="q-py-sm my-sticky-column-table"
       >
-        <template v-slot:top-right>
+        <!-- <template v-slot:top-right>
           <q-input
             borderless
             dense
@@ -24,31 +27,18 @@
               <q-icon name="search" />
             </template>
           </q-input>
-          <!-- <q-btn
-            flat
-            class="text-subtitle2 q-mx-md"
-            no-caps
-            :label="tableLayout ? 'Row' : 'Grid'"
-            :icon="tableLayout ? 'fas fa-grip-lines' : 'fa-solid fa-border-all'"
-            color="primary"
-            @click="toggleLayout"
-          /> -->
-        </template>
+        </template> -->
         <template v-slot:body="props">
           <q-tr class="q-pl-md" :props="props">
             <q-td key="index" class="text-center" :props="props">
               {{ props.row.index }}
             </q-td>
-            <q-td key="customer" :props="props">
-              {{ props.row.customer }}
-            </q-td>
-            <q-td key="status" :props="props">{{ props.row.status }} </q-td>
-            <q-td key="phone" :props="props">
-              {{ props.row.phone }}
-            </q-td>
-            <q-td key="total" :props="props">{{ props.row.total }}</q-td>
-            <q-td key="date" :props="props">{{ props.row.date }}</q-td>
-            <q-td key="action" :props="props" style="width: 160px">
+            <q-td key="customer" :props="props"> Lorem Dude </q-td>
+            <q-td key="status" :props="props">pending</q-td>
+            <q-td key="phone" :props="props"> 08012345678 </q-td>
+            <q-td class="total" key="total" :props="props">5,000</q-td>
+            <q-td key="date" :props="props">1/12/2021</q-td>
+            <!-- <q-td key="action" :props="props" style="width: 10%">
               <div class="row justify-center">
                 <q-btn
                   color="grey"
@@ -58,16 +48,8 @@
                   size="0.6rem"
                   icon="fas fa-eye"
                 />
-                <q-btn
-                  color="grey"
-                  round
-                  class="q-mx-sm non_hover_btn"
-                  flat
-                  size="0.6rem"
-                  icon="fas fa-print"
-                />
               </div>
-            </q-td>
+            </q-td> -->
           </q-tr>
         </template>
       </q-table>
@@ -83,6 +65,7 @@ const columns = [
     name: "index",
     label: "#",
     field: "index",
+    align: "center",
   },
   {
     name: "customer",
@@ -100,14 +83,14 @@ const columns = [
     sort: (a, b) => parseInt(a, 10) - parseInt(b, 10),
   },
   { name: "phone", label: "Phone", align: "center", field: "phone" },
-  { name: "total", label: "Total", align: "center", field: "total" },
+  { name: "total", label: "Total(N)", align: "center", field: "total" },
   { name: "date", label: "Date", align: "center", field: "date" },
-  {
-    name: "action",
-    label: "",
-    field: "action",
-    align: "center",
-  },
+  // {
+  //   name: "action",
+  //   label: "",
+  //   field: "action",
+  //   align: "center",
+  // },
 ];
 
 const rows = [
@@ -234,3 +217,36 @@ export default {
   mounted() {},
 };
 </script>
+
+<style scoped>
+/* .my-sticky-column-table thead tr:first-child th:first-child {
+  background-color: #fff;
+}
+
+.my-sticky-column-table td:first-child {
+  background-color: white;
+}
+
+theadtr:first-child,
+td:first-child {
+  position: sticky !important;
+  left: 0;
+  z-index: 1;
+} */
+
+@media screen and (max-width: 500px) {
+  .table_page {
+    padding: 2.5%;
+  }
+}
+
+@media screen and (min-width: 1500px) {
+  .table_page {
+    padding: 2% 5%;
+  }
+}
+.q-table--no-wrap th,
+.q-table--no-wrap td {
+  white-space: nowrap !important;
+}
+</style>

@@ -2,7 +2,7 @@
   <div class="big_screen_padding bg-white main_container">
     <div class="row q-my-sm text-bold justify-between">
       <div class="text-h6 text-bold">KItchen Utensils</div>
-      <router-link to="#">
+      <router-link to="/category">
         <span>More Products</span> <q-icon name="chevron_right" />
       </router-link>
     </div>

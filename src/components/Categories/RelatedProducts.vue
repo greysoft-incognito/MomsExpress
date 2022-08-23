@@ -8,6 +8,7 @@
       no-caps
       size="0.8rem"
       label="More Products"
+      to="/category"
       :ripple="false"
     />
   </div>
