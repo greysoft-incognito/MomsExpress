@@ -78,4 +78,53 @@ export default {
   grid-template-columns: repeat(5, 1fr);
   gap: 15px;
 }
+
+@media screen and (max-width: 1033px) {
+  .products {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+@media screen and (max-width: 770px) {
+  .products {
+    display: flex;
+    width: 100%;
+    /* height: 120px; */
+    white-space: nowrap;
+    position: relative;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none; /* hiding the scrollbar for Internet Explorer, Edge */
+    scrollbar-width: none; /* hiding the scrollbar for Firefox */
+  }
+
+  .products::-webkit-scrollbar {
+    display: none; /* hiding the scrollbar for Chrome, Safari, and Opera */
+  }
+  .product {
+    width: 20%;
+    flex: 1 0 25%;
+  }
+}
+
+@media screen and (max-width: 670px) {
+  .product {
+    flex: 1 0 30%;
+  }
+}
+
+@media screen and (max-width: 510px) {
+  .products {
+    gap: 10px;
+  }
+  .product {
+    flex: 1 0 38%;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .product {
+    flex: 1 0 45%;
+  }
+}
 </style>

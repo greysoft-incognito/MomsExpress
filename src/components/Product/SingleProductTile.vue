@@ -34,20 +34,24 @@
         />
       </div>
     </div>
-    <router-link to="/product_detail" class="text-subtitle1 q-mt-sm">
+    <router-link
+      to="/product_detail"
+      class="text-subtitle1 product_text q-mt-sm"
+    >
       Cooking Pot
     </router-link>
-    <div class="row justify-center q-my-sm">
+    <div class="row justify-center">
       <q-rating
         v-model="ratingModel"
-        size="1.2rem"
+        size="1.1rem"
         color="grey"
         readonly
         :color-selected="ratingColors"
+        class="stars"
       />
-      <span>( 2 reviews)</span>
+      <span class="review_text">( 2 reviews)</span>
     </div>
-    <div class="text-bold">$53.00</div>
+    <div class="text-bold price_text">$53.00</div>
   </div>
 </template>
 
@@ -96,14 +100,35 @@ export default {
   cursor: pointer;
 }
 
-/* .product_tile:hover .view_details {
-  display: block;
-} */
 .view_details {
   display: none;
   position: absolute;
-  /* width: 100%; */
   right: 2%;
   top: 2%;
+}
+@media screen and (max-width: 1130px) {
+  .image_container {
+    height: 230px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .image_container {
+    height: 200px;
+  }
+}
+
+@media screen and (max-width: 570px) {
+  .image_container {
+    height: 180px;
+  }
+  .product_text,
+  .price_text {
+    font-size: 0.9rem;
+  }
+  .price_text,
+  .review_text {
+    font-size: 0.8rem;
+  }
 }
 </style>
