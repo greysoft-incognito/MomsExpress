@@ -1,10 +1,18 @@
 <template>
   <q-layout view="lhh Lpr lff">
     <q-header class="bg-white">
-      <Header1 :toggleAuthForm="toggleAuthForm" @clicked="authTypeChecker" />
-      <Header2 />
-      <Header3 />
+      <Header1
+        class="header_one"
+        :toggleAuthForm="toggleAuthForm"
+        @clicked="authTypeChecker"
+      />
+      <Header2 :toggleLeftDrawer="toggleLeftDrawer" />
+      <Header3 class="header_three" />
     </q-header>
+
+    <q-drawer width="280" :breakpoint="770" v-model="leftDrawerOpen" bordered>
+      <MainEssentialLinks class="full-height" />
+    </q-drawer>
 
     <q-page-container>
       <router-view />
@@ -52,7 +60,39 @@
       </q-card>
     </q-dialog>
 
-    <q-footer>
+    <q-footer class="row items-center mobile_footer q-py-sm">
+      <div class="text-center">
+        <q-btn icon="home" to="/" flat :ripple="false" />
+        <div class="text-caption">Home</div>
+      </div>
+      <div class="text-center">
+        <q-btn
+          icon="format_list_bulleted"
+          to="/allCategory"
+          flat
+          :ripple="false"
+        />
+        <div class="text-caption">Shop</div>
+      </div>
+      <div class="text-center">
+        <q-btn icon="perm_identity" to="/profile" flat :ripple="false" />
+        <div class="text-caption">Account</div>
+      </div>
+      <div class="text-center">
+        <q-btn class="" to="/cart" flat icon="shopping_cart">
+          <q-badge color="red" class="text-bold" floating transparent>
+            4
+          </q-badge>
+        </q-btn>
+        <div class="text-caption">Cart</div>
+      </div>
+      <div class="text-center">
+        <q-btn icon="perm_identity" to="/profile" flat :ripple="false" />
+        <div class="text-caption">Search</div>
+      </div>
+    </q-footer>
+
+    <q-footer class="desktop_footer">
       <Footer />
     </q-footer>
   </q-layout>
@@ -68,6 +108,7 @@ import Header2 from "../components/Layout/Homepage/Header2.vue";
 import Header3 from "../components/Layout/Homepage/Header3.vue";
 import Login from "../components/Authentication/Login.vue";
 import Signup from "src/components/Authentication/Signup.vue";
+import MainEssentialLinks from "../components/MainEssentialLinks.vue";
 
 export default defineComponent({
   name: "MainLayout",
@@ -80,10 +121,11 @@ export default defineComponent({
     Header3,
     Login,
     Signup,
+    MainEssentialLinks,
   },
 
   setup() {
-    const leftDrawerOpen = ref(false);
+    const leftDrawerOpen = ref(true);
     const alert = ref(false);
 
     return {
@@ -94,6 +136,9 @@ export default defineComponent({
       alert,
       toggleAuthForm() {
         alert.value = !alert.value;
+      },
+      toggleLeftDrawer() {
+        leftDrawerOpen.value = !leftDrawerOpen.value;
       },
     };
   },
@@ -108,9 +153,40 @@ export default defineComponent({
 </script>
 
 <style>
+.mobile_footer {
+  display: none;
+  grid-template-columns: repeat(5, 1fr);
+}
 @media screen and (min-width: 1500px) {
   .big_screen_padding {
     padding: 0 15%;
+  }
+}
+
+@media screen and (max-width: 1499px) {
+  .big_screen_padding {
+    padding: 0 3%;
+  }
+}
+
+@media screen and (max-width: 880px) {
+  .header_one {
+    /* display: none; */
+  }
+
+  .header_two {
+    margin: 0 !important;
+  }
+}
+@media screen and (max-width: 770px) {
+  .header_three {
+    display: none;
+  }
+  .desktop_footer {
+    display: none;
+  }
+  .mobile_footer {
+    display: grid;
   }
 }
 </style>

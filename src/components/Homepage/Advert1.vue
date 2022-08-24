@@ -57,4 +57,12 @@ export default {};
   width: 100%;
   height: 200px;
 }
+@media screen and (max-width: 850px) {
+  .advert1_container {
+    display: block;
+  }
+  .right {
+    display: none;
+  }
+}
 </style>

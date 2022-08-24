@@ -1,7 +1,20 @@
 <template>
   <div class="header1 row q-px-md items-align bg-grey-2 big_screen_padding">
     <div class="header1_container">
-      <div class="left text-black text-bold">WELCOME TO MOMS EXPRESS</div>
+      <div class="left text-black text-bold welcome_text">
+        WELCOME TO MOMS EXPRESS
+      </div>
+      <marquee
+        class="left text-black text-bold row marquee_text"
+        behavior=""
+        direction="right"
+      >
+        <span class="q-mr-xl">WELCOME TO MOMS EXPRESS</span>
+        <!-- <span class="q-mr-xl">WELCOME TO MOMS EXPRESS</span> -->
+        <!-- <span class="q-mr-xl">WELCOME TO MOMS EXPRESS</span>
+        <span class="q-mr-xl">WELCOME TO MOMS EXPRESS</span> -->
+      </marquee>
+
       <div class="right">
         <router-link class="q-mx-sm" to="/">Blog</router-link>
         <router-link class="q-mx-sm" to="/">Contact Us</router-link>
@@ -75,5 +88,17 @@ export default {
 .auth {
   display: flex;
   align-items: center;
+}
+.marquee_text {
+  display: none;
+}
+@media screen and (max-width: 770px) {
+  .right,
+  .welcome_text {
+    display: none;
+  }
+  .marquee_text {
+    display: block;
+  }
 }
 </style>
