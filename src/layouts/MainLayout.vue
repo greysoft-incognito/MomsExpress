@@ -66,16 +66,11 @@
         <div class="text-caption">Home</div>
       </div>
       <div class="text-center">
-        <q-btn
-          icon="format_list_bulleted"
-          to="/allCategory"
-          flat
-          :ripple="false"
-        />
+        <q-btn icon="format_list_bulleted" flat :ripple="false" />
         <div class="text-caption">Shop</div>
       </div>
       <div class="text-center">
-        <q-btn icon="perm_identity" to="/profile" flat :ripple="false" />
+        <q-btn icon="perm_identity" flat :ripple="false" />
         <div class="text-caption">Account</div>
       </div>
       <div class="text-center">
@@ -87,7 +82,7 @@
         <div class="text-caption">Cart</div>
       </div>
       <div class="text-center">
-        <q-btn icon="perm_identity" to="/profile" flat :ripple="false" />
+        <q-btn icon="search" flat :ripple="false" />
         <div class="text-caption">Search</div>
       </div>
     </q-footer>
@@ -125,7 +120,7 @@ export default defineComponent({
   },
 
   setup() {
-    const leftDrawerOpen = ref(true);
+    const leftDrawerOpen = ref(false);
     const alert = ref(false);
 
     return {
