@@ -1,5 +1,5 @@
 <template>
-  <q-page class="q-px-lg q-py-xl">
+  <q-page class="q-px-lg q-py-md table_page">
     <div class="text-h6">{{ $route.name }}</div>
     <div class="text-weight-thin">Lorem Store Name</div>
     <div class="q-pa-md">
@@ -212,3 +212,25 @@ export default {
   mounted() {},
 };
 </script>
+
+<style scoped>
+@media screen and (max-width: 500px) {
+  .table_page {
+    padding: 2.5%;
+  }
+  .order {
+    width: 30% !important;
+  }
+}
+
+@media screen and (min-width: 1500px) {
+  .table_page {
+    padding: 2% 5%;
+  }
+}
+
+.q-table--no-wrap th,
+.q-table--no-wrap td {
+  white-space: nowrap !important;
+}
+</style>

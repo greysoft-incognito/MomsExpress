@@ -35,6 +35,7 @@
           round
           flat
           icon="shopping_cart"
+          to="/cart"
         >
           <q-badge
             v-if="cartNumber != 0"

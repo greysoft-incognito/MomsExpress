@@ -57,34 +57,50 @@
           <q-space />
           <q-btn icon="close" flat round dense v-close-popup />
         </q-card-section>
+        <form @submit.prevent="addCategories">
+          <q-card-section class="q-pt-none">
+            <div>
+              <div class="q-mt-md">
+                <div class="q-my-xs text-subtitle2 text-bold">
+                  Category Name
+                </div>
+                <q-input
+                  class="input_field"
+                  placeholder="shop name"
+                  outlined
+                  dense
+                  v-model="form.name"
+                />
+                <div class="error" v-if="errors.name">
+                  {{ errors.name[0] }}
+                </div>
+              </div>
 
-        <q-card-section class="q-pt-none">
-          <div>
-            <div class="q-mt-md">
-              <div class="q-my-xs text-subtitle2 text-bold">Category Name</div>
-              <q-input
-                class="input_field"
-                placeholder="shop name"
-                outlined
-                dense
-              />
+              <!-- <div class="q-mt-lg">
+                <div class="q-my-xs text-subtitle2 text-bold">
+                  Category Icon
+                </div>
+                <q-input
+                  class="input_field"
+                  placeholder="shop name"
+                  outlined
+                  dense
+                  v-model="form.shop_details"
+                />
+              </div> -->
             </div>
+          </q-card-section>
 
-            <div class="q-mt-lg">
-              <div class="q-my-xs text-subtitle2 text-bold">Category Icon</div>
-              <q-input
-                class="input_field"
-                placeholder="shop name"
-                outlined
-                dense
-              />
-            </div>
-          </div>
-        </q-card-section>
-
-        <q-card-actions align="right">
-          <q-btn no-caps label="Add  Category" color="primary" v-close-popup />
-        </q-card-actions>
+          <q-card-actions align="right">
+            <q-btn
+              no-caps
+              label="Add  Category"
+              color="primary"
+              type="submit"
+              :loading="loading"
+            />
+          </q-card-actions>
+        </form>
       </q-card>
     </q-dialog>
   </q-page>
@@ -178,18 +194,52 @@ export default {
       alert: ref(false),
     };
   },
-  created() {
-    this.getCategories();
+  data() {
+    return {
+      loading: false,
+      errors: [],
+      form: {
+        name: "",
+        shop_details: "",
+      },
+    };
   },
+
   methods: {
-    getCategories() {
+    addCategories() {
+      this.loading = true;
       this.$api
-        .post("product/store")
+        .post("admin/category/store", this.form)
         .then((resp) => {
+          this.loading = false;
+          this.$q.notify({
+            message: "Category successfully created",
+            color: "green",
+            position: "top",
+          });
           console.log(resp);
+          this.alert = false;
         })
-        .catch((err) => console.log(err));
+        .catch(({ response }) => {
+          this.loading = false;
+
+          this.$q.notify({
+            message: response.data.message + ", you need to login to continue",
+            color: "red",
+            position: "top",
+          });
+          this.errors = response.data.errors;
+          setTimeout(() => {
+            this.errors = [];
+          }, 7000);
+        });
     },
   },
 };
 </script>
+
+<style scoped>
+.error {
+  color: red;
+}
+</style>

@@ -1,6 +1,6 @@
 <template>
   <q-toolbar class="q-my-sm layout_header">
-    <q-btn
+    <!-- <q-btn
       flat
       dense
       round
@@ -9,7 +9,7 @@
       @click="toggleLeftDrawer"
       class="hamburger_btn"
       color="primary"
-    />
+    /> -->
 
     <div class="row justify-between items-center full-width">
       <div class="text-subtitle1 page_title text-bold text-black q-ml-sm">
@@ -71,6 +71,16 @@
             </q-item>
           </q-list>
         </q-btn-dropdown>
+        <q-btn
+          flat
+          dense
+          round
+          icon="menu"
+          aria-label="Menu"
+          @click="toggleLeftDrawer"
+          class="hamburger_btn"
+          color="primary"
+        />
       </div>
     </div>
   </q-toolbar>
