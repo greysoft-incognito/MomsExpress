@@ -8,7 +8,7 @@
     <!-- {{ this.$store.cart.meals }} -->
     <!-- {{ this.$store.cart.meals }} -->
     {{ rows }}
-    <div class="q-pa-md">
+    <div v-if="rows.length" class="q-pa-md">
       <q-table
         :pagination="pagination"
         :rows="rows"
@@ -21,7 +21,8 @@
           <q-tr :props="props" no-hover class="table_row">
             <q-td class="text-left" key="name" :props="props">
               <div class="relative-position">
-                <q-img :src="props.row.img" />
+                <q-img :src="props.row.uploads[0].src" />
+                <!-- {{ props.row.uploads[0].src }} -->
                 <q-btn
                   @click="this.$store.cart.removeFromCart(props.row.id)"
                   icon="close"
@@ -56,7 +57,7 @@
                   text-color="black"
                 />
                 <q-input
-                  v-model="props.row.quantity"
+                  v-model="props.row.stock"
                   class="text-center"
                   outlined
                   dense
@@ -74,11 +75,15 @@
             </q-td>
 
             <q-td class="text-center" key="carbs" :props="props">
-              ${{ props.row.price * props.row.quantity }}
+              ${{ parseInt(props.row.price) * parseInt(props.row.stock) }}
             </q-td>
           </q-tr>
         </template>
       </q-table>
+    </div>
+
+    <div v-else class="noLength text-h3 text-center q-py-lg">
+      You no not have any item in your cart
     </div>
   </q-page>
 </template>
@@ -148,8 +153,14 @@ export default {
   },
   data() {
     return {
-      rows: this.$store.cart.meals,
+      rows: this.$store.cart.plate,
     };
+  },
+
+  computed: {
+    getSubtotal(quantity, price) {
+      console.log(quantity, price);
+    },
   },
 };
 </script>

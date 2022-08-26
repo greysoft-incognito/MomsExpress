@@ -31,10 +31,8 @@ export const useCartStore = defineStore("cart", {
   getters: {
     cart: (state) => state.meals,
     totalPrice: (state) => {
-      // let findMeal = state.plate.find((mealItme) => mealItme.id === id);
       return Object.keys(state.plate).reduce((acc, id) => {
-        console.log(state.plate[id])
-        return acc + state.plate[id].price * state.plate[id].stock;
+        return acc + state.meals[id].price * state.plate[id].stock;
       }, 0);
     },
     // totalPrice: (state) => {
@@ -122,7 +120,6 @@ export const useCartStore = defineStore("cart", {
       console.log(this.plate);
       this.plate = this.plate.filter((items) => items.id !== id);
       console.log(this.plate);
-      window.location.reload()
     },
   },
 });

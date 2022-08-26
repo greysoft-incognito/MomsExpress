@@ -1,7 +1,7 @@
 <template>
   {{ getSt }}
-  {{ catIds }}
-  {{ catNames }}
+  <!-- {{ catIds }}
+  {{ catNames }} -->
   <q-page class="q-px-lg q-py-md">
     <div class="route_name">
       <div class="text-h6">{{ $route.name }}</div>
@@ -20,6 +20,7 @@
                   class="form-control form-control-lg"
                   ref="fileInput"
                   multiple
+                  name="images[]"
                   type="file"
                   @input="selectImgFile"
                   style="display: none"
@@ -81,7 +82,7 @@
               >
                 Product Image
               </div>
-
+              <!-- {{ images }} -->
               <div
                 v-show="images[0]"
                 v-for="image in images"
@@ -147,9 +148,19 @@
               dense
               name="category"
             /> -->
-            <select v-model="category" name="" id="">
+            <!-- <select v-model="category" name="" id="">
               <option :value="catIds[0]">{{ catNames[0] }}</option>
               <option :value="catIds[1]">{{ catNames[1] }}</option>
+            </select> -->
+            <select v-model="category" name="" id="">
+              <option :value="catIds[1]">{{ catNames[1] }}</option>
+              <option
+                v-for="category in getCategory"
+                :key="category.id"
+                :value="category.id"
+              >
+                {{ category.name }}
+              </option>
             </select>
             <div class="error" v-if="errors.category">
               {{ errors.category[0] }}
@@ -349,10 +360,14 @@ export default {
       const price = this.price;
       const category = this.category;
       const stock = this.stock;
+      console.log(this.arr[0]);
 
-      let imagesOne = this.imagesArr.length ? this.imagesArr[0][0] : "";
-      let imagesTwo = this.imagesArr.length ? this.imagesArr[1][0] : "";
-      let imagesThree = this.imagesArr.length ? this.imagesArr[2][0] : "";
+      let imagesOne = this.arr.length ? this.arr[0] : "";
+      // console.log(imagesOne);
+      let imagesTwo = this.arr.length ? this.arr[1] : "";
+      let imagesThree = this.arr.length ? this.arr[2] : "";
+      // let imagesTwo = this.imagesArr.length ? this.imagesArr[1][0] : "";
+      // let imagesThree = this.imagesArr.length ? this.imagesArr[2][0] : "";
 
       let productData = new FormData();
       this.loading = true;
@@ -364,44 +379,56 @@ export default {
       productData.append("price", price);
       productData.append("category", category);
       productData.append("stock", stock);
-      this.$api
-        .post("product/store", productData)
-        .then((resp) => {
-          this.$q.notify({
-            message: resp.data.message || "Product Created",
-            color: "green",
-            position: "top",
-            timeout: 3000,
+
+      if (this.arr.length) {
+        this.$api
+          .post("product/store", productData)
+          .then((resp) => {
+            this.$q.notify({
+              message: resp.data.message || "Product Created",
+              color: "green",
+              position: "top",
+              timeout: 3000,
+            });
+            console.log(resp);
+            this.loading = false;
+            this.category = "";
+            this.productName = "";
+            this.description = "";
+            this.price = "";
+            this.stock = "";
+            this.arr = [];
+            this.images = [];
+          })
+          .catch(({ response }) => {
+            this.loading = false;
+            this.$q.notify({
+              message: response.data.message || response.data.payload,
+              color: "red",
+              position: "top",
+              timeout: 3000,
+            });
+            this.errors = response.data.errors;
+            setTimeout(() => {
+              this.errors = [];
+            }, 7000);
+            console.log(response);
           });
-          console.log(resp);
-          this.loading = false;
-          this.category = "";
-          this.productName = "";
-          this.description = "";
-          this.price = "";
-          this.stock = "";
-          this.imagesArr = "";
-          this.images = [];
-        })
-        .catch(({ response }) => {
-          this.loading = false;
-          this.$q.notify({
-            message: response.data.message || response.data.payload,
-            color: "red",
-            position: "top",
-            timeout: 3000,
-          });
-          this.errors = response.data.errors;
-          setTimeout(() => {
-            this.errors = [];
-          }, 7000);
-          console.log(response);
+      } else {
+        this.loading = false;
+
+        this.$q.notify({
+          message: "You need upload at least 1 image",
+          color: "red",
+          position: "top",
+          timeout: 3000,
         });
+      }
     },
 
     getCategories() {
       this.$api
-        .get("categories")
+        .get("category/all")
         .then((resp) => {
           console.log(resp);
           this.getCategory = resp.data.data;

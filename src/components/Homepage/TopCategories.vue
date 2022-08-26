@@ -19,7 +19,34 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      loading: false,
+      errors: [],
+      categories: [],
+    };
+  },
+
+  created() {
+    this.getCategories();
+  },
+
+  methods: {
+    getCategories() {
+      this.loading = true;
+      this.$api
+        .get("category/all")
+        .then((resp) => {
+          console.log(resp);
+        })
+        .catch(({ response }) => {
+          this.loading = false;
+          this.errors = response.data.errors;
+        });
+    },
+  },
+};
 </script>
 
 <style scoped>

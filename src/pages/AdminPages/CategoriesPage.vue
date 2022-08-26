@@ -218,6 +218,7 @@ export default {
             position: "top",
           });
           console.log(resp);
+          this.form.name = "";
           this.alert = false;
         })
         .catch(({ response }) => {
