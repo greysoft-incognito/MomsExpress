@@ -69,6 +69,31 @@ export default {
     };
   },
   components: { NewArrivals, BestSeller, MostPopular, Featured },
+  created() {
+    this.getCategories();
+  },
+
+  data() {
+    return {
+      products: [],
+    };
+  },
+
+  methods: {
+    getCategories() {
+      this.loading = true;
+      this.$api
+        .get("product/all")
+        .then((resp) => {
+          console.log(resp);
+          this.products = resp.data.data;
+        })
+        .catch(({ response }) => {
+          this.loading = false;
+          this.errors = response.data.errors;
+        });
+    },
+  },
 };
 </script>
 

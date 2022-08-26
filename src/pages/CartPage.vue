@@ -1,7 +1,7 @@
 <template>
   <div class="big_screen_padding account_page">
     <q-splitter v-model="splitterModel" reverse class="bg-white q-pt-xl">
-      <template v-slot:after class="">
+      <template v-slot:after v-if="this.$store.cart.plate.length" class="">
         <div class="h3 q-px-xl">
           <div>
             <div class="bg-grey-1 text-black text-caption q-py-md q-px-sm">
@@ -20,7 +20,10 @@
               <q-separator spaced />
               <div class="row text-subtitle1 q-my-xs justify-between q-px-sm">
                 <span>Total Amount</span>
-                <span class="text-bold"> $1000 </span>
+                <span class="text-bold">
+                  {{ this.$store.cart.totalPrice }}
+                </span>
+                <!-- <span class="text-bold"> $1000 </span> -->
               </div>
               <q-btn
                 label="Proceed To Checkout"

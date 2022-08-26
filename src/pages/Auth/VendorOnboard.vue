@@ -162,7 +162,7 @@ export default {
         return;
       } else {
         this.$api
-          .post("/vendor/store", data)
+          .post("/onboarding", data)
           .then((response) => {
             console.log(response);
             this.$q.notify({

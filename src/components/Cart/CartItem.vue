@@ -3,8 +3,12 @@
     <!-- <div class="text-h6 row items-center q-mb-md">
       <q-icon name="favorite" color="grey" class="q-mr-sm" />
       <span>Cart </span>
+      {{rows}}
     </div> -->
-    <div class="q-pa-md">
+    <!-- {{ this.$store.cart.meals }} -->
+    <!-- {{ this.$store.cart.meals }} -->
+    {{ rows }}
+    <div v-if="rows.length" class="q-pa-md">
       <q-table
         :pagination="pagination"
         :rows="rows"
@@ -17,8 +21,10 @@
           <q-tr :props="props" no-hover class="table_row">
             <q-td class="text-left" key="name" :props="props">
               <div class="relative-position">
-                <q-img src="Images/2-1.jpg" />
+                <q-img :src="props.row.uploads[0].src" />
+                <!-- {{ props.row.uploads[0].src }} -->
                 <q-btn
+                  @click="this.$store.cart.removeFromCart(props.row.id)"
                   icon="close"
                   round
                   size="0.5rem"
@@ -30,10 +36,12 @@
             </q-td>
 
             <q-td class="text-left" key="calories" :props="props">
-              Cooking Pot
+              {{ props.row.name }}
             </q-td>
 
-            <q-td class="text-center" key="fat" :props="props"> $85 </q-td>
+            <q-td class="text-center" key="fat" :props="props">
+              ${{ props.row.price }}
+            </q-td>
 
             <q-td class="text-center" key="carbs" :props="props">
               <div
@@ -41,14 +49,21 @@
               >
                 <q-btn
                   round
+                  @click="this.$store.cart.remove(props.row.id)"
                   size="0.65rem"
                   icon="remove"
                   flat
                   class="bg-grey-3"
                   text-color="black"
                 />
-                <q-input class="text-center" outlined dense />
+                <q-input
+                  v-model="props.row.stock"
+                  class="text-center"
+                  outlined
+                  dense
+                />
                 <q-btn
+                  @click="this.$store.cart.add(props.row.id)"
                   round
                   size="0.65rem"
                   icon="add"
@@ -59,10 +74,16 @@
               </div>
             </q-td>
 
-            <q-td class="text-center" key="carbs" :props="props"> $85 </q-td>
+            <q-td class="text-center" key="carbs" :props="props">
+              ${{ parseInt(props.row.price) * parseInt(props.row.stock) }}
+            </q-td>
           </q-tr>
         </template>
       </q-table>
+    </div>
+
+    <div v-else class="noLength text-h3 text-center q-py-lg">
+      You no not have any item in your cart
     </div>
   </q-page>
 </template>
@@ -93,38 +114,29 @@ const columns = [
   { name: "carbs", label: "Subtotal", align: "center", field: "carbs" },
 ];
 
-const rows = [
-  {
-    name: "Frozen Yogurt",
-    calories: 159,
-    fat: 6.0,
-    carbs: 24,
-    protein: 4.0,
-    sodium: 87,
-    calcium: "14%",
-    iron: "1%",
-  },
-  {
-    name: "Ice cream sandwich",
-    calories: 237,
-    fat: 9.0,
-    carbs: 37,
-    protein: 4.3,
-    sodium: 129,
-    calcium: "8%",
-    iron: "1%",
-  },
-  {
-    name: "Eclair",
-    calories: 262,
-    fat: 16.0,
-    carbs: 23,
-    protein: 6.0,
-    sodium: 337,
-    calcium: "6%",
-    iron: "7%",
-  },
-];
+// const rows = [
+//   {
+//     id: 1,
+//     img: "Images/2-1.jpg",
+//     name: "Jollof Rice",
+//     price: 700,
+//     quantity: 1,
+//   },
+//   {
+//     id: 2,
+//     img: "Images/2-1.jpg",
+//     name: "Jollof Rice",
+//     price: 700,
+//     quantity: 1,
+//   },
+//   {
+//     id: 3,
+//     img: "Images/2-1.jpg",
+//     name: "Jollof Rice",
+//     price: 700,
+//     quantity: 1,
+//   },
+// ];
 
 const pagination = {
   sortBy: "id",
@@ -136,9 +148,19 @@ export default {
   setup() {
     return {
       columns,
-      rows,
       pagination,
     };
+  },
+  data() {
+    return {
+      rows: this.$store.cart.plate,
+    };
+  },
+
+  computed: {
+    getSubtotal(quantity, price) {
+      console.log(quantity, price);
+    },
   },
 };
 </script>
