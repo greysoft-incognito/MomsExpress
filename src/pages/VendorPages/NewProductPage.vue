@@ -1,4 +1,7 @@
 <template>
+  {{ getSt }}
+  <!-- {{ catIds }}
+  {{ catNames }} -->
   <q-page class="q-px-lg q-py-md">
     <div class="route_name">
       <div class="text-h6">{{ $route.name }}</div>
@@ -17,6 +20,7 @@
                   class="form-control form-control-lg"
                   ref="fileInput"
                   multiple
+                  name="images[]"
                   type="file"
                   @input="selectImgFile"
                   style="display: none"
@@ -78,7 +82,7 @@
               >
                 Product Image
               </div>
-
+              <!-- {{ images }} -->
               <div
                 v-show="images[0]"
                 v-for="image in images"
@@ -102,6 +106,10 @@
                   dense
                   name="name"
                 />
+
+                <div class="error" v-if="errors.name">
+                  {{ errors.name[0] }}
+                </div>
               </div>
             </div>
 
@@ -115,6 +123,10 @@
                 outlined
                 name="description"
               />
+
+              <div class="error" v-if="errors.description">
+                {{ errors.description[0] }}
+              </div>
             </div>
 
             <div class="q-my-lg">
@@ -127,15 +139,32 @@
         <div class="side_bar q-gutter-y-md">
           <div class="product-price border-radius bg-white q-pa-md">
             <label class="text-grey-9">Type of product Unit</label>
-            <q-select
+            <!-- <q-select
               outlined
               v-model="category"
-              :options="categories"
+              :options="getCategory"
               class="q-mt-xs"
               label="Product Unit..."
               dense
               name="category"
-            />
+            /> -->
+            <!-- <select v-model="category" name="" id="">
+              <option :value="catIds[0]">{{ catNames[0] }}</option>
+              <option :value="catIds[1]">{{ catNames[1] }}</option>
+            </select> -->
+            <select v-model="category" name="" id="">
+              <option :value="catIds[1]">{{ catNames[1] }}</option>
+              <option
+                v-for="category in getCategory"
+                :key="category.id"
+                :value="category.id"
+              >
+                {{ category.name }}
+              </option>
+            </select>
+            <div class="error" v-if="errors.category">
+              {{ errors.category[0] }}
+            </div>
           </div>
 
           <div class="product-price border-radius bg-white q-pa-md">
@@ -148,6 +177,10 @@
               dense
               name="stock"
             />
+
+            <div class="error" v-if="errors.stock">
+              {{ errors.stock[0] }}
+            </div>
           </div>
 
           <div class="product-price border-radius bg-white q-pa-md">
@@ -157,6 +190,9 @@
                 N <q-separator class="q-ml-md" vertical
               /></template>
             </q-input>
+            <div class="error" v-if="errors.price">
+              {{ errors.price[0] }}
+            </div>
           </div>
 
           <div class="product-price border-radius bg-white q-pa-md">
@@ -174,9 +210,13 @@
               outlined
               dense
               v-model="category"
-              :options="categories"
+              :options="getCategory.id"
               label=" Select a product cetegory..."
             />
+
+            <div class="error" v-if="errors.category">
+              {{ errors.category[0] }}
+            </div>
           </div>
           <div class="row q-pa-md">
             <q-btn
@@ -215,6 +255,7 @@ export default {
       filePreview: null,
       arr: [],
       images: [],
+      errors: [],
       colors: [],
       categories: ["1", "2", "3"],
       productName: ref(""),
@@ -230,7 +271,32 @@ export default {
       images: [],
       imagesArr: [],
       loading: false,
+      getCategory: [],
+      catIds: [],
+      catNames: [],
     };
+  },
+  created() {
+    this.getCategories();
+  },
+  computed: {
+    getSt() {
+      this.getCategory.map((item) => {
+        let keys = Object.values(item);
+        // let keys = Object.keys(item);
+        // keys.find((ele) => {
+        //   if (ele === "id") {
+        //     categoriesId.push(ele);
+        //   } else if (ele === "name") {
+        //     categoriesName.push(ele);
+        //   }
+        // });
+        console.log(keys[0]);
+        this.catIds.push(keys[0]);
+        this.catNames.push(keys[1]);
+      });
+      // console.log(pages);
+    },
   },
   methods: {
     selectImgFile() {
@@ -265,40 +331,124 @@ export default {
       console.log(this.arr);
       // console.log(imgFile);
     },
-    // onChange(e) {
-    //   let files = e.target.files;
-    //   this.createFile(files[0]);
-    //   this.files = files;
-    //   this.imagesArr.push(this.files);
-    // },
-    // createFile(file) {
-    //   if (!file.type.match("image.*")) {
-    //     alert("Select an image");
-    //     return;
-    //   }
-    //   let img = new Image();
-    //   let reader = new FileReader();
-    //   let vm = this;
+    onChange(e) {
+      let files = e.target.files;
+      this.createFile(files[0]);
+      this.files = files;
+      this.imagesArr.push(this.files);
+    },
+    createFile(file) {
+      if (!file.type.match("image.*")) {
+        alert("Select an image");
+        return;
+      }
+      let img = new Image();
+      let reader = new FileReader();
+      let vm = this;
 
-    //   reader.onload = function (e) {
-    //     vm.image = e.target.result;
-    //   };
-    //   reader.readAsDataURL(file);
-    //   this.images.push(this.image);
-    // },
+      reader.onload = function (e) {
+        vm.image = e.target.result;
+      };
+      reader.readAsDataURL(file);
+      this.images.push(this.image);
+    },
 
-    // uploadProduct() {
-    //   console.log("first");
-    //   const name = this.productName;
-    //   const description = this.description;
-    //   const price = this.price;
-    //   const category = this.category;
-    //   const stock = this.stock;
+    uploadProduct() {
+      console.log("first");
+      const name = this.productName;
+      const description = this.description;
+      const price = this.price;
+      const category = this.category;
+      const stock = this.stock;
+      console.log(this.arr[0]);
 
-    //   let imagesOne = this.imagesArr.length ? this.imagesArr[0][0] : "";
-    //   let imagesTwo = this.imagesArr.length ? this.imagesArr[1][0] : "";
-    //   let imagesThree = this.imagesArr.length ? this.imagesArr[2][0] : "";
+      let imagesOne = this.arr.length ? this.arr[0] : "";
+      // console.log(imagesOne);
+      let imagesTwo = this.arr.length ? this.arr[1] : "";
+      let imagesThree = this.arr.length ? this.arr[2] : "";
+      // let imagesTwo = this.imagesArr.length ? this.imagesArr[1][0] : "";
+      // let imagesThree = this.imagesArr.length ? this.imagesArr[2][0] : "";
 
+      let productData = new FormData();
+      this.loading = true;
+      productData.append("name", name);
+      productData.append("description", description);
+      productData.append("images[]", imagesOne);
+      productData.append("images[]", imagesTwo);
+      productData.append("images[]", imagesThree);
+      productData.append("price", price);
+      productData.append("category", category);
+      productData.append("stock", stock);
+
+      if (this.arr.length) {
+        this.$api
+          .post("product/store", productData)
+          .then((resp) => {
+            this.$q.notify({
+              message: resp.data.message || "Product Created",
+              color: "green",
+              position: "top",
+              timeout: 3000,
+            });
+            console.log(resp);
+            this.loading = false;
+            this.category = "";
+            this.productName = "";
+            this.description = "";
+            this.price = "";
+            this.stock = "";
+            this.arr = [];
+            this.images = [];
+          })
+          .catch(({ response }) => {
+            this.loading = false;
+            this.$q.notify({
+              message: response.data.message || response.data.payload,
+              color: "red",
+              position: "top",
+              timeout: 3000,
+            });
+            this.errors = response.data.errors;
+            setTimeout(() => {
+              this.errors = [];
+            }, 7000);
+            console.log(response);
+          });
+      } else {
+        this.loading = false;
+
+        this.$q.notify({
+          message: "You need upload at least 1 image",
+          color: "red",
+          position: "top",
+          timeout: 3000,
+        });
+      }
+    },
+
+    getCategories() {
+      this.$api
+        .get("category/all")
+        .then((resp) => {
+          console.log(resp);
+          this.getCategory = resp.data.data;
+          this.loading = false;
+        })
+        .catch(({ response }) => {
+          this.loading = false;
+          this.$q.notify({
+            message: response.data.message || response.data.payload,
+            color: "red",
+            position: "top",
+            timeout: 3000,
+          });
+          this.errors = response.data.errors;
+          setTimeout(() => {
+            this.errors = [];
+          }, 7000);
+          console.log(response);
+        });
+    },
     //   let productData = new FormData();
     //   this.loading = true;
     //   productData.append("name", name);
@@ -423,6 +573,16 @@ export default {
 .image {
   border: 2px solid rgb(128, 128, 128, 0.5);
   color: rgb(128, 128, 128, 0.5);
+}
+
+.error {
+  color: red;
+}
+select {
+  width: 100%;
+  border: 1px solid gray;
+  padding: 0.4rem;
+  margin-top: 0.3rem;
 }
 @media screen and (max-width: 1200px) {
   .main {

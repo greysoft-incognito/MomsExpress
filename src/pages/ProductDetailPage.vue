@@ -1,4 +1,6 @@
 <template>
+  <!-- {{ productDetails }} -->
+  {{ this.$store.cart.plate }}
   <div class="big_screen_padding account_page">
     <q-splitter
       v-model="splitterModel"
@@ -94,19 +96,22 @@
           <div class="details">
             <div class="">
               <h5 class="Product_name text-bold text-capitalize text-grey-10">
-                product.name
+                {{ productDetails.name }}
               </h5>
               <p class="category_name text-grey-7 q-mt-sm">
-                <span class="text-bold"> Category: </span>Lorem category
+                <span class="text-bold"> Category: </span
+                >{{ productDetails.category }}
               </p>
 
               <p class="category_name text-grey-7 q-mt-sm">
-                <span class="text-bold"> In Stock: </span>35
+                <span class="text-bold"> In Stock: </span
+                >{{ productDetails.stock }}
               </p>
 
               <q-separator class="q-my-sm" />
 
-              <h4 class="product_price">$500</h4>
+              <h4 class="product_price">${{ productDetails.price }}</h4>
+              <!-- <h4 class="product_price">{{ productDetails.id }}</h4> -->
 
               <div class="q-my-sm text-grey-8">
                 <q-rating
@@ -148,6 +153,7 @@
                         class="bg-grey-3"
                         text-color="black"
                       />
+
                       <q-btn
                         round
                         size="0.65rem"
@@ -168,6 +174,12 @@
                   class="btn"
                   no-caps
                   size="1.25rem"
+                  @click="
+                    this.$store.cart.addToplate(
+                      productDetails,
+                      productDetails.id
+                    )
+                  "
                 />
               </div>
             </div>
@@ -233,9 +245,39 @@ export default {
       // skeleton: true,
       slide: 1,
       tab: ref("description"),
+      ratingColors: ["green"],
+      ratingModel: ref(4),
+      meal: {
+        id: 0,
+        img: "Images/2-1.jpg",
+        name: "Jollof Rice",
+        price: 700,
+        quantity: 1,
+      },
     };
   },
   components: { Ratings, PostAReview, Description, Reviews, RelatedProducts },
+  data() {
+    return {
+      productDetails: [],
+    };
+  },
+  created() {
+    let detail = this.$router.currentRoute.value.params;
+    let name = detail.name;
+    console.log(detail);
+    console.log(name);
+    // this.skeleton = true;
+    this.$api
+      .get(`product/${name}`)
+      .then((res) => {
+        console.log(res);
+        this.productDetails = res.data.data;
+        this.message = res.data.message;
+        // this.skeleton = false;
+      })
+      .catch((err) => {});
+  },
 };
 </script>
 

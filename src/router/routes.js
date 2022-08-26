@@ -45,8 +45,8 @@ const routes = [
         component: () => import("pages/BuyerPages/AccountPage.vue"),
       },
       {
-        path: "/product_detail",
-        component: () => import("pages/ProductDetailPage.vue"),
+        path: "/product_detail/:name",
+        component: () => import("pages/ProductDetailPage.vue"), name:'productDetail',
       },
       {
         path: "/become_a_vendor",

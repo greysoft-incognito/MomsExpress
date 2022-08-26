@@ -7,6 +7,7 @@
       <div class="text-weight-thin">Lorem Store Name</div>
     </div>
     <!-- </div> -->
+    {{ productDetails }}
 
     <!-- <q-btn
       dense
@@ -188,11 +189,24 @@ export default {
       img: ref(null),
       description: ref(""),
       discount: ref(""),
+      productDetails: [],
     };
   },
   methods: {},
   mounted() {
     // this.getCategories();
+  },
+  created() {
+    let detail = this.$router.currentRoute.value.params;
+    // this.skeleton = true;
+    this.$api
+      .get(`product/${detail}`)
+      .then((res) => {
+        this.productDetails = res.data.data;
+        this.message = res.data.message;
+        // this.skeleton = false;
+      })
+      .catch((err) => {});
   },
 };
 </script>
