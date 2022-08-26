@@ -1,5 +1,6 @@
 <template>
   <div class="big_screen_padding bg-white main_container">
+
     <div class="row q-my-sm text-bold justify-between">
       <div class="text-h6 text-bold">Kitchen Utensils</div>
       <router-link to="/category">
@@ -15,6 +16,7 @@
     >
       <div class="banner"></div>
       <div class="products">
+
         <!-- <SingleProductTile v-for="n in 8" :key="n" /> -->
         <div class="column q-mb-md text-center border_card product_tile">
           <div class="image_container">
@@ -127,7 +129,7 @@ export default {
 }
 .category_container {
   display: grid;
-  grid-template-columns: 25% 75%;
+  grid-template-columns: 25% 2fr;
   gap: 25px;
 }
 .banner {
@@ -138,9 +140,23 @@ export default {
 }
 .products {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 15px;
 }
+@media screen and (max-width: 720px) {
+  .category_container {
+    grid-template-columns: 1fr;
+  }
+  .banner {
+    height: 25vh;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .products {
+    grid-template-columns: repeat(2, 1fr);
+  }
+=======
 
 .image_container {
   height: 280px;
