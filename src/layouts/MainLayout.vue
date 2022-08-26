@@ -10,13 +10,36 @@
       <Header3 class="header_three" />
     </q-header>
 
-    <q-drawer width="280" :breakpoint="770" v-model="leftDrawerOpen" bordered>
+    <q-drawer :width="280" :breakpoint="770" v-model="leftDrawerOpen" bordered>
       <MainEssentialLinks class="full-height" />
     </q-drawer>
 
     <q-page-container>
       <router-view />
     </q-page-container>
+
+    <q-page-sticky
+      position="bottom-right"
+      :offset="[40, 25]"
+      class="floating_cart"
+      v-if="
+        this.$store.cart.plate.length != 0 &&
+        this.$router.currentRoute.value.path !== '/cart'
+      "
+    >
+      <q-btn
+        class="q-mr-md q-my-md"
+        color="primary"
+        round
+        icon="shopping_cart"
+        to="/cart"
+        fab
+      >
+        <q-badge color="red" class="text-bold" floating transparent>
+          {{ this.$store.cart.plate.length }}
+        </q-badge>
+      </q-btn>
+    </q-page-sticky>
 
     <q-dialog v-model="alert">
       <q-card style="width: 500px; max-width: 80vw">
@@ -143,7 +166,9 @@ export default defineComponent({
       if (value === "login") this.tab = "Signin";
     },
   },
-  mounted() {},
+  mounted() {
+    console.log(this.$router.currentRoute.value.path);
+  },
 });
 </script>
 
@@ -177,7 +202,8 @@ export default defineComponent({
   .header_three {
     display: none;
   }
-  .desktop_footer {
+  .desktop_footer,
+  .floating_cart {
     display: none;
   }
   .mobile_footer {

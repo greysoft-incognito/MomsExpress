@@ -20,7 +20,12 @@
       93% of lorem customers would recommend
     </div>
 
-    <q-list dense bordered padding class="no-border q-mt-lg q-pr-xl">
+    <q-list
+      dense
+      bordered
+      padding
+      class="no-border q-mt-lg q-pr-xl stars_rating"
+    >
       <q-item style="padding-left: 0 !important" v-ripple>
         <span class="text-subtitle2 q-mr-xs">5</span>
         <q-icon name="star" size="1.5em" color="orange"></q-icon>
@@ -113,3 +118,11 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+@media screen and (max-width: 760px) {
+  .stars_rating {
+    padding: 0;
+  }
+}
+</style>

@@ -8,11 +8,11 @@
     </div>
     <q-icon name="shopping_cart" size="3rem" color="primary" />
   </q-page>
-  <div class="q-pa-md padding-footer q-mt-md q-mb-xl big_screen_padding">
+  <div class="q-pa-md padding-footer big_screen_padding">
     <div v-if="cartItems.length" class="cart_section">
       <div>
         <div v-for="item in cartItems" :key="item._id">
-          <div class="cart_item items-center q-my-lg">
+          <div class="cart_item q-my-lg">
             <div class="relative-position image_container">
               <q-img
                 class="product_image"
@@ -32,7 +32,7 @@
             <div class="item-name">{{ item.name }}</div>
             <div class="q-pl-sm text-caption item-price">N{{ item.price }}</div>
 
-            <div class="row justify-center items-center input_container">
+            <div class="row justify-center items-center">
               <!-- :disable="item.quantity <= 1" -->
               <q-btn
                 round
@@ -40,7 +40,7 @@
                 size="0.65rem"
                 icon="remove"
                 flat
-                class="bg-grey-3 q-mr-sm button input_btn"
+                class="bg-grey-3 q-mr-sm button"
                 text-color="black"
               />
               <q-input
@@ -55,7 +55,7 @@
                 size="0.65rem"
                 icon="add"
                 flat
-                class="bg-grey-3 input_btn"
+                class="bg-grey-3"
                 text-color="black"
               />
             </div>
@@ -170,7 +170,7 @@ export default {
   /* padding: 0 5%; */
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  gap: 10px;
+  /* gap: 10px; */
   align-items: center;
 }
 .cart_item_image {
@@ -204,23 +204,16 @@ export default {
   }
 }
 
-@media screen and (max-width: 1022px) {
-  .cart_section {
-    grid-template-columns: 1fr;
+@media screen and (max-width: 1080px) {
+  .image_container {
+    height: 100px;
+    width: 120px;
   }
 }
 
-@media screen and (max-width: 710px) {
-  .image_container {
-    height: 80px;
-    width: 100px;
-  }
-  .item-name,
-  .item-price {
-    font-size: 0.9rem !important;
-  }
-  .cart_item {
-    grid-template-columns: 1fr 1fr 1fr 30% 1fr;
+@media screen and (max-width: 1022px) {
+  .cart_section {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -228,21 +221,16 @@ export default {
   .cart-item {
     /* padding: 0 5%; */
   }
-  .image_container {
-    height: 60px;
-    width: 80px;
+  .cart_item_image {
+    height: 150px;
+    width: 40%;
   }
-  .remove_product_btn {
-    font-size: 0.45rem !important;
-  }
-  .input_btn {
-    font-size: 0.5rem !important;
-  }
-}
 
-@media screen and (max-width: 540px) {
-  .cart_item {
-    grid-template-columns: 1fr 1fr 1fr 25% 1fr;
+  .item-name {
+    font-size: 1.2rem;
+  }
+  .item-price {
+    font-size: 1rem;
   }
 }
 
@@ -275,7 +263,7 @@ export default {
     width: 50%;
   }
 
-  .cart_item_input {
+  .input {
     width: 20%;
     font-size: 0.7rem;
     position: static;

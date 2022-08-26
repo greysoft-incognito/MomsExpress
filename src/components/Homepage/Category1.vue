@@ -26,66 +26,58 @@
               class="add_to_cart"
               no-caps
               color="primary"
-              to="/product_detail"
-            />
-
-            <div class="view_details">
-              <q-btn
-                label="View details"
-                :ripple="false"
-                class="add_to_cart"
-                no-caps
-                color="primary"
-                to="/product_detail"
-              />
-
-              <div class="view_details">
-                <q-btn
-                  icon="fa-regular fa-heart"
-                  class="non_hover_btn"
-                  no-caps
-                  size="0.75rem"
-                  round
-                  flat
-                  color="primary"
-                />
-
-                <q-btn
-                  @click="this.$store.cart.addToplate(product, product.id)"
-                  icon="fa-solid fa-cart-plus"
-                  class="non_hover_btn"
-                  no-caps
-                  size="0.75rem"
-                  round
-                  flat
-                  color="primary"
-                />
-              </div>
-            </div>
-            <router-link
               :to="{
                 name: 'productDetail',
                 params: { name: product.slug, id: product.id },
               }"
-              class="text-subtitle1 q-mt-sm"
-            >
-              {{ product.name }}
-            </router-link>
+            />
 
-            <div class="row justify-center q-my-sm">
-              <q-rating
-                v-model="ratingModel"
-                size="1.2rem"
-                color="grey"
-                readonly
-                :color-selected="ratingColors"
+            <div class="view_details">
+              <q-btn
+                icon="fa-regular fa-heart"
+                class="non_hover_btn"
+                no-caps
+                size="0.75rem"
+                round
+                flat
+                color="primary"
               />
-              <span>( 2 reviews)</span>
+
+              <q-btn
+                @click="this.$store.cart.addToplate(product, product.id)"
+                icon="fa-solid fa-cart-plus"
+                class="non_hover_btn"
+                no-caps
+                size="0.75rem"
+                round
+                flat
+                color="primary"
+              />
             </div>
-            <div class="text-bold">${{ product.price }}</div>
           </div>
-          <SingleProductTile v-for="n in 6" :key="n" />
+          <router-link
+            :to="{
+              name: 'productDetail',
+              params: { name: product.slug, id: product.id },
+            }"
+            class="text-subtitle1 q-mt-sm"
+          >
+            {{ product.name }}
+          </router-link>
+
+          <div class="row justify-center q-my-sm">
+            <q-rating
+              v-model="ratingModel"
+              size="1.2rem"
+              color="grey"
+              readonly
+              :color-selected="ratingColors"
+            />
+            <span>( 2 reviews)</span>
+          </div>
+          <div class="text-bold">${{ product.price }}</div>
         </div>
+        <SingleProductTile v-for="n in 6" :key="n" />
       </div>
     </div>
   </div>
@@ -121,6 +113,7 @@ export default {
         .then((resp) => {
           console.log(resp);
           this.products = resp.data.data;
+          thisproducts.splice(6, resp.data.data.length - 1);
           this.$store.cart.meals = resp.data.data;
         })
         .catch(({ response }) => {
@@ -221,6 +214,31 @@ export default {
 @media screen and (max-width: 500px) {
   .products {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media screen and (max-width: 1130px) {
+  .image_container {
+    height: 230px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .image_container {
+    height: 200px;
+  }
+}
+
+@media screen and (max-width: 570px) {
+  .image_container {
+    height: 180px;
+  }
+  .product_text,
+  .price_text {
+    font-size: 0.9rem;
+  }
+  .price_text,
+  .review_text {
+    font-size: 0.8rem;
   }
 }
 </style>

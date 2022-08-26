@@ -10,7 +10,7 @@
     <div class="category_container bg-">
       <div class="banner"></div>
       <div class="products">
-        <SingleProductTile v-for="n in 8" :key="n" />
+        <SingleProductTile v-for="n in 6" :key="n" />
       </div>
     </div>
   </div>

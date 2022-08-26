@@ -131,3 +131,27 @@ a {
     display: none;
   }
 }
+
+// Cart Media Query
+@media screen and (max-width: 1180px) {
+  .cart_splitter {
+    display: block;
+  }
+  .cart_splitter .q-splitter__after {
+    width: 100% !important;
+  }
+}
+
+.cart_item_input .q-field__input {
+  text-align: center !important;
+}
+
+.cart_item_input .q-field__native {
+  text-align: center !important;
+}
+
+@media screen and (max-width: 710px) {
+  .cart_item_input .q-field__control {
+    height: 25px !important;
+  }
+}

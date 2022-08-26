@@ -13,6 +13,10 @@ const routes = [
         component: () => import("pages/IndexPage.vue"),
       },
       {
+        path: "/sample",
+        component: () => import("pages/Sample.vue"),
+      },
+      {
         path: "/loginn",
         component: () => import("pages/Auth/Login.vue"),
       },
@@ -29,8 +33,9 @@ const routes = [
         component: () => import("pages/SingleVendorPage.vue"),
       },
       {
-        path: "/category",
+        path: "/category/:categoryname",
         component: () => import("pages/SingleCategoryPage.vue"),
+        name: "category",
       },
       {
         path: "/cart",
@@ -46,7 +51,8 @@ const routes = [
       },
       {
         path: "/product_detail/:name",
-        component: () => import("pages/ProductDetailPage.vue"), name:'productDetail',
+        component: () => import("pages/ProductDetailPage.vue"),
+        name: "productDetail",
       },
       {
         path: "/become_a_vendor",

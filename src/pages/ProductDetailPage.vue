@@ -5,7 +5,7 @@
     <q-splitter
       v-model="splitterModel"
       reverse
-      class="bg-white q-pt-xl product_splitter"
+      class="bg-white q-pt-md product_splitter"
     >
       <template v-slot:after>
         <q-list class="expansion_container">
@@ -85,10 +85,6 @@
               <q-carousel-slide
                 :name="3"
                 img-src="https://cdn.quasar.dev/img/parallax2.jpg"
-              />
-              <q-carousel-slide
-                :name="4"
-                img-src="https://cdn.quasar.dev/img/quasar.jpg"
               />
             </q-carousel>
           </div>
@@ -173,7 +169,6 @@
                   label="Add To Cart"
                   class="btn"
                   no-caps
-                  size="1.25rem"
                   @click="
                     this.$store.cart.addToplate(
                       productDetails,
@@ -245,6 +240,7 @@ export default {
       // skeleton: true,
       slide: 1,
       tab: ref("description"),
+      // tab: ref("reviews"),
       ratingColors: ["green"],
       ratingModel: ref(4),
       meal: {
@@ -327,5 +323,27 @@ export default {
 }
 .product_image {
   width: 35%;
+}
+
+@media screen and (max-width: 1015px) {
+  .product_splitter {
+    display: block;
+  }
+  .expansion_container {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 844px) {
+  .product_detail_container {
+    grid-template-columns: 1fr;
+    margin: 0% 0 3%;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .review_top {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
