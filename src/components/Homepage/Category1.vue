@@ -1,6 +1,5 @@
 <template>
   <div class="big_screen_padding bg-white main_container">
-
     <div class="row q-my-sm text-bold justify-between">
       <div class="text-h6 text-bold">Kitchen Utensils</div>
       <router-link to="/category">
@@ -16,7 +15,6 @@
     >
       <div class="banner"></div>
       <div class="products">
-
         <!-- <SingleProductTile v-for="n in 8" :key="n" /> -->
         <div class="column q-mb-md text-center border_card product_tile">
           <div class="image_container">
@@ -33,48 +31,60 @@
 
             <div class="view_details">
               <q-btn
-                icon="fa-regular fa-heart"
-                class="non_hover_btn"
+                label="View details"
+                :ripple="false"
+                class="add_to_cart"
                 no-caps
-                size="0.75rem"
-                round
-                flat
                 color="primary"
+                to="/product_detail"
               />
 
-              <q-btn
-                @click="this.$store.cart.addToplate(product, product.id)"
-                icon="fa-solid fa-cart-plus"
-                class="non_hover_btn"
-                no-caps
-                size="0.75rem"
-                round
-                flat
-                color="primary"
-              />
+              <div class="view_details">
+                <q-btn
+                  icon="fa-regular fa-heart"
+                  class="non_hover_btn"
+                  no-caps
+                  size="0.75rem"
+                  round
+                  flat
+                  color="primary"
+                />
+
+                <q-btn
+                  @click="this.$store.cart.addToplate(product, product.id)"
+                  icon="fa-solid fa-cart-plus"
+                  class="non_hover_btn"
+                  no-caps
+                  size="0.75rem"
+                  round
+                  flat
+                  color="primary"
+                />
+              </div>
             </div>
-          </div>
-          <router-link
-            :to="{
-              name: 'productDetail',
-              params: { name: product.slug, id: product.id },
-            }"
-            class="text-subtitle1 q-mt-sm"
-          >
-            {{ product.name }}
-          </router-link>
+            <router-link
+              :to="{
+                name: 'productDetail',
+                params: { name: product.slug, id: product.id },
+              }"
+              class="text-subtitle1 q-mt-sm"
+            >
+              {{ product.name }}
+            </router-link>
 
-          <div class="row justify-center q-my-sm">
-            <q-rating
-              v-model="ratingModel"
-              size="1.2rem"
-              color="grey"
-              readonly
-              :color-selected="ratingColors"
-            />
-            <span>( 2 reviews)</span>
+            <div class="row justify-center q-my-sm">
+              <q-rating
+                v-model="ratingModel"
+                size="1.2rem"
+                color="grey"
+                readonly
+                :color-selected="ratingColors"
+              />
+              <span>( 2 reviews)</span>
+            </div>
+            <div class="text-bold">${{ product.price }}</div>
           </div>
-          <div class="text-bold">${{ product.price }}</div>
+          <SingleProductTile v-for="n in 6" :key="n" />
         </div>
       </div>
     </div>
@@ -156,47 +166,61 @@ export default {
   .products {
     grid-template-columns: repeat(2, 1fr);
   }
-=======
 
-.image_container {
-  height: 280px;
-  position: relative;
-  cursor: pointer;
-}
-.image {
-  height: 100%;
-}
-.add_to_cart {
-  /* height: 50px; */
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  display: none;
-}
+  .image_container {
+    height: 280px;
+    position: relative;
+    cursor: pointer;
+  }
+  .image {
+    height: 100%;
+  }
+  .add_to_cart {
+    /* height: 50px; */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+  }
 
-.image_container:hover .add_to_cart {
-  display: block;
-}
+  .image_container:hover .add_to_cart {
+    display: block;
+  }
 
-.image_container:hover .view_details {
-  display: grid;
-}
-.product_tile {
-  position: relative;
-  cursor: pointer;
-}
+  .image_container:hover .view_details {
+    display: grid;
+  }
+  .product_tile {
+    position: relative;
+    cursor: pointer;
+  }
 
-/* .product_tile:hover .view_details {
+  /* .product_tile:hover .view_details {
   display: block;
 } */
-.view_details {
-  display: none;
-  position: absolute;
-  /* width: 100%; */
-  right: 2%;
-  top: 2%;
+  .view_details {
+    display: none;
+    position: absolute;
+    /* width: 100%; */
+    right: 2%;
+    top: 2%;
+  }
+}
+@media screen and (max-width: 720px) {
+  .category_container {
+    grid-template-columns: 1fr;
+  }
+  .banner {
+    height: 25vh;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .products {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 </style>
