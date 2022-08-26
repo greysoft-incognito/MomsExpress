@@ -38,10 +38,17 @@
               In stock
             </q-td>
 
-            <q-td class="text-center" key="carbs" :props="props">
-              <q-btn label="Quick View" no-caps color="primary" outline dense />
+            <q-td class="text-center actions" key="carbs" :props="props">
               <q-btn
-                class="q-ml-sm"
+                class="q-mb-sm"
+                label="Quick View"
+                no-caps
+                color="primary"
+                outline
+                dense
+              />
+              <q-btn
+                class="q-ml-sm q-mb-sm add_to_Cart"
                 label="Add to cart"
                 color="primary"
                 no-caps
@@ -214,5 +221,13 @@ export default {
   position: absolute;
   top: 0;
   right: 2%;
+}
+@media screen and (min-width: 770px) and (max-width: 891px) {
+  .add_to_Cart {
+    margin-left: 0;
+  }
+  .actions {
+    gap: 5px;
+  }
 }
 </style>

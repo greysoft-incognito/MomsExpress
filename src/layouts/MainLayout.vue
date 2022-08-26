@@ -60,7 +60,7 @@
       </q-card>
     </q-dialog>
 
-    <q-footer class="row items-center mobile_footer q-py-sm">
+    <q-footer class="row items-center mobile_footer q-py-xs">
       <div class="text-center">
         <q-btn icon="home" to="/" flat :ripple="false" />
         <div class="text-caption">Home</div>
