@@ -72,9 +72,6 @@ export default {
 </script>
 
 <style scoped>
-.layout_header {
-  height: 70px !important;
-}
 .search_input {
   width: 400px;
 }
@@ -108,5 +105,10 @@ export default {
 
 .nav_links a:hover {
   color: #1976d2;
+}
+@media screen and (max-width: 900px) {
+  .categories {
+    width: 27%;
+  }
 }
 </style>

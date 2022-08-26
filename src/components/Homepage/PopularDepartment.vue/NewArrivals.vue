@@ -1,6 +1,6 @@
 <template>
   <div class="products">
-    <SingleProductTile v-for="n in 10" :key="n" />
+    <SingleProductTile class="product" v-for="n in 10" :key="n" />
   </div>
 </template>
 
