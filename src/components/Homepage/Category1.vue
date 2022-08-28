@@ -6,19 +6,23 @@
         <span>More Products</span> <q-icon name="chevron_right" />
       </router-link>
     </div>
-    {{ products }}
+    <!-- {{ products }} -->
     <q-separator class="q-my-md" />
-    <div
-      v-for="product in products"
-      :key="product.id"
-      class="category_container bg-"
-    >
+    <div class="category_container bg-">
       <div class="banner"></div>
       <div class="products">
-        <!-- <SingleProductTile v-for="n in 8" :key="n" /> -->
-        <div class="column q-mb-md text-center border_card product_tile">
+        <div
+          v-for="product in products"
+          :key="product.id"
+          class="column q-mb-md text-center border_card product_tile"
+        >
+          <!-- {{ product.uploads[0].url }} -->
           <div class="image_container">
-            <q-img class="border_card image" src="Images/2-1.jpg" />
+            <!-- <q-img class="border_card image" src="Images/2-1.jpg" /> -->
+            <q-img
+              class="border_card image"
+              :src="`http://165.227.74.156/${product.uploads[0].url}`"
+            />
             <!-- <div class="add_to_cart bg-primary text-white">add to cart</div> -->
             <q-btn
               label="View details"
@@ -127,7 +131,7 @@ export default {
 }
 .category_container {
   display: grid;
-  grid-template-columns: 25% 75%;
+  grid-template-columns: 25% 2fr;
   gap: 25px;
 }
 .banner {
@@ -138,10 +142,23 @@ export default {
 }
 .products {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 15px;
 }
+@media screen and (max-width: 720px) {
+  .category_container {
+    grid-template-columns: 1fr;
+  }
+  .banner {
+    height: 25vh;
+  }
+}
 
+@media screen and (max-width: 500px) {
+  .products {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 .image_container {
   height: 280px;
   position: relative;

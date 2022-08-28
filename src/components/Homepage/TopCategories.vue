@@ -5,17 +5,22 @@
     </div>
 
     <div class="cards_container">
-      <div
-        v-for="n in 5"
-        :key="n"
+      <router-link
+        :to="{
+          name: 'category',
+          params: { categoryname: category.slug, id: category.id },
+        }"
+        v-for="category in categories"
+        :key="category.id"
         class="column bg-grey-2 border_card card"
-        @click="$router.push('/category')"
       >
         <!-- <div class="image_container"> -->
         <q-img class="border_card image" src="Images/2-1.jpg" />
         <!-- </div> -->
-        <div class="text-center text-subtitle1 text-bold q-my-xs">Fashion</div>
-      </div>
+        <div class="text-center text-subtitle1 text-bold q-my-xs">
+          {{ category.name }}
+        </div>
+      </router-link>
     </div>
   </div>
 </template>
@@ -41,6 +46,7 @@ export default {
         .get("category/all")
         .then((resp) => {
           console.log(resp);
+          this.categories = resp.data.data;
         })
         .catch(({ response }) => {
           this.loading = false;
