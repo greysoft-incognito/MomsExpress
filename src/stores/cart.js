@@ -4,6 +4,8 @@ export const useCartStore = defineStore("cart", {
   state: () => ({
     plate: [],
     total: "",
+    singleProducts:[],
+    singleCategory:[],
     meals: [
       {
         id: 0,

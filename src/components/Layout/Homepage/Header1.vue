@@ -4,7 +4,7 @@
       <div class="left text-black text-bold welcome_text">
         WELCOME TO MOMS EXPRESS
       </div>
-      <marquee
+      <Marquee
         class="left text-black text-bold row marquee_text"
         behavior=""
         direction="right"
@@ -13,7 +13,7 @@
         <!-- <span class="q-mr-xl">WELCOME TO MOMS EXPRESS</span> -->
         <!-- <span class="q-mr-xl">WELCOME TO MOMS EXPRESS</span>
         <span class="q-mr-xl">WELCOME TO MOMS EXPRESS</span> -->
-      </marquee>
+      </Marquee>
 
       <div class="right">
         <router-link class="q-mx-sm" to="/">Blog</router-link>

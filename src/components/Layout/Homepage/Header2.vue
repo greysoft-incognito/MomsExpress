@@ -32,7 +32,7 @@
           </q-input>
         </div>
 
-        <!-- <div class="buttons row items-center">
+        <div class="buttons row items-center">
           <q-separator class="q-mx-xs q-my-md" vertical />
           <div>
             <q-btn
@@ -53,16 +53,16 @@
             to="/cart"
           >
             <q-badge
-              v-if="cartNumber != 0"
+              v-if="this.$store.cart.plate.length != 0"
               color="red"
               class="text-bold"
               floating
               transparent
             >
-              2
+              {{ this.$store.cart.plate.length }}
             </q-badge>
           </q-btn>
-        </div> -->
+        </div>
       </div>
     </div>
   </q-toolbar>

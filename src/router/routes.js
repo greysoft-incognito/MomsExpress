@@ -29,8 +29,8 @@ const routes = [
         component: () => import("pages/SingleVendorPage.vue"),
       },
       {
-        path: "/category",
-        component: () => import("pages/SingleCategoryPage.vue"),
+        path: "/category/:categoryname",
+        component: () => import("pages/SingleCategoryPage.vue"),name:'category'
       },
       {
         path: "/cart",
