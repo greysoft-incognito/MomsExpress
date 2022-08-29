@@ -7,7 +7,31 @@
       </router-link>
     </div>
     <!-- {{ products }} -->
+    {{ exactCat }}
     <q-separator class="q-my-md" />
+    <div v-if="skeleton">
+      <div style="height: 100%; gap: 1rem" class="row no-wrap lar items-start">
+        <q-card
+          v-for="type in skele"
+          :key="type"
+          flat
+          style="max-width: 300px; height: 100%; width: 300px"
+        >
+          <q-skeleton height="150px" square />
+
+          <q-card-section>
+            <q-skeleton type="text" class="text-subtitle1" />
+            <q-skeleton type="text" width="50%" class="text-subtitle1" />
+            <q-skeleton type="text" class="text-caption" />
+          </q-card-section>
+        </q-card>
+      </div>
+    </div>
+    <select hidden v-model="exactCat" name="" id="">
+      <option v-for="cat in categories" :key="cat.id" :value="cat.slug">
+        {{ cat.name }}
+      </option>
+    </select>
     <div class="category_container bg-">
       <div class="banner"></div>
       <div class="products">
@@ -97,11 +121,16 @@ export default {
   },
   created() {
     this.getProducts();
+    this.getCategory();
   },
 
   data() {
     return {
+      skeleton: true,
       products: [],
+      categories: [],
+      exactCat: "phones-and-tablets",
+      skele: ["ske", "ske", "ske", "ske", "ske", "ske", "ske"],
     };
   },
 
@@ -114,6 +143,21 @@ export default {
           console.log(resp);
           this.products = resp.data.data;
           this.$store.cart.meals = resp.data.data;
+          this.skeleton = false;
+        })
+        .catch(({ response }) => {
+          this.loading = false;
+          this.errors = response.data.errors;
+        });
+    },
+
+    getCategory() {
+      this.loading = true;
+      this.$api
+        .get("category/all")
+        .then((resp) => {
+          console.log(resp);
+          this.categories = resp.data.data;
         })
         .catch(({ response }) => {
           this.loading = false;

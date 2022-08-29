@@ -160,6 +160,26 @@ export default {
     };
   },
   components: { Addresses, Ordes, Wishlist, AccountDetails, SingleProductTile },
+  data() {
+    return {
+      vendorDetails: [],
+    };
+  },
+  created() {
+    let detail = this.$router.currentRoute.value.params.vendor;
+    console.log(detail);
+    this.$api
+      .get(`/${detail}`)
+      .then((res) => {
+        console.log(res);
+        this.vendorDetails = res.data.data;
+        this.message = res.data.message;
+        // this.skeleton = false;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
 };
 </script>
 
