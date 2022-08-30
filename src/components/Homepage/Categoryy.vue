@@ -1,32 +1,53 @@
 <template>
   <div class="big_screen_padding bg-white main_container">
-    <div class="row q-my-sm text-bold justify-between items-center">
-      <div class="text-h6 text-bold">Electronics</div>
-      <router-link to="/category">
+    <div class="row q-my-sm text-bold justify-between">
+      <div class="text-h6 text-bold">{{ products.name }}</div>
+      <router-link
+        :to="{
+          name: 'category',
+          params: { categoryname: products.slug, id: products.id },
+        }"
+      >
         <span>More Products</span> <q-icon name="chevron_right" />
       </router-link>
     </div>
+    <!-- {{ products }} -->
+    <!-- {{ banner }} -->
     <q-separator class="q-my-md" />
-    <select hidden v-model="exactCat" name="" id="">
-      <option v-for="cat in categories" :key="cat.id" :value="cat.slug">
-        {{ cat.name }}
-      </option>
-    </select>
-    <div class="category_container bg-">
-      <div class="banner"></div>
+    <div v-if="skeleton">
+      <div style="height: 100%; gap: 1rem" class="row no-wrap lar items-start">
+        <q-card
+          v-for="type in skele"
+          :key="type"
+          flat
+          style="max-width: 300px; height: 100%; width: 300px"
+        >
+          <q-skeleton height="150px" square />
+
+          <q-card-section>
+            <q-skeleton type="text" class="text-subtitle1" />
+            <q-skeleton type="text" width="50%" class="text-subtitle1" />
+            <q-skeleton type="text" class="text-caption" />
+          </q-card-section>
+        </q-card>
+      </div>
+    </div>
+
+    <div v-if="products.products.length" class="category_container bg-">
+      <div :style="`background-image: url(${banner})`" class="banner"></div>
       <div class="products">
         <div
-          v-for="product in products"
+          v-for="product in products.products"
           :key="product.id"
           class="column q-mb-md text-center border_card product_tile"
         >
           <!-- {{ product.uploads[0].url }} -->
           <div class="image_container">
-            <q-img class="border_card image" src="Images/2-1.jpg" />
-            <!-- <q-img
+            <!-- <q-img class="border_card image" src="Images/2-1.jpg" /> -->
+            <q-img
               class="border_card image"
               :src="`http://165.227.74.156/${product.uploads[0].url}`"
-            /> -->
+            />
             <!-- <div class="add_to_cart bg-primary text-white">add to cart</div> -->
             <q-btn
               label="View details"
@@ -84,58 +105,31 @@
         </div>
       </div>
     </div>
+
+    <div v-else class="text-center text-h2">
+      You no not have any products in this category
+    </div>
   </div>
 </template>
 
 <script>
+import { ref } from "vue";
+
 import SingleProductTile from "../Product/SingleProductTile.vue";
 export default {
   components: { SingleProductTile },
-  created() {
-    if (this.exactCat) {
-      this.getProducts();
-    }
-    this.getCategory();
+  setup() {
+    return {
+      ratingModel: ref(4),
+      ratingColors: ["green"],
+    };
   },
+  props: ["products", "skeleton", "banner"],
 
   data() {
     return {
-      skeleton: true,
-      products: [],
-      categories: [],
-      exactCat: "electronics",
       skele: ["ske", "ske", "ske", "ske", "ske", "ske", "ske"],
     };
-  },
-  methods: {
-    getProducts() {
-      this.loading = true;
-      this.$api
-        .get(`${this.exactCat}`)
-        .then((resp) => {
-          console.log(resp);
-          this.products = resp.data.data.products;
-          this.skeleton = false;
-        })
-        .catch(({ response }) => {
-          this.loading = false;
-          this.errors = response.data.errors;
-        });
-    },
-
-    getCategory() {
-      this.loading = true;
-      this.$api
-        .get("category/all")
-        .then((resp) => {
-          console.log(resp);
-          this.categories = resp.data.data;
-        })
-        .catch(({ response }) => {
-          this.loading = false;
-          this.errors = response.data.errors;
-        });
-    },
   },
 };
 </script>
@@ -151,7 +145,7 @@ export default {
   gap: 25px;
 }
 .banner {
-  background-image: url("/Images/1-1.jpg");
+  /* background-image: url("/Images/1-1.jpg"); */
   background-position: center;
   background-size: cover;
   border-radius: 15px;

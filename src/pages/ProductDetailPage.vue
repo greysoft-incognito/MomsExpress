@@ -74,7 +74,10 @@
         <div class="product_detail_container">
           <!-- `http://165.227.74.156/${productDetails.uploads[0].url}` -->
           <!-- {{ this.$store.cart.singleProducts.uploads[0] }} -->
-          <div class="product_detail_images">
+          <div
+            v-if="this.$store.cart.singleProducts.uploads.length"
+            class="product_detail_images"
+          >
             <q-carousel swipeable animated v-model="slide" thumbnails infinite>
               <q-carousel-slide
                 :name="1"
@@ -192,6 +195,27 @@
                     )
                   "
                 />
+                <!-- {{ this.$store.cart.singleProducts.vendor.name }} -->
+                <!-- <router-link
+                  :to="{
+                    name: 'vendorpage',
+                    params: { vendorname: productDetails.vendor },
+                  }"
+                  class="btn"
+                >
+                  View vendor
+                </router-link> -->
+                <router-link
+                  :to="{
+                    name: 'vendorpage',
+                    params: {
+                      vendor: this.$store.cart.singleProducts.vendor.name,
+                    },
+                  }"
+                  class="column bg-grey-2 border_card card"
+                >
+                  vendor name
+                </router-link>
               </div>
             </div>
           </div>

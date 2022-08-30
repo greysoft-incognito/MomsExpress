@@ -3,7 +3,24 @@
     <div class="text-center text-bold text-h6 q-mb-md">
       Top Categories of The Month
     </div>
+    <div v-if="skeleton">
+      <div style="height: 100%; gap: 1rem" class="row no-wrap lar items-start">
+        <q-card
+          v-for="type in skele"
+          :key="type"
+          flat
+          style="max-width: 300px; height: 100%; width: 300px"
+        >
+          <q-skeleton height="150px" square />
 
+          <q-card-section>
+            <q-skeleton type="text" class="text-subtitle1" />
+            <q-skeleton type="text" width="50%" class="text-subtitle1" />
+            <q-skeleton type="text" class="text-caption" />
+          </q-card-section>
+        </q-card>
+      </div>
+    </div>
     <div class="cards_container">
       <router-link
         :to="{
@@ -32,6 +49,8 @@ export default {
       loading: false,
       errors: [],
       categories: [],
+      skeleton: true,
+      skele: ["ske", "ske", "ske", "ske", "ske", "ske", "ske"],
     };
   },
 
@@ -47,6 +66,7 @@ export default {
         .then((resp) => {
           console.log(resp);
           this.categories = resp.data.data;
+          this.skeleton = false;
         })
         .catch(({ response }) => {
           this.loading = false;
