@@ -3,19 +3,41 @@
     <div class="text-center text-bold text-h6 q-mb-md">
       Top Categories of The Month
     </div>
+    <div v-if="skeleton">
+      <div style="height: 100%; gap: 1rem" class="row no-wrap lar items-start">
+        <q-card
+          v-for="type in skele"
+          :key="type"
+          flat
+          style="max-width: 300px; height: 100%; width: 300px"
+        >
+          <q-skeleton height="150px" square />
 
+          <q-card-section>
+            <q-skeleton type="text" class="text-subtitle1" />
+            <q-skeleton type="text" width="50%" class="text-subtitle1" />
+            <q-skeleton type="text" class="text-caption" />
+          </q-card-section>
+        </q-card>
+      </div>
+    </div>
     <div class="cards_container">
-      <div
-        v-for="n in 5"
-        :key="n"
+      <router-link
+        :to="{
+          name: 'category',
+          params: { categoryname: category.slug, id: category.id },
+        }"
+        v-for="category in categories"
+        :key="category.id"
         class="column bg-grey-2 border_card card"
-        @click="$router.push('/category')"
       >
         <!-- <div class="image_container"> -->
         <q-img class="border_card image" src="Images/2-1.jpg" />
         <!-- </div> -->
-        <div class="text-center text-subtitle1 text-bold q-my-xs">Fashion</div>
-      </div>
+        <div class="text-center text-subtitle1 text-bold q-my-xs">
+          {{ category.name }}
+        </div>
+      </router-link>
     </div>
   </div>
 </template>
@@ -27,6 +49,8 @@ export default {
       loading: false,
       errors: [],
       categories: [],
+      skeleton: true,
+      skele: ["ske", "ske", "ske", "ske", "ske", "ske", "ske"],
     };
   },
 
@@ -43,6 +67,7 @@ export default {
           console.log(resp);
           this.categories = resp.data.data;
           this.categories.splice(5, resp.data.data.length - 1);
+          this.skeleton = false;
         })
         .catch(({ response }) => {
           this.loading = false;

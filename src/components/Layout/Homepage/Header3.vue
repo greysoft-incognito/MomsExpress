@@ -24,15 +24,18 @@
           @mouseleave="showCategories = false"
         >
           <q-item
-            v-for="n in 10"
-            :key="n"
+            v-for="category in getCategory"
+            :key="category.id"
             clickable
             @click="showCategories = false"
             class="q-px-lg row items-center"
-            to="/category"
+            :to="{
+              name: 'category',
+              params: { categoryname: category.slug, id: category.id },
+            }"
           >
             <q-icon name="settings" class="q-mr-sm" />
-            <span>Category x</span></q-item
+            <span>{{ category.name }}</span></q-item
           >
 
           <q-btn
@@ -93,7 +96,41 @@ export default {
       showCategories: ref(false),
     };
   },
-  methods: {},
+
+  data() {
+    return {
+      getCategory: [],
+    };
+  },
+
+  created() {
+    this.getCategories();
+  },
+  methods: {
+    getCategories() {
+      this.$api
+        .get("category/all")
+        .then((resp) => {
+          console.log(resp);
+          this.getCategory = resp.data.data;
+          this.loading = false;
+        })
+        .catch(({ response }) => {
+          this.loading = false;
+          this.$q.notify({
+            message: response.data.message || response.data.payload,
+            color: "red",
+            position: "top",
+            timeout: 3000,
+          });
+          this.errors = response.data.errors;
+          setTimeout(() => {
+            this.errors = [];
+          }, 7000);
+          console.log(response);
+        });
+    },
+  },
   mounted() {},
 };
 </script>

@@ -1,13 +1,18 @@
 <template>
   <div class="big_screen_padding bg-white main_container">
     <div class="row q-my-sm text-bold justify-between">
-      <div class="text-h6 text-bold">Kitchen Utensils</div>
-      <router-link to="/category">
+      <div class="text-h6 text-bold">{{ products.name }}</div>
+      <router-link
+        :to="{
+          name: 'category',
+          params: { categoryname: products.slug, id: products.id },
+        }"
+      >
         <span>More Products</span> <q-icon name="chevron_right" />
       </router-link>
     </div>
     <!-- {{ products }} -->
-    {{ exactCat }}
+    <!-- {{ banner }} -->
     <q-separator class="q-my-md" />
     <div v-if="skeleton">
       <div style="height: 100%; gap: 1rem" class="row no-wrap lar items-start">
@@ -27,16 +32,12 @@
         </q-card>
       </div>
     </div>
-    <select hidden v-model="exactCat" name="" id="">
-      <option v-for="cat in categories" :key="cat.id" :value="cat.slug">
-        {{ cat.name }}
-      </option>
-    </select>
-    <div class="category_container bg-">
-      <div class="banner"></div>
+
+    <div v-if="products.products.length" class="category_container bg-">
+      <div :style="`background-image: url(${banner})`" class="banner"></div>
       <div class="products">
         <div
-          v-for="product in products"
+          v-for="product in products.products"
           :key="product.id"
           class="column q-mb-md text-center border_card product_tile"
         >
@@ -54,10 +55,7 @@
               class="add_to_cart"
               no-caps
               color="primary"
-              :to="{
-                name: 'productDetail',
-                params: { name: product.slug, id: product.id },
-              }"
+              to="/product_detail"
             />
 
             <div class="view_details">
@@ -105,8 +103,11 @@
           </div>
           <div class="text-bold">${{ product.price }}</div>
         </div>
-        <SingleProductTile v-for="n in 6" :key="n" />
       </div>
+    </div>
+
+    <div v-else class="text-center text-h2">
+      You no not have any products in this category
     </div>
   </div>
 </template>
@@ -123,52 +124,12 @@ export default {
       ratingColors: ["green"],
     };
   },
-  created() {
-    this.getProducts();
-    this.getCategory();
-  },
+  props: ["products", "skeleton", "banner"],
 
   data() {
     return {
-      skeleton: true,
-      products: [],
-      categories: [],
-      exactCat: "phones-and-tablets",
       skele: ["ske", "ske", "ske", "ske", "ske", "ske", "ske"],
     };
-  },
-
-  methods: {
-    getProducts() {
-      this.loading = true;
-      this.$api
-        .get("product/all")
-        .then((resp) => {
-          console.log(resp);
-          this.products = resp.data.data;
-          thisproducts.splice(6, resp.data.data.length - 1);
-          this.$store.cart.meals = resp.data.data;
-          this.skeleton = false;
-        })
-        .catch(({ response }) => {
-          this.loading = false;
-          this.errors = response.data.errors;
-        });
-    },
-
-    getCategory() {
-      this.loading = true;
-      this.$api
-        .get("category/all")
-        .then((resp) => {
-          console.log(resp);
-          this.categories = resp.data.data;
-        })
-        .catch(({ response }) => {
-          this.loading = false;
-          this.errors = response.data.errors;
-        });
-    },
   },
 };
 </script>
@@ -184,7 +145,7 @@ export default {
   gap: 25px;
 }
 .banner {
-  background-image: url("/Images/1-1.jpg");
+  /* background-image: url("/Images/1-1.jpg"); */
   background-position: center;
   background-size: cover;
   border-radius: 15px;
@@ -207,86 +168,46 @@ export default {
   .products {
     grid-template-columns: repeat(2, 1fr);
   }
+}
+.image_container {
+  height: 280px;
+  position: relative;
+  cursor: pointer;
+}
+.image {
+  height: 100%;
+}
+.add_to_cart {
+  /* height: 50px; */
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
 
-  .image_container {
-    height: 280px;
-    position: relative;
-    cursor: pointer;
-  }
-  .image {
-    height: 100%;
-  }
-  .add_to_cart {
-    /* height: 50px; */
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    display: none;
-  }
+.image_container:hover .add_to_cart {
+  display: block;
+}
 
-  .image_container:hover .add_to_cart {
-    display: block;
-  }
+.image_container:hover .view_details {
+  display: grid;
+}
+.product_tile {
+  position: relative;
+  cursor: pointer;
+}
 
-  .image_container:hover .view_details {
-    display: grid;
-  }
-  .product_tile {
-    position: relative;
-    cursor: pointer;
-  }
-
-  /* .product_tile:hover .view_details {
+/* .product_tile:hover .view_details {
   display: block;
 } */
-  .view_details {
-    display: none;
-    position: absolute;
-    /* width: 100%; */
-    right: 2%;
-    top: 2%;
-  }
-}
-@media screen and (max-width: 720px) {
-  .category_container {
-    grid-template-columns: 1fr;
-  }
-  .banner {
-    height: 25vh;
-  }
-}
-
-@media screen and (max-width: 500px) {
-  .products {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-@media screen and (max-width: 1130px) {
-  .image_container {
-    height: 230px;
-  }
-}
-
-@media screen and (max-width: 800px) {
-  .image_container {
-    height: 200px;
-  }
-}
-
-@media screen and (max-width: 570px) {
-  .image_container {
-    height: 180px;
-  }
-  .product_text,
-  .price_text {
-    font-size: 0.9rem;
-  }
-  .price_text,
-  .review_text {
-    font-size: 0.8rem;
-  }
+.view_details {
+  display: none;
+  position: absolute;
+  /* width: 100%; */
+  right: 2%;
+  top: 2%;
 }
 </style>

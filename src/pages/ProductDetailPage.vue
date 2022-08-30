@@ -1,6 +1,6 @@
 <template>
-  <!-- {{ productDetails }} -->
-  {{ this.$store.cart.plate }}
+  <!-- {{ this.$store.cart.singleProducts }} -->
+  <!-- {{ this.$store.cart.plate }} -->
   <div class="big_screen_padding account_page">
     <q-splitter
       v-model="splitterModel"
@@ -72,11 +72,16 @@
 
       <template v-slot:before>
         <div class="product_detail_container">
-          <div class="product_detail_images">
+          <!-- `http://165.227.74.156/${productDetails.uploads[0].url}` -->
+          <!-- {{ this.$store.cart.singleProducts.uploads[0] }} -->
+          <div
+            v-if="this.$store.cart.singleProducts.uploads.length"
+            class="product_detail_images"
+          >
             <q-carousel swipeable animated v-model="slide" thumbnails infinite>
               <q-carousel-slide
                 :name="1"
-                img-src="https://cdn.quasar.dev/img/mountains.jpg"
+                :img-src="`http://165.227.74.156/${this.$store.cart.singleProducts.uploads[0].url}`"
               />
               <q-carousel-slide
                 :name="2"
@@ -138,10 +143,11 @@
               <q-separator class="q-my-sm" />
 
               <div class="quantity_box row text-center items-center q-my-lg">
-                <q-input class="text-center" outlined>
+                <!-- <q-input class="text-center" outlined>
                   <template v-slot:append>
                     <div class="row quantity_box">
                       <q-btn
+                        @click="this.$store.cart.remove(productDetails.id)"
                         round
                         size="0.65rem"
                         icon="remove"
@@ -150,7 +156,15 @@
                         text-color="black"
                       />
 
+                      <q-input
+                        v-model="this.$store.cart.singleProducts.stock"
+                        class="text-center"
+                        outlined
+                        dense
+                      />
+
                       <q-btn
+                        @click="this.$store.cart.add(productDetails.id)"
                         round
                         size="0.65rem"
                         icon="add"
@@ -160,7 +174,7 @@
                       />
                     </div>
                   </template>
-                </q-input>
+                </q-input> -->
 
                 <q-btn
                   icon="shopping_basket"
@@ -176,6 +190,27 @@
                     )
                   "
                 />
+                <!-- {{ this.$store.cart.singleProducts.vendor.name }} -->
+                <!-- <router-link
+                  :to="{
+                    name: 'vendorpage',
+                    params: { vendorname: productDetails.vendor },
+                  }"
+                  class="btn"
+                >
+                  View vendor
+                </router-link> -->
+                <router-link
+                  :to="{
+                    name: 'vendorpage',
+                    params: {
+                      vendor: this.$store.cart.singleProducts.vendor.name,
+                    },
+                  }"
+                  class="column bg-grey-2 border_card card"
+                >
+                  vendor name
+                </router-link>
               </div>
             </div>
           </div>
@@ -269,6 +304,7 @@ export default {
       .then((res) => {
         console.log(res);
         this.productDetails = res.data.data;
+        this.$store.cart.singleProducts = this.productDetails;
         this.message = res.data.message;
         // this.skeleton = false;
       })

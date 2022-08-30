@@ -29,13 +29,12 @@ const routes = [
         component: () => import("pages/Auth/Register.vue"),
       },
       {
-        path: "/vendor_page",
-        component: () => import("pages/SingleVendorPage.vue"),
+        path: "/vendor_page/:vendor",
+        component: () => import("pages/SingleVendorPage.vue"), name:'vendorpage',
       },
       {
         path: "/category/:categoryname",
-        component: () => import("pages/SingleCategoryPage.vue"),
-        name: "category",
+        component: () => import("pages/SingleCategoryPage.vue"),name:'category'
       },
       {
         path: "/cart",

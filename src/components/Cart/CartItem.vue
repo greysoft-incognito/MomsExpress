@@ -21,7 +21,9 @@
           <q-tr :props="props" no-hover class="table_row">
             <q-td class="text-left" key="name" :props="props">
               <div class="relative-position">
-                <q-img :src="props.row.uploads[0].src" />
+                <q-img
+                  :src="`http://165.227.74.156/${props.row.uploads[0].url}`"
+                />
                 <!-- {{ props.row.uploads[0].src }} -->
                 <q-btn
                   @click="this.$store.cart.removeFromCart(props.row.id)"
