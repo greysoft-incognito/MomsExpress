@@ -18,7 +18,7 @@
         <q-input class="full-width" placeholder="Email" dense outlined />
       </div>
     </div>
-    <div class="q-my-sm row items-center">
+    <div class="q-my-sm row items-center checkbox_container">
       <q-checkbox
         v-model="customModel"
         color="secondary"
@@ -48,3 +48,17 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+@media screen and (max-width: 1448px) {
+  .checkbox_container p {
+    width: 85%;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .checkbox_container p {
+    font-size: 0.9rem;
+  }
+}
+</style>

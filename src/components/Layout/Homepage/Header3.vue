@@ -27,6 +27,7 @@
             v-for="category in getCategory"
             :key="category.id"
             clickable
+            @click="showCategories = false"
             class="q-px-lg row items-center"
             :to="{
               name: 'category',
@@ -52,7 +53,33 @@
       <div class="nav_links row q-ml-lg text-black items-center">
         <router-link class="q-mx-md" to="/">Home</router-link>
         <router-link class="q-mx-md" to="/">Shop</router-link>
-        <router-link class="q-mx-md" to="/">Vendor</router-link>
+        <q-btn-dropdown
+          flat
+          no-caps
+          class="non_hover_btn text-weight-normal"
+          label="Vendor"
+          :ripple="false"
+        >
+          <q-list>
+            <q-item clickable v-close-popup to="become_a_vendor">
+              <q-item-section>
+                <q-item-label>Become a Vendor</q-item-label>
+              </q-item-section>
+            </q-item>
+
+            <q-item clickable v-close-popup to="">
+              <q-item-section>
+                <q-item-label>Featured Vendors</q-item-label>
+              </q-item-section>
+            </q-item>
+            <q-item clickable v-close-popup to="">
+              <q-item-section>
+                <q-item-label>Top Vendors</q-item-label>
+              </q-item-section>
+            </q-item>
+          </q-list>
+        </q-btn-dropdown>
+        <!-- <router-link class="q-mx-md" to="/">Vendor</router-link> -->
         <router-link class="q-mx-md" to="/category">Trending</router-link>
         <router-link class="q-mx-md" to="/category">New</router-link>
       </div>

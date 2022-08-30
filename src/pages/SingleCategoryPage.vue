@@ -3,7 +3,7 @@
     <!-- {{ categoryDetails }} -->
     <q-splitter
       v-model="splitterModel"
-      class="bg-white q-pt-xl vendor_splitter"
+      class="bg-white q-pt-md vendor_splitter"
     >
       <template v-slot:before>
         <q-list class="expansion_container">
@@ -68,12 +68,16 @@
               <div
                 v-for="products in categoryDetails.products"
                 :key="categoryDetails.products.id"
-                class="row items-center q-mb-md"
+                class="row items-center q-mb-md side_items_image_container"
               >
-                <q-img class="product_image" src="Images/2-1.jpg" />
+                <q-img
+                  class="product_image"
+                  :src="`http://165.227.74.156/${products.uploads[0].url}`"
+                />
                 <div class="q-ml-sm">
                   <div class="text-subtitle1">{{ products.name }}</div>
-                  <div class="row justify-center">
+                  <div class="row">
+
                     <q-rating
                       v-model="ratingModel"
                       size="1.2rem"
@@ -151,85 +155,97 @@
           </div>
         </div>
 
-        <h5 class="q-my-md text-bold">Products</h5>
+        <div v-if="this.$store.cart.singleCategory.products.length !== 0">
+          <h5 class="q-my-md text-bold">Products</h5>
 
-        <q-separator />
-        <!-- {{ this.$store.cart.singleCategory }} -->
-        <div
-          v-if="this.$store.cart.singleCategory.products.length !== 0"
-          class="products_container q-my-md"
-        >
-          <router-link
-            :to="{
-              name: 'productDetail',
-              params: { name: products.slug, id: products.id },
-            }"
-            v-for="products in categoryDetails.products"
-            :key="categoryDetails.products.id"
-            class="column q-mb-md text-center border_card product_tile"
-          >
-            <div class="image_container">
-              <q-img
-                class="border_card image"
-                :src="`http://165.227.74.156/${products.uploads[0].url}`"
-              />
-              <!-- <div class="add_to_cart bg-primary text-white">add to cart</div> -->
-              <q-btn
-                label="View details"
-                :ripple="false"
-                class="add_to_cart"
-                no-caps
-                color="primary"
-                to="/product_detail"
-              />
-
-              <div class="view_details">
-                <q-btn
-                  icon="fa-regular fa-heart"
-                  class="non_hover_btn"
-                  no-caps
-                  size="0.75rem"
-                  round
-                  flat
-                  color="primary"
-                />
-
-                <q-btn
-                  icon="fa-solid fa-cart-plus"
-                  class="non_hover_btn"
-                  no-caps
-                  size="0.75rem"
-                  round
-                  flat
-                  color="primary"
-                />
-              </div>
-            </div>
-            <router-link
-              to="/product_detail"
-              class="text-subtitle1 product_text q-mt-sm"
+          <q-separator />
+          <!-- {{ this.$store.cart.singleCategory }} -->
+          <div class="products_container q-my-md">
+            <div
+              :to="{
+                name: 'productDetail',
+                params: { name: products.slug, id: products.id },
+              }"
+              v-for="products in categoryDetails.products"
+              :key="categoryDetails.products.id"
+              class="column q-mb-md text-center border_card product_tile"
             >
-              {{ products.name }}
-            </router-link>
-            <div class="row justify-center">
-              <q-rating
-                v-model="ratingModel"
-                size="1.1rem"
-                color="grey"
-                readonly
-                :color-selected="ratingColors"
-                class="stars"
-              />
-              <span class="review_text">( 2 reviews)</span>
-            </div>
-            <div class="text-bold price_text">${{ products.price }}</div>
-          </router-link>
-          <!-- <SingleProductTile v-for="n in 10" :key="n" /> -->
-        </div>
+              <div class="image_container">
+                <q-img
+                  class="border_card image"
+                  :src="`http://165.227.74.156/${products.uploads[0].url}`"
+                />
+                <!-- <div class="add_to_cart bg-primary text-white">add to cart</div> -->
+                <q-btn
+                  label="View details"
+                  :ripple="false"
+                  class="add_to_cart"
+                  no-caps
+                  color="primary"
+                  :to="{
+                    name: 'productDetail',
+                    params: { name: products.slug, id: products.id },
+                  }"
+                />
 
-        <p v-else class="text-center q-mt-xl text-h3">
-          This category has no products yet
-        </p>
+                <div class="view_details">
+                  <q-btn
+                    icon="fa-regular fa-heart"
+                    class="non_hover_btn bg-white q-mb-sm"
+                    no-caps
+                    size="0.75rem"
+                    round
+                    flat
+                    color="primary"
+                  />
+
+                  <q-btn
+                    icon="fa-solid fa-cart-plus"
+                    class="non_hover_btn bg-white"
+                    no-caps
+                    size="0.75rem"
+                    round
+                    flat
+                    color="primary"
+                    @click="this.$store.cart.addToplate(products, products.id)"
+                  />
+                </div>
+              </div>
+              <router-link
+                :to="{
+                  name: 'productDetail',
+                  params: { name: products.slug, id: products.id },
+                }"
+                class="text-subtitle1 product_text q-mt-sm"
+              >
+                {{ products.name }}
+              </router-link>
+              <div class="row justify-center">
+                <q-rating
+                  v-model="ratingModel"
+                  size="1.1rem"
+                  color="grey"
+                  readonly
+                  :color-selected="ratingColors"
+                  class="stars"
+                />
+                <span class="review_text">( 2 reviews)</span>
+              </div>
+              <div class="text-bold price_text">${{ products.price }}</div>
+            </div>
+            <!-- <SingleProductTile v-for="n in 10" :key="n" /> -->
+          </div>
+        </div>
+        <q-page
+          v-if="this.$store.cart.singleCategory.products.length == 0"
+          class="noLength no_item_in_cart text-h4 text-center q-my-xl q-py-lg"
+        >
+          <div class="text-center text-primary text-bold">
+            This category has no products yet
+          </div>
+          <q-icon name="shopping_cart" size="3rem" color="primary" />
+        </q-page>
+
       </template>
     </q-splitter>
   </div>
@@ -258,20 +274,36 @@ export default {
     };
   },
   components: { Addresses, Ordes, Wishlist, AccountDetails, SingleProductTile },
+  computed: {
+    routeName() {
+      return this.$router.currentRoute.value.params.categoryname;
+    },
+  },
   created() {
-    let detail = this.$router.currentRoute.value.params.categoryname;
-    console.log(detail);
     // this.skeleton = true;
-    this.$api
-      .get(`/${detail}`)
-      .then((res) => {
-        console.log(res);
-        this.categoryDetails = res.data.data;
-        this.$store.cart.singleCategory = this.categoryDetails;
-        this.message = res.data.message;
-        // this.skeleton = false;
-      })
-      .catch((err) => {});
+    this.getProductDetail();
+  },
+  methods: {
+    getProductDetail() {
+      let detail = this.$router.currentRoute.value.params.categoryname;
+      console.log(detail);
+      this.$api
+        .get(`/${detail}`)
+        .then((res) => {
+          console.log(res);
+          this.categoryDetails = res.data.data;
+          this.$store.cart.singleCategory = this.categoryDetails;
+          this.message = res.data.message;
+          // this.skeleton = false;
+        })
+        .catch((err) => {});
+    },
+  },
+  watch: {
+    routeName: function () {
+      this.getProductDetail();
+    },
+
   },
 };
 </script>
@@ -317,8 +349,99 @@ ul a:hover {
 .vendor_splitter {
   gap: 35px;
 }
+.side_items_image_container {
+  height: 100px !important;
+}
 .product_image {
   width: 35%;
+  height: 100%;
+}
+
+.image_container {
+  height: 280px;
+  position: relative;
+  cursor: pointer;
+}
+.image {
+  height: 100%;
+}
+.add_to_cart {
+  /* height: 50px; */
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+
+.image_container:hover .add_to_cart {
+  display: block;
+}
+
+.image_container:hover .view_details {
+  display: grid;
+}
+.product_tile {
+  position: relative;
+  cursor: pointer;
+}
+
+.view_details {
+  display: none;
+  position: absolute;
+  right: 2%;
+  top: 2%;
+}
+@media screen and (max-width: 1130px) {
+  .image_container {
+    height: 230px;
+  }
+  .side_items_image_container {
+    height: 70px !important;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .vendor_splitter {
+    display: block;
+  }
+  .expansion_container {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .image_container {
+    height: 200px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .products_container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .products_container {
+    gap: 10px;
+  }
+}
+
+@media screen and (max-width: 570px) {
+  .image_container {
+    height: 180px;
+  }
+  .product_text,
+  .price_text {
+    font-size: 0.9rem;
+  }
+  .price_text,
+  .review_text {
+    font-size: 0.8rem;
+  }
 }
 
 .image_container {

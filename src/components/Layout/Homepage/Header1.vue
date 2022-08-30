@@ -15,14 +15,11 @@
         <span class="q-mr-xl">WELCOME TO MOMS EXPRESS</span> -->
       </Marquee>
 
-      <div class="right">
+      <div class="right items-center">
         <router-link class="q-mx-sm" to="/">Blog</router-link>
         <router-link class="q-mx-sm" to="/">Contact Us</router-link>
         <router-link class="q-mx-sm" to="/account">My Account</router-link>
-        <div
-          v-if="(this.$store.auth.userDetails = null)"
-          class="auth text-black"
-        >
+        <div class="auth text-black">
           <div @click="login">
             <q-icon name="person" size="1.2rem" class="q-mr-xs" />
             <span>Sign in</span>

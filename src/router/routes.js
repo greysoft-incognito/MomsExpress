@@ -13,6 +13,10 @@ const routes = [
         component: () => import("pages/IndexPage.vue"),
       },
       {
+        path: "/sample",
+        component: () => import("pages/Sample.vue"),
+      },
+      {
         path: "/loginn",
         component: () => import("pages/Auth/Login.vue"),
       },
@@ -46,7 +50,8 @@ const routes = [
       },
       {
         path: "/product_detail/:name",
-        component: () => import("pages/ProductDetailPage.vue"), name:'productDetail',
+        component: () => import("pages/ProductDetailPage.vue"),
+        name: "productDetail",
       },
       {
         path: "/become_a_vendor",

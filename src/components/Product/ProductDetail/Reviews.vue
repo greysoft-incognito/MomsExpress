@@ -5,7 +5,7 @@
       <q-btn
         flat
         icon-right="chevron_right"
-        class="non_hover_btn"
+        class="non_hover_btn q-pr-none"
         no-caps
         size="0.8rem"
         label="View all"
@@ -17,12 +17,12 @@
   <div class="">
     <div class="">
       <q-list separator class="rounded-borders" style="">
-        <q-item v-ripple v-for="n in 5" :key="n" class="q-my-sm">
-          <q-item-section avatar top>
+        <q-item v-for="n in 5" :key="n" class="q-my-sm q-px-none comments">
+          <!-- <q-item-section avatar top>
             <q-avatar size="4rem">
               <img src="https://cdn.quasar.dev/img/avatar2.jpg" />
             </q-avatar>
-          </q-item-section>
+          </q-item-section> -->
 
           <q-item-section>
             <q-item-label lines="1">
@@ -50,9 +50,6 @@
                 iure eos iusto, dolor, assumenda architecto facilis magni
                 aliquid quam quisquam rem eveniet eum. Mollitia, inventore?
                 Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                Mollitia laudantium perferendis asperiores obcaecati, labore
-                iure eos iusto, dolor, assumenda architecto facilis magni
-                aliquid quam quisquam rem eveniet eum.Mollitia, inventore?
               </div>
             </q-item-label>
           </q-item-section>
@@ -63,11 +60,24 @@
 </template>
 
 <script>
-export default {};
+import { ref } from "vue";
+export default {
+  setup() {
+    return {
+      ratingModel: ref(3),
+      ratingColors: ["green"],
+    };
+  },
+};
 </script>
 
 <style scoped>
 .review_text {
   line-height: 1.5;
+}
+@media screen and (max-width: 400px) {
+  .comments {
+    display: block !important;
+  }
 }
 </style>

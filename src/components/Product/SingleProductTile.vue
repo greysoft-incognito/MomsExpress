@@ -15,7 +15,7 @@
       <div class="view_details">
         <q-btn
           icon="fa-regular fa-heart"
-          class="non_hover_btn"
+          class="non_hover_btn bg-white q-mb-sm"
           no-caps
           size="0.75rem"
           round
@@ -25,7 +25,7 @@
 
         <q-btn
           icon="fa-solid fa-cart-plus"
-          class="non_hover_btn"
+          class="non_hover_btn bg-white"
           no-caps
           size="0.75rem"
           round

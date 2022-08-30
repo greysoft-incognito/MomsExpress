@@ -66,6 +66,7 @@ export default {
         .then((resp) => {
           console.log(resp);
           this.categories = resp.data.data;
+          this.categories.splice(5, resp.data.data.length - 1);
           this.skeleton = false;
         })
         .catch(({ response }) => {
