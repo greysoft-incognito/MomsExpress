@@ -62,48 +62,60 @@
 
             <div class="view_details">
               <q-btn
-                icon="fa-regular fa-heart"
-                class="non_hover_btn"
+                label="View details"
+                :ripple="false"
+                class="add_to_cart"
                 no-caps
-                size="0.75rem"
-                round
-                flat
                 color="primary"
+                to="/product_detail"
               />
 
-              <q-btn
-                @click="this.$store.cart.addToplate(product, product.id)"
-                icon="fa-solid fa-cart-plus"
-                class="non_hover_btn"
-                no-caps
-                size="0.75rem"
-                round
-                flat
-                color="primary"
-              />
+              <div class="view_details">
+                <q-btn
+                  icon="fa-regular fa-heart"
+                  class="non_hover_btn"
+                  no-caps
+                  size="0.75rem"
+                  round
+                  flat
+                  color="primary"
+                />
+
+                <q-btn
+                  @click="this.$store.cart.addToplate(product, product.id)"
+                  icon="fa-solid fa-cart-plus"
+                  class="non_hover_btn"
+                  no-caps
+                  size="0.75rem"
+                  round
+                  flat
+                  color="primary"
+                />
+              </div>
             </div>
-          </div>
-          <router-link
-            :to="{
-              name: 'productDetail',
-              params: { name: product.slug, id: product.id },
-            }"
-            class="text-subtitle1 q-mt-sm"
-          >
-            {{ product.name }}
-          </router-link>
+            <router-link
+              :to="{
+                name: 'productDetail',
+                params: { name: product.slug, id: product.id },
+              }"
+              class="text-subtitle1 q-mt-sm"
+            >
+              {{ product.name }}
+            </router-link>
 
-          <div class="row justify-center q-my-sm">
-            <q-rating
-              v-model="ratingModel"
-              size="1.2rem"
-              color="grey"
-              readonly
-              :color-selected="ratingColors"
-            />
-            <span>( 2 reviews)</span>
+            <div class="row justify-center q-my-sm">
+              <q-rating
+                v-model="ratingModel"
+                size="1.2rem"
+                color="grey"
+                readonly
+                :color-selected="ratingColors"
+              />
+              <span>( 2 reviews)</span>
+            </div>
+            <div class="text-bold">${{ product.price }}</div>
           </div>
-          <div class="text-bold">${{ product.price }}</div>
+          <SingleProductTile v-for="n in 6" :key="n" />
         </div>
         <SingleProductTile v-for="n in 6" :key="n" />
       </div>
@@ -287,6 +299,21 @@ export default {
   .price_text,
   .review_text {
     font-size: 0.8rem;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .category_container {
+    grid-template-columns: 1fr;
+  }
+  .banner {
+    height: 25vh;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .products {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 </style>
