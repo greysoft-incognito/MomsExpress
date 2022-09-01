@@ -75,9 +75,16 @@
                   :src="`http://165.227.74.156/${products.uploads[0].url}`"
                 />
                 <div class="q-ml-sm">
-                  <div class="text-subtitle1">{{ products.name }}</div>
+                  <router-link
+                    class="text-subtitle1"
+                    :to="{
+                      name: 'productDetail',
+                      params: { name: products.slug, id: products.id },
+                    }"
+                  >
+                    {{ products.name }}
+                  </router-link>
                   <div class="row">
-
                     <q-rating
                       v-model="ratingModel"
                       size="1.2rem"
@@ -162,10 +169,6 @@
           <!-- {{ this.$store.cart.singleCategory }} -->
           <div class="products_container q-my-md">
             <div
-              :to="{
-                name: 'productDetail',
-                params: { name: products.slug, id: products.id },
-              }"
               v-for="products in categoryDetails.products"
               :key="categoryDetails.products.id"
               class="column q-mb-md text-center border_card product_tile"
@@ -245,7 +248,6 @@
           </div>
           <q-icon name="shopping_cart" size="3rem" color="primary" />
         </q-page>
-
       </template>
     </q-splitter>
   </div>
@@ -303,7 +305,6 @@ export default {
     routeName: function () {
       this.getProductDetail();
     },
-
   },
 };
 </script>
