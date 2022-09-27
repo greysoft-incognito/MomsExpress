@@ -78,7 +78,7 @@ export default {
 
 .right a:hover,
 .auth div:hover {
-  color: #1976d2;
+  color: #e06900;
   cursor: pointer;
 }
 

@@ -70,6 +70,7 @@
 <script>
 import { ref } from "vue";
 export default {
+  props: ["toggleShit"],
   setup() {
     return {
       customModel: ref("no"),
@@ -101,7 +102,8 @@ export default {
             position: "top",
           });
           this.$store.auth.setUserDetails(response.data);
-          // this.$router.replace({ name: "dashboard" });
+          this.toggleShit();
+          this.$router.replace({ name: "dashboard" });
           this.loading = false;
         })
         .catch(({ response }) => {

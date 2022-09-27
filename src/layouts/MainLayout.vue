@@ -35,7 +35,7 @@
         to="/cart"
         fab
       >
-        <q-badge color="red" class="text-bold" floating transparent>
+        <q-badge color="secondary" class="text-bold" floating>
           {{ this.$store.cart.plate.length }}
         </q-badge>
       </q-btn>
@@ -72,11 +72,11 @@
 
           <q-tab-panels v-model="tab" animated>
             <q-tab-panel name="Signin">
-              <Login />
+              <Login :toggleShit="toggleShit" />
             </q-tab-panel>
 
             <q-tab-panel name="signup">
-              <Signup />
+              <Signup :toggleShit="toggleShit" />
             </q-tab-panel>
           </q-tab-panels>
         </q-card-section>
@@ -152,9 +152,14 @@ export default defineComponent({
       tab: ref("Signin"),
       customModel: ref("no"),
       alert,
+      toggleShit() {
+        alert.value = false;
+        console.log("please");
+      },
       toggleAuthForm() {
         alert.value = !alert.value;
       },
+
       toggleLeftDrawer() {
         leftDrawerOpen.value = !leftDrawerOpen.value;
       },

@@ -214,7 +214,7 @@ li {
 }
 
 ul a:hover {
-  color: #1976d2 !important;
+  color: #e06900 !important;
 }
 .products_container {
   display: grid;

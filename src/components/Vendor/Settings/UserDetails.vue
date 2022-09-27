@@ -5,17 +5,35 @@
 
       <div class="q-mt-md">
         <div class="q-my-xs text-subtitle2 text-bold">FullName</div>
-        <q-input class="input_field" placeholder="shop name" outlined dense />
+        <q-input
+          class="input_field"
+          placeholder="Fullname"
+          v-model="fullname"
+          outlined
+          dense
+        />
       </div>
 
       <div class="q-mt-lg">
         <div class="q-my-xs text-subtitle2 text-bold">Email address</div>
-        <q-input class="input_field" placeholder="shop name" outlined dense />
+        <q-input
+          class="input_field"
+          placeholder="Email address"
+          v-model="email"
+          outlined
+          dense
+        />
       </div>
 
       <div class="q-mt-lg">
         <div class="q-my-xs text-subtitle2 text-bold">Phone</div>
-        <q-input class="input_field" placeholder="shop name" outlined dense />
+        <q-input
+          class="input_field"
+          placeholder="Phone number"
+          v-model="phone"
+          outlined
+          dense
+        />
       </div>
     </div>
 
@@ -69,7 +87,25 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      userData: "",
+      fullname: "",
+      email: "",
+      phone: "",
+      oldPassword: "",
+      newPassword: "",
+      newPassword2: "",
+    };
+  },
+  created() {
+    this.userData = JSON.parse(localStorage.getItem("userdet"));
+    this.fullname = this.userData.fullname;
+    this.email = this.userData.email;
+    this.phone = this.userData.phone;
+  },
+};
 </script>
 
 <style scoped>

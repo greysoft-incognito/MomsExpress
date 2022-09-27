@@ -12,7 +12,7 @@
         </p>
         <q-btn class="q-my-md" @click="alert = true" outline label="Register" />
       </div>
-      <q-img src="Images/1.jpg" />
+      <q-img src="Images/first_image.jpg" />
     </div>
 
     <q-dialog v-model="alert">
@@ -32,31 +32,31 @@
         <q-card-section class="q-pt-none">
           <div class="q-my-sm">
             <label class="text-grey">Name*</label>
-            <q-input outlined />
+            <q-input outlined v-model="form.name" />
           </div>
 
           <div class="q-my-sm">
             <label class="text-grey"> Phone*</label>
-            <q-input class="full-width" outlined />
+            <q-input class="full-width" outlined v-model="form.phone" />
           </div>
 
           <div class="q-my-sm">
             <label class="text-grey"> Address*</label>
-            <q-input class="full-width" outlined />
+            <q-input class="full-width" outlined v-model="form.address" />
           </div>
 
-          <div class="q-my-sm">
+          <!-- <div class="q-my-sm">
             <label class="text-grey"> User ID*</label>
-            <q-input class="full-width" outlined />
-          </div>
+            <q-input class="full-width" outlined v-model="form.user_id" />
+          </div> -->
 
           <div class="q-my-sm row items-center">
             <q-checkbox
-              v-model="customModel"
+              v-model="form.terms"
               color="secondary"
               class="text-grey"
-              true-value="yes"
-              false-value="no"
+              :true-value="true"
+              :false-value="false"
             />
             <div class="text-grey-7">
               You agree with our
@@ -70,13 +70,14 @@
             class="q-my-md full-width"
             label="Create Shop"
             color="primary"
+            @click="register()"
           />
         </q-card-section>
       </q-card>
     </q-dialog>
 
     <div class="section_two big_screen_padding bg-grey-3">
-      <q-img src="Images/2.jpg" />
+      <q-img src="Images/second_image.jpg" />
       <div>
         <p class="q-my-sm text-primary text-bold text-h6">How to Trade</p>
         <h3 class="text-bold">Easy 4 steps to manage your products selling</h3>
@@ -143,7 +144,7 @@
           :key="n"
         >
           <q-avatar size="7rem" class="q-mx-auto">
-            <img src="https://cdn.quasar.dev/img/avatar.png" />
+            <img src="Images/smiling_man.jpg" />
           </q-avatar>
 
           <q-rating
@@ -151,7 +152,7 @@
             size="1.1rem"
             color="grey"
             readonly
-            :color-selected="ratingColors"
+            color-selected="secondary"
             class="stars q-mx-auto q-my-md"
           />
 
@@ -231,8 +232,72 @@ export default {
       ratingModel: ref(4),
       ratingColors: ["green"],
       alert: false,
-      customModel: "no",
+      // customModel: "no",
+      form: {
+        name: "",
+        address: "",
+        phone: "",
+        user_id: "",
+        terms: false,
+      },
     };
+  },
+  methods: {
+    register() {
+      this.loading = true;
+      const name = this.form.name;
+      const address = this.form.address;
+      const phone = this.form.phone;
+      const user_id = JSON.parse(localStorage.getItem("userdet")).id;
+      const terms = this.form.terms;
+      let data = {
+        name,
+        address,
+        phone,
+        user_id,
+        terms,
+      };
+
+      if (terms === false) {
+        this.$q.notify({
+          message: "You must agree to our terms and conditions",
+          color: "red",
+        });
+
+        this.loading = false;
+        return;
+      } else {
+        this.$api
+          .post("/onboarding", data)
+          .then((response) => {
+            console.log(response);
+            this.$q.notify({
+              message: `Vendor ${response.statusText}`,
+              color: "Green",
+            });
+            this.loading = false;
+            this.$store.auth.setVendorDetails(response.data);
+            this.alert = false;
+            this.$router.replace({ name: "Home" });
+          })
+          .catch(({ response }) => {
+            console.log(response);
+            this.loading = false;
+            this.$q.notify({
+              message: response.data.message,
+              color: "red",
+              position: "top",
+            });
+            this.errors = response.data.errors || response.message;
+            setTimeout(() => {
+              this.errors = [];
+            }, 7000);
+          });
+      }
+    },
+  },
+  mounted() {
+    console.log(JSON.parse(localStorage.getItem("userdet")).id);
   },
 };
 </script>
