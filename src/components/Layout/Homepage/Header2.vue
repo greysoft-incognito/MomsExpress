@@ -3,16 +3,20 @@
     <div
       class="row q-my-sm header_two_cont justify-between items-align full-width"
     >
-      <q-btn
-        flat
-        dense
-        round
-        icon="menu"
-        aria-label="Menu"
-        @click="toggleLeftDrawer"
-        class="hamburger_btn"
-        color="primary"
-      />
+      <div class="column">
+        <q-space />
+        <q-btn
+          flat
+          dense
+          round
+          icon="menu"
+          aria-label="Menu"
+          @click="toggleLeftDrawer"
+          class="hamburger_btn"
+          color="primary"
+        />
+        <q-space />
+      </div>
       <div class="image_container flex flex-center">
         <q-img src="Images/lorem_logo.svg" />
       </div>
@@ -34,7 +38,7 @@
 
         <div class="buttons row items-center">
           <q-separator class="q-mx-xs q-my-md" vertical />
-          <div>
+          <!-- <div>
             <q-btn
               color="primary"
               flat
@@ -42,7 +46,7 @@
               class="q-mx-sm"
               icon="favorite_border "
             />
-          </div>
+          </div> -->
 
           <q-btn
             class="q-mr-md q-my-md"
@@ -54,10 +58,9 @@
           >
             <q-badge
               v-if="this.$store.cart.plate.length != 0"
-              color="red"
+              color="secondary"
               class="text-bold"
               floating
-              transparent
             >
               {{ this.$store.cart.plate.length }}
             </q-badge>

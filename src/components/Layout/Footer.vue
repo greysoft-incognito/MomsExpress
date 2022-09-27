@@ -96,7 +96,7 @@
           <div class="q-my-sm social_media_icons row">
             <router-link to="/">
               <q-avatar
-                color="green"
+                color="secondary"
                 size="2rem"
                 class="q-mr-sm"
                 text-color="white"
@@ -106,7 +106,7 @@
 
             <router-link to="/">
               <q-avatar
-                color="green"
+                color="secondary"
                 size="2rem"
                 class="q-mr-sm"
                 text-color="white"
@@ -116,7 +116,7 @@
 
             <router-link to="/">
               <q-avatar
-                color="green"
+                color="secondary"
                 size="2rem"
                 class="q-mr-sm"
                 text-color="white"
@@ -126,7 +126,7 @@
 
             <router-link to="/">
               <q-avatar
-                color="green"
+                color="secondary"
                 size="2rem"
                 class="q-mr-sm"
                 text-color="white"
@@ -140,7 +140,7 @@
 
       <q-input
         outlined
-        color="green"
+        color="secondary"
         class="full-width q-mt-xl"
         placeholder="Subscribe to News Letter..."
         dense
@@ -148,7 +148,7 @@
       >
         <template v-slot:append>
           <q-separator vertical class="q-mx-sm" />
-          <q-btn label="Subscribe" no-caps color="green" dense />
+          <q-btn label="Subscribe" no-caps color="secondary" dense />
         </template>
       </q-input>
     </div>

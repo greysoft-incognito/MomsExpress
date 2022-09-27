@@ -67,7 +67,7 @@
             <div class="q-pa-md">
               <div
                 v-for="products in categoryDetails.products"
-                :key="categoryDetails.products.id"
+                :key="products.id"
                 class="row items-center q-mb-md side_items_image_container"
               >
                 <q-img
@@ -90,7 +90,7 @@
                       size="1.2rem"
                       color="grey"
                       readonly
-                      :color-selected="ratingColors"
+                      color-selected="secondary"
                     />
                   </div>
                   <div class="text-bold">$53.00</div>
@@ -143,7 +143,7 @@
                       size="1.2rem"
                       color="grey"
                       readonly
-                      :color-selected="ratingColors"
+                      color-selected="secondary"
                     />
                   </div>
                   <div class="text-bold">$53.00</div>
@@ -170,7 +170,7 @@
           <div class="products_container q-my-md">
             <div
               v-for="products in categoryDetails.products"
-              :key="categoryDetails.products.id"
+              :key="products.id"
               class="column q-mb-md text-center border_card product_tile"
             >
               <div class="image_container">
@@ -229,7 +229,7 @@
                   size="1.1rem"
                   color="grey"
                   readonly
-                  :color-selected="ratingColors"
+                  color-selected="secondary"
                   class="stars"
                 />
                 <span class="review_text">( 2 reviews)</span>
@@ -340,7 +340,7 @@ li {
 }
 
 ul a:hover {
-  color: #1976d2 !important;
+  color: #e06900 !important;
 }
 .products_container {
   display: grid;

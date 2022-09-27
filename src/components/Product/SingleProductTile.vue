@@ -46,7 +46,7 @@
         size="1.1rem"
         color="grey"
         readonly
-        :color-selected="ratingColors"
+        color-selected="secondary"
         class="stars"
       />
       <span class="review_text">( 2 reviews)</span>

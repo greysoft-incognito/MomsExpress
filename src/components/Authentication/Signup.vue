@@ -83,6 +83,7 @@
 <script>
 import { ref } from "vue";
 export default {
+  props: ["toggleShit"],
   data() {
     return {
       errors: [],
@@ -90,7 +91,7 @@ export default {
       form: {
         email: "",
         password: "",
-        terms: true,
+        terms: false,
       },
     };
   },
@@ -124,6 +125,7 @@ export default {
             });
             this.loading = false;
             this.$store.auth.setUserDetails(response.data);
+            this.toggleShit();
             this.$router.replace({ name: "Homepage" });
           })
           .catch(({ response }) => {

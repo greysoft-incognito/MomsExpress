@@ -168,7 +168,7 @@ export default {
 }
 
 .nav_links a:hover {
-  color: #1976d2;
+  color: #e06900;
 }
 @media screen and (max-width: 900px) {
   .categories {
