@@ -53,7 +53,7 @@
       <div class="nav_links row q-ml-lg text-black items-center">
         <router-link class="q-mx-md" to="/">Home</router-link>
         <router-link class="q-mx-md" to="/">Shop</router-link>
-        <q-btn-dropdown
+        <!-- <q-btn-dropdown
           flat
           no-caps
           class="non_hover_btn text-weight-normal"
@@ -78,7 +78,7 @@
               </q-item-section>
             </q-item>
           </q-list>
-        </q-btn-dropdown>
+        </q-btn-dropdown> -->
         <!-- <router-link class="q-mx-md" to="/">Vendor</router-link> -->
         <router-link class="q-mx-md" to="/category">Trending</router-link>
         <router-link class="q-mx-md" to="/category">New</router-link>

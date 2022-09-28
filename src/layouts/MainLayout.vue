@@ -1,12 +1,12 @@
 <template>
-  <q-layout view="lhh Lpr lff">
+  <q-layout :view="screenWIdth == true ? `lHh Lpr lFf` : `lhh Lpr lff`">
     <q-header class="bg-white">
       <Header1
         class="header_one"
         :toggleAuthForm="toggleAuthForm"
         @clicked="authTypeChecker"
       />
-      <Header2 :toggleLeftDrawer="toggleLeftDrawer" />
+      <Header2 class="header_two" :toggleLeftDrawer="toggleLeftDrawer" />
       <Header3 class="header_three" />
     </q-header>
 
@@ -163,6 +163,7 @@ export default defineComponent({
       toggleLeftDrawer() {
         leftDrawerOpen.value = !leftDrawerOpen.value;
       },
+      screenWIdth: window.innerWidth < 770 ? true : false,
     };
   },
   methods: {
@@ -208,11 +209,16 @@ export default defineComponent({
     display: none;
   }
   .desktop_footer,
-  .floating_cart {
+  .floating_cart,
+  .header_one {
     display: none;
   }
   .mobile_footer {
     display: grid;
+  }
+  .header_two {
+    border-bottom: 1px solid #004c59;
+    box-shadow: -5px -13px 30px black;
   }
 }
 </style>

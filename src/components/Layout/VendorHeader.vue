@@ -37,7 +37,9 @@
             <q-avatar color="grey-3" class="q-mr-md header_avatar">
               <q-icon color="primary" name="person" />
             </q-avatar>
-            <div class="username">{{ username }}</div>
+            <div class="username">
+              {{ $store.auth.vendorDetails.store_name }}
+            </div>
           </template>
           <q-list>
             <q-item clickable v-close-popup to="/vendor/settings">
@@ -77,12 +79,16 @@
 <script>
 export default {
   props: ["toggleLeftDrawer"],
-  methods: {},
-  computed: {
-    username() {
-      return JSON.parse(localStorage.getItem("vendorDetails")).store_name;
-    },
+  data() {
+    return {
+      username: JSON.parse(localStorage.getItem("vendorDetails")).store_name,
+    };
   },
+  // computed: {
+  //   username() {
+  //     return JSON.parse(localStorage.getItem("vendorDetails")).store_name;
+  //   },
+  // },
 };
 </script>
 

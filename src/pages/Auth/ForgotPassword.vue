@@ -1,6 +1,8 @@
 <template>
   <div class="row page justify-between items-center re-column">
-    <div class="werap col-md-8 col-sm-12 col-xs-12">
+
+    <div class="werap col-md-12 col-sm-12 col-xs-12">
+
       <div class="container">
         <form @submit.prevent="request">
           <p class="text-weight-medium text-white">
@@ -18,6 +20,9 @@
                 name="email"
                 placeholder="Enter your email"
                 autocomplete="email"
+
+                class="text-black"
+
               />
             </div>
             <div class="error" v-if="errors.email">
@@ -26,28 +31,42 @@
           </div>
 
           <div class="button q-pt-xl text-center">
-            <q-btn :loading="loading" type="submit" class="btn q-py-sm q-px-xl"
+
+            <q-btn
+              :loading="loading"
+              type="submit"
+              flat
+              text-color="white"
+              class="bg-primary q-py-sm q-px-xl"
+
               >Request Reset Email</q-btn
             >
           </div>
         </form>
 
-        <p class="text-white q-mt-md q-pb-sm text-center">
+
+        <!-- <p class="text-white q-mt-md q-pb-sm text-center">
+
           Remember your password now?
           <q-btn flat :to="{ name: 'login' }" class="text-primary">
             Login</q-btn
           >
-        </p>
+
+        </p> -->
       </div>
     </div>
+    <!--
+
     <div class="mobile-hideable col-md-4 col-sm-12 col-xs-12">
       <div
         class="img mobile-hideable banner"
         style="background-image: url('images/nar.jpg')"
       ></div>
-    </div>
 
-    <q-dialog full-width v-model="dialog">
+    </div> -->
+
+    <q-dialog v-model="dialog">
+
       <q-card
         style="height: fit-content; width: 80%"
         class="dialog_wid q-pa-md"
@@ -173,6 +192,12 @@ export default {
 </script>
 
 <style scoped>
+
+.container {
+  width: 60%;
+  margin: 5% auto;
+}
+
 .werap {
   position: relative;
   z-index: 100;

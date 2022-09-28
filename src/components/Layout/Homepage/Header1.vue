@@ -1,27 +1,25 @@
 <template>
-  <div class="header1 row q-px-md items-align bg-grey-2 big_screen_padding">
+  <div class="header1 row q-px-md items-align bg-grey-3 big_screen_padding">
     <div class="header1_container">
-      <div class="left text-black text-bold welcome_text">
-        WELCOME TO MOMS EXPRESS
-      </div>
-      <Marquee
-        class="left text-black text-bold row marquee_text"
-        behavior=""
-        direction="right"
-      >
-        <span class="q-mr-xl">WELCOME TO MOMS EXPRESS</span>
-        <!-- <span class="q-mr-xl">WELCOME TO MOMS EXPRESS</span> -->
-        <!-- <span class="q-mr-xl">WELCOME TO MOMS EXPRESS</span>
-        <span class="q-mr-xl">WELCOME TO MOMS EXPRESS</span> -->
-      </Marquee>
+      <q-space />
+
       <!-- {{ $store.auth.userDetails }} -->
 
       <div class="right items-center">
-        <!-- <router-link class="q-mx-sm" to="/">Blog</router-link>
-        <router-link class="q-mx-sm" to="/">Contact Us</router-link> -->
+        <!-- <router-link class="q-mx-sm" to="/">Blog</router-link> -->
+        <router-link
+          class="q-mx-md text-secondary text-bold"
+          to="/become_a_vendor"
+          >Become a vendor</router-link
+        >
+
         <q-btn-dropdown
           v-if="$store.auth.userDetails !== null"
-          color="grey-5"
+          flat
+          color="black"
+          no-caps
+          class="non_hover_btn header_dropdown text-weight-light"
+
           :label="$store.auth.userDetails.data[1].email"
         >
           <q-list>
@@ -40,11 +38,11 @@
         <div v-if="$store.auth.userDetails === null" class="auth text-black">
           <div @click="login">
             <q-icon name="person" size="1.2rem" class="q-mr-xs" />
-            <span>Sign in</span>
+            <span class="auth_text">Sign in</span>
           </div>
           <span class="q-mx-sm">/</span>
           <div @click="register">
-            <span>Register</span>
+            <span class="auth_text">Register</span>
           </div>
         </div>
         <div class="auth" v-else>
@@ -96,10 +94,11 @@ export default {
   display: flex;
 }
 
-.right a {
+.right a,
+.auth_text {
   text-decoration: none;
   color: black;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
 }
 
 .right a:hover,
@@ -116,8 +115,7 @@ export default {
   display: none;
 }
 @media screen and (max-width: 770px) {
-  .right,
-  .welcome_text {
+  .right {
     display: none;
   }
   .marquee_text {

@@ -1,8 +1,6 @@
 <template>
   <q-toolbar class="q-my-sm big_screen_padding header_two">
-    <div
-      class="row q-my-sm header_two_cont justify-between items-align full-width"
-    >
+    <div class="row q-my-sm header_two_cont items-center full-width">
       <div class="column">
         <q-space />
         <q-btn
@@ -12,14 +10,17 @@
           icon="menu"
           aria-label="Menu"
           @click="toggleLeftDrawer"
-          class="hamburger_btn"
+          class="hamburger_btn q-mr-sm"
           color="primary"
         />
         <q-space />
       </div>
-      <div class="image_container flex flex-center">
-        <q-img src="Images/lorem_logo.svg" />
-      </div>
+
+      <router-link to="/" class="text-primary text-bold text-h5">
+        <div>MOMS<span class="text-secondary">EXPRESS</span></div>
+      </router-link>
+
+      <q-space />
 
       <div class="row text-black items-center">
         <div class="flex input_div flex-center q-mr-lg">

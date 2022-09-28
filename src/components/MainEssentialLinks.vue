@@ -21,14 +21,14 @@
           indicator-color="primary"
           align="justify"
         >
-          <q-tab name="main" label="main menu" />
+          <!-- <q-tab name="main" label="main menu" /> -->
           <q-tab name="categories" label="categories" />
         </q-tabs>
 
         <q-separator />
 
         <q-tab-panels v-model="tab" animated class="bg-grey-3">
-          <q-tab-panel name="main" class="q-px-none">
+          <!-- <q-tab-panel name="main" class="q-px-none">
             <q-list separator>
               <q-item
                 class="q-px-none"
@@ -40,7 +40,7 @@
                 <q-item-section>Single line item</q-item-section>
               </q-item>
             </q-list>
-          </q-tab-panel>
+          </q-tab-panel> -->
 
           <q-tab-panel name="categories">
             <q-list separator>
@@ -81,7 +81,7 @@ import { ref } from "vue";
 export default {
   setup() {
     return {
-      tab: ref("main"),
+      tab: ref("categories"),
     };
   },
   data() {
