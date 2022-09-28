@@ -60,6 +60,7 @@
           placeholder="Old password"
           outlined
           dense
+          v-model="oldPassword"
         />
       </div>
 
@@ -70,6 +71,7 @@
           placeholder="New password"
           outlined
           dense
+          v-model="newPassword"
         />
       </div>
 
@@ -80,6 +82,7 @@
           placeholder="Password confirmation"
           outlined
           dense
+          v-model="newPassword2"
         />
       </div>
     </div>
@@ -91,6 +94,7 @@
         color="primary"
         no-caps
         size="1.1rem"
+        @click="updatePassword"
       />
       <q-space />
     </div>
@@ -115,6 +119,32 @@ export default {
     this.fullname = this.userData.fullname;
     this.email = this.userData.email;
     this.phone = this.userData.phone;
+  },
+  methods: {
+    updatePassword() {
+      let form = {
+        current_password: this.oldPassword,
+        password: this.newPassword,
+        password_confirmation: this.newPassword2,
+      };
+
+      this.$api
+        .patch(`change-password`, form)
+        .then((resp) => {
+          console.log(resp);
+          this.oldPassword = "";
+          this.newPassword = "";
+          this.newPassword2 = "";
+        })
+        .catch(({ response }) => {
+          this.$q.notify({
+            message: response.data.message,
+            color: "red",
+            position: "top",
+          });
+          this.errors = response.data.errors;
+        });
+    },
   },
 };
 </script>

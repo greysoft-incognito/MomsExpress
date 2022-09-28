@@ -11,9 +11,13 @@
       show-if-above
       bordered
     >
-      <div style="height: 70px" class="flex flex-center q-px-md">
-        <q-img src="Images/lorem_logo.svg" />
-      </div>
+      <router-link
+        to="/"
+        style="height: 70px"
+        class="text-primary text-bold text-h5 q-px-md row justify-center items-center"
+      >
+        <div>MOMS<span class="text-secondary">EXPRESS</span></div>
+      </router-link>
       <q-list>
         <EssentialLink
           v-for="link in essentialLinks"

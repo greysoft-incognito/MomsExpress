@@ -15,7 +15,7 @@
       <div class="q-my-xs text-subtitle2 text-bold">Store Phone Number:</div>
       <q-input
         class="full-width"
-        v-model="user.phone_number"
+        v-model="user.phone"
         placeholder="Store phone number"
         outlined
         dense
@@ -42,7 +42,7 @@
         placeholder="Business registration number"
         outlined
         dense
-        v-model="regNum"
+        v-model="user.registration_number"
       />
     </div>
 
@@ -54,7 +54,7 @@
         placeholder="Description"
         outlined
         dense
-        v-model="description"
+        v-model="user.description"
       />
     </div>
 
@@ -65,17 +65,29 @@
         color="primary"
         no-caps
         size="1rem"
+        @click="updateStoreDetails"
       />
       <q-space />
-      <q-btn
-        label="Delete Store"
-        class="bordered-btn"
-        color="red"
-        icon="delete"
-        no-caps
-        size="1rem"
-        @click="confirm = true"
-      />
+    </div>
+
+    <q-separator class="q-my-xl" />
+
+    <div class="row items-center">
+      <div class="text-subtitle1">
+        This button deactivates your store account not your user account
+      </div>
+      <q-space />
+      <div class="row q-my-md">
+        <q-btn
+          label="Deactivate "
+          class="bordered-btn"
+          outline
+          color="red"
+          no-caps
+          size="1rem"
+          @click="confirm = true"
+        />
+      </div>
     </div>
 
     <q-dialog v-model="confirm" persistent>
@@ -103,11 +115,35 @@ export default {
       description: "",
       regNum: "",
       confirm: false,
+      user: this.$store.auth.vendorDetails,
     };
   },
-  computed: {
-    user() {
-      return JSON.parse(localStorage.getItem("vendorDetails"));
+  // computed: {
+  //   user() {
+  //     return JSON.parse(localStorage.getItem("userdet")).vendor;
+  //   },
+  // },
+  methods: {
+    updateStoreDetails() {
+      let form = {
+        name: this.user.store_name,
+        phone: this.user.phone,
+        address: this.user.address,
+        description: this.user.description,
+        registration_number: this.user.registration_number,
+      };
+
+      console.log(form);
+      this.$api
+        .patch(`details/update`, form)
+        .then((resp) => {
+          console.log(resp);
+          this.$store.auth.vendorDetails = resp.data.data;
+          localStorage.setItem("vendorDetails", JSON.stringify(resp.data.data));
+        })
+        .catch(({ response }) => {
+          this.errors = response.data.errors;
+        });
     },
   },
 };

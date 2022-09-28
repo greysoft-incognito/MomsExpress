@@ -20,6 +20,11 @@ export const useAuthStore = defineStore("auth", {
       localStorage.setItem("userdet", JSON.stringify(user));
       this.userDetails = data;
       this.token = token;
+
+      //Update Vendor details
+      console.log(user.vendor);
+      localStorage.setItem("vendorDetails", JSON.stringify(user.vendor));
+      this.vendorDetails = user.vendor;
     },
     setVendorDetails(data) {
       console.log(data);
@@ -36,8 +41,8 @@ export const useAuthStore = defineStore("auth", {
           this.userDetails = null;
           userDetails = null;
         })
-        .catch((e) => {
-          console.log({ e });
+        .catch(({ response }) => {
+          console.log({ response });
           this.token = null;
           this.userDetails = null;
           userDetails = null;
