@@ -55,30 +55,40 @@ export default boot(({ app, router }) => {
   
   // ^ ^ ^ this will allow you to use this.$api (for Vue Options API form)
   //       so you can easily perform requests against your app's API
-  // router.beforeEach((to,from, next) => {
-  //   const store = app.config.globalProperties.$store;
-  //   if (store.auth.token) {
-  //     api.defaults.headers.common[
-  //       "Authorization"
-  //     ] = `Bearer ${store.auth.token}`;
-  //   }
-  //   console.log(to.meta.requireGuest);
-  //   console.log(!store.auth.token);
-  //   console.log(store.auth.userDetails);
-  //   if (to.name === 'logout' && store.auth.userDetails) {
-  //     store.auth.logOut(store.auth.userDetails).then(() => {
-  //       return router.replace({ name: 'login' })
-  //     })
-  //   }
+  router.beforeEach((to,from, next) => {
+    const store = app.config.globalProperties.$store;
+    if (store.auth.token) {
+      api.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${store.auth.token}`;
+    }
+    console.log(to.meta.requireGuest);
+    console.log(!store.auth.token);
+    console.log(store.auth.userDetails);
+    if (to.name === 'logout' && store.auth.userDetails) {
+      store.auth.logOut(store.auth.userDetails).then(() => {
+        return router.replace({ name: 'homepage' })
+      })
+    }
+    if (to.name === "logout" && store.userDetails.data) {
+        window.localStorage.clear();
 
-  //   if (to.meta.requireAuth && !store.auth.token) {
-  //     return next({ name: "login" });
-  //   } else if (to.meta.requireGuest && store.auth.token) {
-  //     return next({ name: "welcome" });
-  //   }
+      store.auth.logOut(store.userDetails.data).then((status) => {
+        if (status === true) {
+        window.localStorage.clear();
+          return router.replace({ name: "homepage" });
+        }
+      });
+    }
 
-  //   return next()
-  // });
+    if (to.meta.requireAuth && !store.auth.token) {
+      return next({ name: "homepage" });
+    } else if (to.meta.requireGuest && store.auth.token) {
+      return next({ name: "homepage" });
+    }
+
+    return next()
+  });
 
 });
 

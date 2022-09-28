@@ -6,7 +6,7 @@ const routes = [
       {
         path: "/",
         name: "Homepage",
-        component: () => import("pages/Homepage.vue"),
+        component: () => import("pages/Homepage.vue"),name: 'homepage'
       },
       {
         path: "/login",
@@ -19,6 +19,15 @@ const routes = [
       {
         path: "/loginn",
         component: () => import("pages/Auth/Login.vue"),
+      },
+      {
+        path: "/forgotPassword",
+        component: () => import("pages/Auth/ForgotPassword.vue"),
+      },
+      {
+        path: "/logout",
+        component: () => import("pages/Homepage.vue"), name: 'logout',
+        meta: { requireAuth: true },
       },
       {
         path: "/vendorOnboard",
