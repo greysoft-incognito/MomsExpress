@@ -14,15 +14,30 @@
         <!-- <span class="q-mr-xl">WELCOME TO MOMS EXPRESS</span>
         <span class="q-mr-xl">WELCOME TO MOMS EXPRESS</span> -->
       </Marquee>
+      <!-- {{ $store.auth.userDetails }} -->
 
-      <div class="right">
-        <router-link class="q-mx-sm" to="/">Blog</router-link>
-        <router-link class="q-mx-sm" to="/">Contact Us</router-link>
-        <router-link class="q-mx-sm" to="/account">My Account</router-link>
-        <div
-          v-if="(this.$store.auth.userDetails = null)"
-          class="auth text-black"
+      <div class="right items-center">
+        <!-- <router-link class="q-mx-sm" to="/">Blog</router-link>
+        <router-link class="q-mx-sm" to="/">Contact Us</router-link> -->
+        <q-btn-dropdown
+          v-if="$store.auth.userDetails !== null"
+          color="grey-5"
+          :label="$store.auth.userDetails.data[1].email"
         >
+          <q-list>
+            <q-item clickable v-close-popup @click="onItemClick">
+              <q-item-section>
+                <q-item-label
+                  ><router-link class="q-mx-sm" to="/account"
+                    >My Account</router-link
+                  ></q-item-label
+                >
+              </q-item-section>
+            </q-item>
+          </q-list>
+        </q-btn-dropdown>
+
+        <div v-if="$store.auth.userDetails === null" class="auth text-black">
           <div @click="login">
             <q-icon name="person" size="1.2rem" class="q-mr-xs" />
             <span>Sign in</span>
@@ -31,6 +46,14 @@
           <div @click="register">
             <span>Register</span>
           </div>
+        </div>
+        <div class="auth" v-else>
+          <q-item
+            style="min-height: 0"
+            :to="{ name: 'logout' }"
+            class="text-dark"
+            >Sign Out</q-item
+          >
         </div>
       </div>
     </div>
@@ -81,7 +104,7 @@ export default {
 
 .right a:hover,
 .auth div:hover {
-  color: #1976d2;
+  color: #e06900;
   cursor: pointer;
 }
 

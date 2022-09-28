@@ -15,6 +15,7 @@
     <div class="category_container bg-">
       <div class="banner"></div>
       <div class="products">
+
         <div
           v-for="product in products"
           :key="product.id"

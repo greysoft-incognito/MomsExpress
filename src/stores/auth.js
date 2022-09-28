@@ -13,8 +13,8 @@ export const useAuthStore = defineStore("auth", {
   actions: {
     setUserDetails(data) {
       console.log(data);
-      const token = data.token;
-      const user = data.payload;
+      const token = data.data[0];
+      const user = data.data[1];
 
       localStorage.setItem("token", token);
       localStorage.setItem("userdet", JSON.stringify(user));
@@ -23,7 +23,7 @@ export const useAuthStore = defineStore("auth", {
     },
     setVendorDetails(data) {
       console.log(data);
-      const vendorDetails = data.payload;
+      const vendorDetails = data.data;
       localStorage.setItem("vendorDetails", JSON.stringify(vendorDetails));
       this.vendorDetails = data.payload;
     },
@@ -36,8 +36,8 @@ export const useAuthStore = defineStore("auth", {
           this.userDetails = null;
           userDetails = null;
         })
-        .catch((e) => {
-          console.log({ e });
+        .catch(({response}) => {
+          console.log({ response });
           this.token = null;
           this.userDetails = null;
           userDetails = null;

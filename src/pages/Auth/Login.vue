@@ -57,7 +57,9 @@
                 </div>
 
                 <div class="forgot flex justify-end">
-                  <p class="text-green">Forgot password</p>
+                  <q-item to="/forgotPassword" class="text-green"
+                    >Forgot password</q-item
+                  >
                 </div>
               </div>
 
