@@ -27,7 +27,8 @@
     </div>
 
     <q-list padding class="list q-py-md bg-white" separator>
-      <ProductItem v-for="n in 5" :key="n" />
+      <!-- <ProductItem v-for="n in 5" :key="n" /> -->
+      <ProductsTable />
     </q-list>
   </q-page>
 </template>
@@ -35,11 +36,13 @@
 <script>
 import { ref } from "vue";
 import ProductItem from "src/components/Vendor/Products/ProductItem.vue";
+import ProductsTable from "../VendorPages/ProductsTable.vue";
 
 export default {
   name: "Products",
   components: {
     ProductItem,
+    ProductsTable,
   },
   data() {
     return {

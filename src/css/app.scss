@@ -19,6 +19,12 @@ p {
   margin: 0;
 }
 
+.container {
+  width: 90%;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
 .fullname {
   display: grid;
   grid-template-columns: 1fr 1fr;

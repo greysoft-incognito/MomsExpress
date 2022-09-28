@@ -42,6 +42,7 @@ export const useAuthStore = defineStore("auth", {
           userDetails = null;
         })
         .catch(({ response }) => {
+
           console.log({ response });
           this.token = null;
           this.userDetails = null;

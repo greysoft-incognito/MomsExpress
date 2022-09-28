@@ -19,6 +19,7 @@
           color="black"
           no-caps
           class="non_hover_btn header_dropdown text-weight-light"
+
           :label="$store.auth.userDetails.data[1].email"
         >
           <q-list>
@@ -43,6 +44,14 @@
           <div @click="register">
             <span class="auth_text">Register</span>
           </div>
+        </div>
+        <div class="auth" v-else>
+          <q-item
+            style="min-height: 0"
+            :to="{ name: 'logout' }"
+            class="text-dark"
+            >Sign Out</q-item
+          >
         </div>
       </div>
     </div>
