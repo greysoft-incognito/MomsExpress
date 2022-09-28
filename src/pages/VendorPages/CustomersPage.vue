@@ -2,7 +2,6 @@
   <q-page class="q-px-lg q-py-md table_page">
     <div class="route_name">
       <div class="text-h6">{{ $route.name }}</div>
-      <div class="text-weight-thin">Lorem Store Name</div>
     </div>
     <div class="q-mt-md">
       <q-table

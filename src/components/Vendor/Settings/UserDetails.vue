@@ -4,10 +4,10 @@
       <div class="text-h6">General Information</div>
 
       <div class="q-mt-md">
-        <div class="q-my-xs text-subtitle2 text-bold">FullName</div>
+        <div class="q-my-xs text-subtitle2 text-bold">Full name</div>
         <q-input
           class="input_field"
-          placeholder="Fullname"
+          placeholder="Store owner's full name"
           v-model="fullname"
           outlined
           dense
@@ -34,6 +34,17 @@
           outlined
           dense
         />
+      </div>
+
+      <div class="q-mt-lg row">
+        <q-btn
+          label="Save changes "
+          class="bordered-btn"
+          color="primary"
+          no-caps
+          size="1.1rem"
+        />
+        <q-space />
       </div>
     </div>
 
@@ -63,10 +74,10 @@
       </div>
 
       <div class="q-mt-lg">
-        <div class="q-my-xs text-subtitle2 text-bold">Retype New Password</div>
+        <div class="q-my-xs text-subtitle2 text-bold">Re-type New Password</div>
         <q-input
           class="input_field"
-          placeholder="New password"
+          placeholder="Password confirmation"
           outlined
           dense
         />

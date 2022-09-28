@@ -1,9 +1,12 @@
 <template>
-  <q-page>
+  <q-page class="landing_page">
     <div class="section_one big_screen_padding q-my-xl">
       <div>
-        <p class="q-my-sm text-primary text-bold text-h6">Create a store</p>
+        <p class="sub_text q-my-sm text-primary text-bold text-h6">
+          Create a store
+        </p>
         <h3 class="text-bold">Build your online store on MOMS</h3>
+        <q-img class="small_screen" src="Images/first_image.jpg" />
         <p class="q-my-md one_long_text">
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione
           veritatis, officiis voluptatem voluptate natus sint dicta praesentium
@@ -12,7 +15,7 @@
         </p>
         <q-btn class="q-my-md" @click="alert = true" outline label="Register" />
       </div>
-      <q-img src="Images/first_image.jpg" />
+      <q-img class="large_screen" src="Images/first_image.jpg" />
     </div>
 
     <q-dialog v-model="alert">
@@ -77,10 +80,13 @@
     </q-dialog>
 
     <div class="section_two big_screen_padding bg-grey-3">
-      <q-img src="Images/second_image.jpg" />
+      <q-img class="large_screen" src="Images/second_image.jpg" />
       <div>
-        <p class="q-my-sm text-primary text-bold text-h6">How to Trade</p>
+        <p class="sub_text q-my-sm text-primary text-bold text-h6">
+          How to Trade
+        </p>
         <h3 class="text-bold">Easy 4 steps to manage your products selling</h3>
+        <q-img class="small_screen" src="Images/second_image.jpg" />
         <p class="q-my-md one_long_text">
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione
           veritatis, officiis voluptatem voluptate natus sint dicta praesentium
@@ -88,9 +94,9 @@
           sapiente! Inventore, aperiam odio.
         </p>
         <div class="four_items">
-          <div class="row q-my-md">
+          <div class="row icon_container q-my-md">
             <q-icon
-              class="q-mr-sm"
+              class="q-mr-sm single_icon"
               name="computer"
               size="4rem"
               color="primary"
@@ -100,13 +106,18 @@
               Products
             </p>
           </div>
-          <div class="row q-my-md">
-            <q-icon class="q-mr-sm" name="list" size="4rem" color="primary" />
+          <div class="row icon_container q-my-md">
+            <q-icon
+              class="q-mr-sm single_icon"
+              name="list"
+              size="4rem"
+              color="primary"
+            />
             <p>Start Selling Your Products</p>
           </div>
-          <div class="row q-my-md">
+          <div class="row icon_container q-my-md">
             <q-icon
-              class="q-mr-sm"
+              class="q-mr-sm single_icon"
               name="delivery_dining"
               size="4rem"
               color="primary"
@@ -116,8 +127,13 @@
               Everywhere
             </p>
           </div>
-          <div class="row q-my-md">
-            <q-icon class="q-mr-sm" name="store" size="4rem" color="primary" />
+          <div class="row icon_container q-my-md">
+            <q-icon
+              class="q-mr-sm single_icon"
+              name="store"
+              size="4rem"
+              color="primary"
+            />
             <p>
               Get Payments and Increase <br />
               your Income
@@ -134,16 +150,16 @@
 
     </div> -->
 
-    <div class="section_four text-center big_screen_padding bg-grey-3">
-      <h6 class="text-primary text-bold">What they say</h6>
+    <div class="section_four text-center big_screen_padding">
+      <h6 class="text-primary text-bold sub_text">What they say</h6>
       <h4 class="text-bold q-my-sm">Success stories from MOMS Express</h4>
       <div class="testimonies_cont">
         <div
-          class="bg-white column q-pa-md testimony_card"
+          class="bg-grey-3 column q-pa-md testimony_card"
           v-for="n in 3"
           :key="n"
         >
-          <q-avatar size="7rem" class="q-mx-auto">
+          <q-avatar size="7rem" class="q-mx-auto avatar_pix">
             <img src="Images/smiling_man.jpg" />
           </q-avatar>
 
@@ -162,15 +178,15 @@
             Commodi delectus, .
           </p>
 
-          <p class="text-bold text-subtitle1 q-my-sm">Lorem Dude</p>
+          <p class="text-bold text-subtitle1 q-my-xs user_title">Lorem Dude</p>
 
-          <p class="text-grey-7">Investor</p>
+          <p class="text-grey-7 user_title">Investor</p>
         </div>
       </div>
     </div>
 
-    <div class="section_five big_screen_padding">
-      <h6 class="text-primary text-center text-bold">
+    <div class="section_five big_screen_padding bg-grey-3">
+      <h6 class="text-primary text-center text-bold sub_text">
         Frequently Asked Questions
       </h6>
       <h4 class="text-bold text-center q-my-sm">
@@ -179,8 +195,10 @@
 
       <div class="faqs">
         <div class="q-mb-lg">
-          <h6 class="text-bold q-mb-md">How can I add new products?</h6>
-          <p class="text-grey-7">
+          <h6 class="sub_text text-bold q-mb-md">
+            How can I add new products?
+          </h6>
+          <p class="text-grey-7 answers">
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Atque
             quibusdam enim numquam, saepe cum dicta incidunt repellendus iure
             eum voluptatibus eligendi facilis id hic voluptas possimus dolor
@@ -189,8 +207,8 @@
         </div>
 
         <div class="q-mb-lg">
-          <h6 class="text-bold q-mb-md">How do I get paid?</h6>
-          <p class="text-grey-7">
+          <h6 class="sub_text text-bold q-mb-md">How do I get paid?</h6>
+          <p class="text-grey-7 answers">
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Atque
             quibusdam enim numquam, saepe cum dicta incidunt repellendus iure
             eum voluptatibus eligendi facilis id hic voluptas possimus dolor
@@ -199,8 +217,8 @@
         </div>
 
         <div class="q-mb-lg">
-          <h6 class="text-bold q-mb-md">How can I know stock?</h6>
-          <p class="text-grey-7">
+          <h6 class="sub_text text-bold q-mb-md">How can I know stock?</h6>
+          <p class="text-grey-7 answers">
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Atque
             quibusdam enim numquam, saepe cum dicta incidunt repellendus iure
             eum voluptatibus eligendi facilis id hic voluptas possimus dolor
@@ -209,8 +227,8 @@
         </div>
 
         <div class="q-mb-lg">
-          <h6 class="text-bold q-mb-md">
-            Do I need a credit or debit card to create a shop?
+          <h6 class="sub_text text-bold q-mb-md">
+            Do I need a credit answersor debit card to create a shop?
           </h6>
           <p class="text-grey-7">
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Atque
@@ -237,7 +255,6 @@ export default {
         name: "",
         address: "",
         phone: "",
-        user_id: "",
         terms: false,
       },
     };
@@ -248,13 +265,12 @@ export default {
       const name = this.form.name;
       const address = this.form.address;
       const phone = this.form.phone;
-      const user_id = JSON.parse(localStorage.getItem("userdet")).id;
       const terms = this.form.terms;
       let data = {
         name,
         address,
         phone,
-        user_id,
+        user_id: JSON.parse(localStorage.getItem("userdet")).id,
         terms,
       };
 
@@ -295,9 +311,6 @@ export default {
           });
       }
     },
-  },
-  mounted() {
-    console.log(JSON.parse(localStorage.getItem("userdet")).id);
   },
 };
 </script>
@@ -358,5 +371,184 @@ export default {
 .faqs {
   gap: 30px;
   margin: 5% 0 2%;
+}
+
+.small_screen {
+  display: none;
+}
+
+@media screen and (max-width: 1250px) {
+  h3 {
+    font-size: 2.5rem;
+  }
+  .icon_container {
+    align-items: center;
+    margin: 2% 0;
+  }
+  .icon_container p,
+  .one_long_text {
+    font-size: 0.95rem;
+  }
+  .single_icon {
+    font-size: 2.5rem !important;
+  }
+}
+@media screen and (max-width: 1110px) {
+  h3 {
+    font-size: 2rem;
+  }
+  .icon_container p,
+  .one_long_text {
+    font-size: 0.85rem;
+  }
+  .single_icon {
+    font-size: 2.1rem !important;
+  }
+  .review {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 950px) {
+  .large_screen {
+    display: none;
+  }
+  .section_one,
+  .section_two {
+    grid-template-columns: 1fr;
+  }
+
+  .small_screen {
+    display: block;
+    height: 500px;
+    width: 80%;
+    margin: 3% 0 2%;
+  }
+  h3 {
+    font-size: 2.7rem;
+    width: 70%;
+  }
+  .icon_container {
+    align-items: center;
+    margin: 2% 0;
+  }
+  .icon_container p,
+  .one_long_text {
+    font-size: 1rem;
+  }
+  .single_icon {
+    font-size: 3rem !important;
+  }
+  .landing_page .big_screen_padding {
+    padding: 3% 7%;
+  }
+  .testimonies_cont {
+    grid-template-columns: 80%;
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  h3 {
+    font-size: 2.4rem;
+    width: 80%;
+  }
+  .small_screen {
+    height: 500px;
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  h4 {
+    width: 85%;
+    font-size: 1.85rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 680px) {
+  h3 {
+    font-size: 2.1rem;
+    width: 80%;
+  }
+  .small_screen {
+    height: 500px;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 604px) {
+  .landing_page .big_screen_padding {
+    padding: 3% 7% 5%;
+  }
+  .icon_container p,
+  .one_long_text,
+  .review,
+  .answers,
+  .user_title {
+    font-size: 0.9rem;
+  }
+  .single_icon {
+    font-size: 2.2rem !important;
+  }
+  h3 {
+    font-size: 2.1rem;
+    width: 100%;
+    line-height: 1.3;
+  }
+  .small_screen {
+    margin: 5% 0 4%;
+    height: 450px;
+  }
+  .four_items {
+    grid-template-columns: 1fr;
+  }
+  .testimonies_cont {
+    grid-template-columns: 90%;
+  }
+  h4 {
+    width: 90%;
+    font-size: 1.7rem;
+    margin: 1% auto 5%;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .faqs {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .small_screen {
+    height: 400px;
+  }
+  h3 {
+    font-size: 1.9rem;
+  }
+  .testimonies_cont {
+    grid-template-columns: 100%;
+  }
+  .avatar_pix {
+    font-size: 5rem !important;
+  }
+  h4 {
+    width: 100%;
+    font-size: 1.4rem;
+  }
+}
+
+@media screen and (max-width: 415px) {
+  .small_screen {
+    height: 350px;
+  }
+  h3 {
+    font-size: 1.5rem;
+  }
+  .sub_text {
+    font-size: 1.05rem;
+    margin: 0;
+  }
 }
 </style>

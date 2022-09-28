@@ -15,21 +15,9 @@
       <div class="text-subtitle1 page_title text-bold text-black q-ml-sm">
         {{ $route.name }}
       </div>
-      <div>
-        <q-input
-          placeholder="Search for  products..."
-          class="search_input"
-          borderless
-        >
-          <template v-slot:prepend>
-            <q-icon name="search" color="primary" />
-            <q-separator class="q-ma-sm" vertical />
-          </template>
-        </q-input>
-      </div>
-
+      <q-space />
       <div class="row text-black items-center">
-        <q-separator class="q-my-xs q-mx-sm header_sep" vertical />
+        <!-- <q-separator class="q-my-xs q-mx-sm header_sep" vertical />
         <q-btn
           color="grey "
           size="0.8rem"
@@ -37,7 +25,7 @@
           outline
           class="notification"
           icon="fas fa-bell "
-        />
+        /> -->
         <q-separator class="q-my-xs q-ml-sm header_sep" vertical />
         <q-btn-dropdown
           flat
@@ -49,7 +37,7 @@
             <q-avatar color="grey-3" class="q-mr-md header_avatar">
               <q-icon color="primary" name="person" />
             </q-avatar>
-            <div class="username">Lorem Dude Fullname</div>
+            <div class="username">{{ username }}</div>
           </template>
           <q-list>
             <q-item clickable v-close-popup to="/vendor/settings">
@@ -90,6 +78,11 @@
 export default {
   props: ["toggleLeftDrawer"],
   methods: {},
+  computed: {
+    username() {
+      return JSON.parse(localStorage.getItem("vendorDetails")).store_name;
+    },
+  },
 };
 </script>
 

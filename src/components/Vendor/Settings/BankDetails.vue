@@ -46,6 +46,16 @@
               />
             </div>
           </q-td>
+          <q-td>
+            <q-btn
+              @click="deleteAccount(props.row.id)"
+              icon="delete"
+              round
+              flat
+              color="secondary"
+              size="0.8rem"
+            />
+          </q-td>
         </q-tr>
       </template>
     </q-table>
@@ -238,6 +248,25 @@ export default {
         })
         .catch(({ response }) => {
           this.errors = response.data.errors;
+        });
+    },
+    deleteAccount(id) {
+      console.log(id);
+      this.$api
+        .delete(`bank/delete/${id}`)
+        .then((resp) => {
+          console.log(resp);
+          this.getAccounts();
+          // this.toggle = false;
+        })
+        .catch(({ response }) => {
+          console.log(response);
+          this.$q.notify({
+            message: response.data.message,
+            color: "red",
+            position: "top",
+          });
+          this.errors = response.message;
         });
     },
   },
