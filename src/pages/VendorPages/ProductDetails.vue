@@ -4,7 +4,6 @@
 
     <div class="route_name">
       <div class="text-h6">{{ $route.name }}</div>
-      <div class="text-weight-thin">Lorem Store Name</div>
     </div>
     <!-- </div> -->
     {{ productDetails }}

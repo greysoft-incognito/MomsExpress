@@ -5,7 +5,7 @@ export const useAuthStore = defineStore("auth", {
     token: "",
     userDetails: null,
     token: localStorage.getItem("token") || "",
-    vendorDetails:null
+    vendorDetails: null,
   }),
   getters: {
     registrationForm: (state) => state.userDetails,
@@ -25,7 +25,7 @@ export const useAuthStore = defineStore("auth", {
       console.log(data);
       const vendorDetails = data.data;
       localStorage.setItem("vendorDetails", JSON.stringify(vendorDetails));
-      this.vendorDetails = data.payload;
+      this.vendorDetails = data.data;
     },
 
     async logOut(userDetails) {

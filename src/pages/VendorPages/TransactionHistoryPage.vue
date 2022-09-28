@@ -1,7 +1,6 @@
 <template>
   <q-page class="q-px-lg q-py-md table_page">
     <div class="text-h6">{{ $route.name }}</div>
-    <div class="text-weight-thin">Lorem Store Name</div>
     <div class="q-pa-md">
       <q-table
         :grid="tableLayout"
