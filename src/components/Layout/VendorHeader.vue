@@ -51,7 +51,7 @@
               </q-item-section>
             </q-item>
 
-            <q-item clickable v-close-popup>
+            <q-item clickable v-close-popup to="/logout">
               <q-item-section>
                 <q-item-label>
                   <q-icon name="logout" size="0.8rem" />

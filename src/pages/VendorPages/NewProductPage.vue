@@ -203,7 +203,7 @@
             </q-input>
           </div>
 
-          <div class="product-price border-radius bg-white q-pa-md">
+          <!-- <div class="product-price border-radius bg-white q-pa-md">
             <label class="text-grey-9">Category</label>
             <q-select
               outlined
@@ -216,7 +216,7 @@
             <div class="error" v-if="errors.category">
               {{ errors.category[0] }}
             </div>
-          </div>
+          </div> -->
           <div class="row q-pa-md">
             <q-btn
               label="Upload Product "

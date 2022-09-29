@@ -10,6 +10,10 @@
         <router-link
           class="q-mx-md text-secondary text-bold"
           to="/become_a_vendor"
+          v-show="
+            $store.auth.vendorDetails === null ||
+            $store.auth.userDetails === null
+          "
           >Become a vendor</router-link
         >
 
@@ -19,14 +23,23 @@
           color="black"
           no-caps
           class="non_hover_btn header_dropdown text-weight-light"
-
-          :label="$store.auth.userDetails.data[1].email"
+          :label="
+            $store.auth.userDetails.name === null
+              ? $store.auth.userDetails.email
+              : $store.auth.userDetails.name
+          "
         >
           <q-list>
-            <q-item clickable v-close-popup @click="onItemClick">
+            <q-item clickable v-close-popup>
               <q-item-section>
                 <q-item-label
-                  ><router-link class="q-mx-sm" to="/account"
+                  ><router-link
+                    class="q-mx-sm"
+                    :to="
+                      $store.auth.vendorDetails === null
+                        ? `/account`
+                        : `/vendor`
+                    "
                     >My Account</router-link
                   ></q-item-label
                 >
@@ -49,7 +62,7 @@
           <q-item
             style="min-height: 0"
             :to="{ name: 'logout' }"
-            class="text-dark"
+            class="text-dark auth_text"
             >Sign Out</q-item
           >
         </div>

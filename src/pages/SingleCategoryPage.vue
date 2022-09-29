@@ -11,56 +11,6 @@
             default-opened
             expand-icon="add"
             expanded-icon="remove"
-            label="All Categories"
-          >
-            <q-separator />
-            <div class="q-py-sm">
-              <ul class="q-px-md">
-                <router-link to="/">
-                  <li>Clothing</li>
-                </router-link>
-                <router-link to="/">
-                  <li>Cosmetics</li>
-                </router-link>
-                <router-link to="/">
-                  <li>Electronics</li>
-                </router-link>
-                <router-link to="/">
-                  <li>Clothing</li>
-                </router-link>
-                <router-link to="/">
-                  <li>Cosmetics</li>
-                </router-link>
-                <router-link to="/">
-                  <li>Electronics</li>
-                </router-link>
-                <router-link to="/">
-                  <li>Clothing</li>
-                </router-link>
-                <router-link to="/">
-                  <li>Cosmetics</li>
-                </router-link>
-                <router-link to="/">
-                  <li>Electronics</li>
-                </router-link>
-                <router-link to="/">
-                  <li>Clothing</li>
-                </router-link>
-                <router-link to="/">
-                  <li>Cosmetics</li>
-                </router-link>
-                <router-link to="/">
-                  <li>Electronics</li>
-                </router-link>
-              </ul>
-            </div>
-            <!-- <q-separator /> -->
-          </q-expansion-item>
-
-          <q-expansion-item
-            default-opened
-            expand-icon="add"
-            expanded-icon="remove"
             label="Top Selling"
           >
             <q-separator />
@@ -93,7 +43,7 @@
                       color-selected="secondary"
                     />
                   </div>
-                  <div class="text-bold">$53.00</div>
+                  <div class="text-bold">₦53.00</div>
                 </div>
               </div>
             </div>
@@ -146,7 +96,7 @@
                       color-selected="secondary"
                     />
                   </div>
-                  <div class="text-bold">$53.00</div>
+                  <div class="text-bold">₦53.00</div>
                 </div>
               </div>
             </div>
@@ -234,7 +184,7 @@
                 />
                 <span class="review_text">( 2 reviews)</span>
               </div>
-              <div class="text-bold price_text">${{ products.price }}</div>
+              <div class="text-bold price_text">₦{{ products.price }}</div>
             </div>
             <!-- <SingleProductTile v-for="n in 10" :key="n" /> -->
           </div>
@@ -290,7 +240,7 @@ export default {
       let detail = this.$router.currentRoute.value.params.categoryname;
       console.log(detail);
       this.$api
-        .get(`/${detail}`)
+        .get(`/category/${detail}`)
         .then((res) => {
           console.log(res);
           this.categoryDetails = res.data.data;

@@ -47,7 +47,7 @@
     color="primary"
   />
 
-  <div class="social text-center q-mt-md">
+  <!-- <div class="social text-center q-mt-md">
     <div class="text-grey">Sign in with social account</div>
     <div class="row justify-center q-my-md">
       <q-btn
@@ -77,7 +77,7 @@
         icon="fa-brands fa-google"
       />
     </div>
-  </div>
+  </div> -->
 </template>
 
 <script>

@@ -6,7 +6,8 @@ const routes = [
       {
         path: "/",
         name: "Homepage",
-        component: () => import("pages/Homepage.vue"),name: 'homepage'
+        component: () => import("pages/Homepage.vue"),
+        name: "homepage",
       },
       {
         path: "/login",
@@ -26,7 +27,8 @@ const routes = [
       },
       {
         path: "/logout",
-        component: () => import("pages/Homepage.vue"), name: 'logout',
+        component: () => import("pages/Homepage.vue"),
+        name: "logout",
         meta: { requireAuth: true },
       },
       {
@@ -39,11 +41,13 @@ const routes = [
       },
       {
         path: "/vendor_page/:vendor",
-        component: () => import("pages/SingleVendorPage.vue"), name:'vendorpage',
+        component: () => import("pages/SingleVendorPage.vue"),
+        name: "vendorpage",
       },
       {
         path: "/category/:categoryname",
-        component: () => import("pages/SingleCategoryPage.vue"),name:'category'
+        component: () => import("pages/SingleCategoryPage.vue"),
+        name: "category",
       },
       {
         path: "/cart",
