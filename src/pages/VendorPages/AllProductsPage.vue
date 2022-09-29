@@ -26,7 +26,7 @@
       />
     </div>
 
-    <q-list padding class="list q-py-md bg-white" separator>
+    <q-list style="padding: 0" padding class="list bg-white" separator>
       <!-- <ProductItem v-for="n in 5" :key="n" /> -->
       <ProductsTable />
     </q-list>
