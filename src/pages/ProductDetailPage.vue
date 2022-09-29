@@ -83,14 +83,14 @@
                 :name="1"
                 :img-src="`http://165.227.74.156/${this.$store.cart.singleProducts.uploads[0].url}`"
               />
-              <q-carousel-slide
+              <!-- <q-carousel-slide
                 :name="2"
                 img-src="https://cdn.quasar.dev/img/parallax1.jpg"
               />
               <q-carousel-slide
                 :name="3"
                 img-src="https://cdn.quasar.dev/img/parallax2.jpg"
-              />
+              /> -->
             </q-carousel>
           </div>
 
@@ -111,7 +111,7 @@
 
               <q-separator class="q-my-sm" />
 
-              <h4 class="product_price">${{ productDetails.price }}</h4>
+              <h4 class="product_price">₦{{ productDetails.price }}</h4>
               <!-- <h4 class="product_price">{{ productDetails.id }}</h4> -->
 
               <div class="q-my-sm text-grey-8">
@@ -125,7 +125,7 @@
                 <span>( 2 reviews)</span>
               </div>
 
-              <div>
+              <!-- <div>
                 <div class="row q-my-sm items-center text-grey-8">
                   <q-icon name="done" class="q-mr-md" /> Ultrices eros in cursus
                   turpis massa cursus mattis.
@@ -138,7 +138,7 @@
                   <q-icon name="done" class="q-mr-md" /> Ultrices eros in cursus
                   turpis massa cursus mattis.
                 </div>
-              </div>
+              </div> -->
 
               <q-separator class="q-my-sm" />
 
@@ -200,17 +200,18 @@
                 >
                   View vendor
                 </router-link> -->
-                <router-link
+                <q-btn
+                  label="View Vendor"
                   :to="{
                     name: 'vendorpage',
                     params: {
-                      vendor: this.$store.cart.singleProducts.vendor.name,
+                      vendor: this.$store.cart.singleProducts.name,
                     },
                   }"
-                  class="column bg-grey-2 border_card card"
-                >
-                  vendor name
-                </router-link>
+                  outline
+                  color="secondary"
+                  no-caps
+                />
               </div>
             </div>
           </div>
@@ -234,7 +235,10 @@
 
         <q-tab-panels v-model="tab" animated>
           <q-tab-panel name="description">
-            <Description />
+            <h6 class="text-h6">Product detail</h6>
+            <div class="description text-grey-8">
+              {{ productDetails.description }}
+            </div>
           </q-tab-panel>
 
           <q-tab-panel name="reviews">
@@ -246,10 +250,6 @@
             <Reviews />
           </q-tab-panel>
         </q-tab-panels>
-
-        <div class="q-my-md">
-          <RelatedProducts />
-        </div>
 
         <div class="q-my-md">
           <RelatedProducts />

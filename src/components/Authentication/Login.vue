@@ -66,8 +66,8 @@
         size="0.75rem"
         icon="fa-brands fa-google"
       />
-    </div> 
-  </div>-->
+    </div>
+  </div> -->
 </template>
 
 <script>

@@ -35,41 +35,15 @@
     <div class="footer_categories">
       <div class="text-h5 text-bold">Categories:</div>
       <ul>
-        <router-link to="/">
-          <li>Phones & Tablets</li>
-        </router-link>
-        <router-link to="/">
-          <li>Computers and Laptops</li>
-        </router-link>
-        <router-link to="/">
-          <li>Electronics</li>
-        </router-link>
-        <router-link to="/">
-          <li>Jewelry & Watches</li>
-        </router-link>
-        <router-link to="/">
-          <li>Automobiles</li>
-        </router-link>
-        <router-link to="/">
-          <li>Home Equipments</li>
-        </router-link>
-        <router-link to="/">
-          <li>Beauty, health & hair</li>
-        </router-link>
-        <router-link to="/">
-          <li>Babies & Kids</li>
-        </router-link>
-        <router-link to="/">
-          <li>Bags & Shoes</li>
-        </router-link>
-        <router-link to="/">
-          <li>Agriculture & Food</li>
-        </router-link>
-        <router-link to="/">
-          <li>Men's Fashion</li>
-        </router-link>
-        <router-link to="/">
-          <li>Women's Fashion</li>
+        <router-link
+          v-for="category in categories"
+          :key="category.id"
+          :to="{
+            name: 'category',
+            params: { categoryname: category.slug, id: category.id },
+          }"
+        >
+          <li>{{ category.name }}</li>
         </router-link>
       </ul>
     </div>
@@ -79,14 +53,25 @@
         <div class="customer_care">
           <div class="text-h5 text-bold">Customer Care</div>
           <ul>
-            <router-link to="/">
+            <router-link
+              :to="
+                this.$store.auth.vendorDetails === null ? `/account` : `/vendor`
+              "
+            >
               <li>My Account</li>
             </router-link>
-            <router-link to="/">
-              <li>Discount</li>
-            </router-link>
-            <router-link to="/">
+            <router-link
+              :to="
+                this.$store.auth.vendorDetails === null ? `/account` : `/vendor`
+              "
+            >
               <li>Orders History</li>
+            </router-link>
+            <router-link
+              v-show="$store.auth.vendorDetails === null"
+              to="/become_a_vendor"
+            >
+              <li>Become a seller</li>
             </router-link>
           </ul>
         </div>
@@ -156,7 +141,41 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      categories: [],
+    };
+  },
+  methods: {
+    getCategories() {
+      this.$api
+        .get("category/all")
+        .then((resp) => {
+          console.log(resp);
+          this.categories = resp.data.data;
+          this.loading = false;
+        })
+        .catch(({ response }) => {
+          this.loading = false;
+          this.$q.notify({
+            message: response.data.message || response.data.payload,
+            color: "red",
+            position: "top",
+            timeout: 3000,
+          });
+          this.errors = response.data.errors;
+          setTimeout(() => {
+            this.errors = [];
+          }, 7000);
+          console.log(response);
+        });
+    },
+  },
+  created() {
+    this.getCategories();
+  },
+};
 </script>
 
 <style scoped>

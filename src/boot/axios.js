@@ -28,7 +28,7 @@ const api = axios.create({
 let token = localStorage.getItem("token");
 // console.log(token)
 axios.interceptors.response.use(function (response) {
-  console.log(response)
+  console.log(response);
   if (response.data && response.data.token) {
     token = response.data.token;
   }
@@ -52,10 +52,9 @@ export default boot(({ app, router }) => {
   app.config.globalProperties.$api = api;
   app.config.globalProperties.$store = loadStore;
 
-  
   // ^ ^ ^ this will allow you to use this.$api (for Vue Options API form)
   //       so you can easily perform requests against your app's API
-  router.beforeEach((to,from, next) => {
+  router.beforeEach((to, from, next) => {
     const store = app.config.globalProperties.$store;
     if (store.auth.token) {
       api.defaults.headers.common[
@@ -65,17 +64,17 @@ export default boot(({ app, router }) => {
     console.log(to.meta.requireGuest);
     console.log(!store.auth.token);
     console.log(store.auth.userDetails);
-    if (to.name === 'logout' && store.auth.userDetails) {
+    if (to.name === "logout" && store.auth.userDetails) {
       store.auth.logOut(store.auth.userDetails).then(() => {
-        return router.replace({ name: 'homepage' })
-      })
+        return router.replace({ name: "homepage" });
+      });
     }
     if (to.name === "logout" && store.userDetails.data) {
-        window.localStorage.clear();
+      window.localStorage.clear();
 
       store.auth.logOut(store.userDetails.data).then((status) => {
         if (status === true) {
-        window.localStorage.clear();
+          window.localStorage.clear();
           return router.replace({ name: "homepage" });
         }
       });
@@ -87,9 +86,8 @@ export default boot(({ app, router }) => {
       return next({ name: "homepage" });
     }
 
-    return next()
+    return next();
   });
-
 });
 
 export { axios, api };

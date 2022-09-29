@@ -51,7 +51,7 @@
       />
       <span class="review_text">( 2 reviews)</span>
     </div>
-    <div class="text-bold price_text">$53.00</div>
+    <div class="text-bold price_text">₦53.00</div>
   </div>
 </template>
 

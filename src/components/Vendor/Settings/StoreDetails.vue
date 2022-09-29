@@ -101,7 +101,7 @@
 
         <q-card-actions align="right">
           <q-btn flat label="Cancel" color="primary" v-close-popup />
-          <q-btn flat label="Proceed" color="primary" v-close-popup />
+          <q-btn flat label="Proceed" color="primary" @click="deactivate" />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -142,6 +142,22 @@ export default {
           localStorage.setItem("vendorDetails", JSON.stringify(resp.data.data));
         })
         .catch(({ response }) => {
+          this.errors = response.data.errors;
+        });
+    },
+    deactivate() {
+      this.$api
+        .patch(`deactivate`)
+        .then((resp) => {
+          console.log(resp);
+          this.$q.notify({
+            message: resp.data.message,
+            color: "green",
+            position: "top",
+          });
+          this.$router.replace({ name: "logout" });
+        })
+        .catch((response) => {
           this.errors = response.data.errors;
         });
     },

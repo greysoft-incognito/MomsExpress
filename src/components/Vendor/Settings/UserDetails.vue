@@ -22,6 +22,7 @@
           v-model="email"
           outlined
           dense
+          disable
         />
       </div>
 

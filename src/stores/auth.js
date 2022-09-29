@@ -18,7 +18,7 @@ export const useAuthStore = defineStore("auth", {
 
       localStorage.setItem("token", token);
       localStorage.setItem("userdet", JSON.stringify(user));
-      this.userDetails = data;
+      this.userDetails = user;
       this.token = token;
 
       //Update Vendor details
