@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pa-md">
+  <div class="">
     <q-table
       title="Products Table"
       :rows="rows"
@@ -76,7 +76,7 @@
       </template>
       <template v-slot:body-cell-image_url="props">
         <q-td :props="props">
-          <q-avatar size="50px" class="shadow-10">
+          <q-avatar size="90px" class="shadow-10">
             <img :src="`http://165.227.74.156/${props.row.uploads[0].url}`" />
           </q-avatar>
         </q-td>
@@ -165,54 +165,6 @@
               </q-file>
             </div>
           </div>
-          <!-- <div class="row q-gutter-sm">
-            <div class="col">
-              <q-item-label class="q-pb-xs">Category</q-item-label>
-              <q-select
-                dense
-                options-dense
-                outlined
-                ref="_dh"
-                name="category_id"
-                v-model="category"
-                :loading="loaders.category"
-                :options="categories"
-                option-value="id"
-                option-label="title"
-                label="Choose Category"
-                value="dispatch"
-                @popup-show="loadCategories"
-              >
-                <template v-slot:no-option>
-                  <q-item>
-                    <q-item-section class="text-grey">
-                      No Categories
-                    </q-item-section>
-                  </q-item>
-                </template>
-                <template v-slot:option="option" index>
-                  <q-item
-                    :active="category && category.id === option.opt.id"
-                    clickable
-                    @click="() => setCategoryId(option)"
-                    v-if="categories.length"
-                  >
-                    <q-item-section avatar>
-                      <q-avatar size="24px">
-                        <img :src="option.opt.image_url" />
-                      </q-avatar>
-                    </q-item-section>
-                    <q-item-section>
-                      {{ option.opt.title }}
-                    </q-item-section>
-                  </q-item>
-                </template>
-              </q-select>
-              <div class="error" v-if="errors.category">
-                {{ errors.category_id[0] }}
-              </div>
-            </div>
-          </div> -->
 
           <div class="row q-gutter-sm">
             <div class="col">
@@ -424,7 +376,7 @@ export default {
   },
   methods: {
     setFile(prop) {
-      this.fruitbay.image = prop;
+      this.image = prop;
     },
     setCategoryId(option) {
       this.$refs._dh.toggleOption(option.opt);
@@ -490,10 +442,10 @@ export default {
       formData.append("stock", stock);
       formData.append("description", description);
       formData.append("image[]", image);
-      formData.append("_method", "PUT");
+      formData.append("_method", "PATCH");
       this.loading = true;
       this.$api
-        .post(`product/${slug}`, formData)
+        .post(`product/update/${slug}`, formData)
         .then(({ data }) => {
           console.log("edited", data);
           this.refreshPage();
@@ -522,7 +474,7 @@ export default {
     deleteProducts(slug) {
       this.$helper
         .notify(
-          "Are you sure you want to delete this fruitbay(s)? This action may be irreversible!",
+          "Are you sure you want to delete this product? This action may be irreversible!",
           "error",
           true,
           "Yes, Delete!"
@@ -530,16 +482,14 @@ export default {
         .onOk(() => {
           this.loaders.delete = true;
           this.$api
-            .delete(`products/${slug}`)
+            .delete(`product/${slug}`)
             .then((response) => {
               console.log(response);
               this.selected = [];
               this.refreshPage();
             })
-            .catch((response) => {
+            .catch(({ response }) => {
               console.log(response);
-              this.loaders.delete = false;
-              if (id) this.loaders.deleteBtn[id] = false;
             });
         });
     },
