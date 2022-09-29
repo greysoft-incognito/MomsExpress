@@ -35,15 +35,28 @@
               :class="props.row.active == false ? `text-black` : `text-green`"
             >
               <!-- {{ props.row.active == false ? `inactive` : `active` }} -->
+              <q-spinner-audio
+                v-if="loading === true"
+                color="primary"
+                size="2em"
+              />
               <q-toggle
+                v-show="loading === false && props.row.active === false"
                 color="green"
                 dense
                 size="1.7rem"
+                :disable="props.row.active === true"
                 :false-value="props.row.active == false ? false : ``"
                 :true-value="props.row.active == true ? true : ``"
                 v-model="props.row.active"
                 @click="toggleAccount(props.row.id)"
               />
+              <div
+                v-show="props.row.active === true && loading === false"
+                class="text-green text-weight-bold"
+              >
+                Active
+              </div>
             </div>
           </q-td>
           <q-td>
@@ -115,6 +128,7 @@
               label="Add  Account"
               color="primary"
               type="submit"
+              :loading="loading"
             />
           </q-card-actions>
         </form>
@@ -160,11 +174,13 @@ export default {
     return {
       columns,
       alert: ref(false),
+      loading: false,
       activeBank: null,
       bank: null,
       bankId: null,
       account_no: "",
       account_name: "",
+      disable: false,
       banks: [],
       bankNames: [],
       accounts: [],
@@ -239,14 +255,22 @@ export default {
     },
     toggleAccount(id) {
       console.log("hello");
+      this.loading = true;
       this.$api
         .patch(`bank/toggle/${id}`, { active: 1 })
         .then((resp) => {
           this.getAccounts();
+
+          if (this.accounts.length > 1) {
+            setTimeout(() => {
+              this.loading = false;
+            }, 1000);
+          }
           // this.toggle = false;
           console.log(resp);
         })
         .catch(({ response }) => {
+          this.loading = false;
           this.errors = response.data.errors;
         });
     },
@@ -284,6 +308,6 @@ export default {
 }
 
 .bank_page {
-  width: 80%;
+  width: 100%;
 }
 </style>
