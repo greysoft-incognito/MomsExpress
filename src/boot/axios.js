@@ -21,6 +21,8 @@ const api = axios.create({
     Accept: "application/json",
     "Content-Type": "application/json; charset=utf-8",
     "Access-Control-Allow-Credentials": "true",
+    Authorization:
+      "Bearer " + "sk_test_b97ba5a4246f3b366403c6751cc4cd97b57c7b7a",
   },
 });
 

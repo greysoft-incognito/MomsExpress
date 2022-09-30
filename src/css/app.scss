@@ -164,3 +164,13 @@ a {
     height: 25px !important;
   }
 }
+
+@media screen and (max-width: 470px) {
+  .cart_item_input .q-field__native {
+    font-size: 0.7rem !important;
+  }
+
+  .cart_item_input .q-field__control {
+    padding: 0;
+  }
+}

@@ -85,8 +85,6 @@
           <q-separator />
           <q-tab name="orders" :ripple="false" label="Orders" />
           <q-separator />
-          <q-tab name="wishlist" :ripple="false" label="Wishlist" />
-          <q-separator />
           <q-tab
             @click="this.$router.push('/cart')"
             :ripple="false"
