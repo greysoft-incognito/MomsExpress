@@ -29,10 +29,50 @@
                 class="remove_product_btn bg-white"
               />
             </div>
-            <div class="item-name">{{ item.name }}</div>
-            <div class="q-pl-sm text-caption item-price">N{{ item.price }}</div>
+            <div class="item-name">
+              <div>
+                {{ item.name }}
+              </div>
+              <div class="text-caption item-price show_on_smallscreen">
+                N{{ item.price }}
+              </div>
+              <div
+                class="row justify-center items-center input_container show_on_smallscreen"
+              >
+                <!-- :disable="item.quantity <= 1" -->
+                <q-btn
+                  round
+                  @click="this.$store.cart.remove(item.id)"
+                  size="0.65rem"
+                  icon="remove"
+                  flat
+                  class="bg-grey-3 q-mr-sm button input_btn"
+                  text-color="black"
+                />
+                <q-input
+                  v-model="item.stock"
+                  class="text-center cart_item_input q-mr-sm"
+                  outlined
+                  dense
+                />
+                <q-btn
+                  @click="this.$store.cart.add(item.id)"
+                  round
+                  size="0.65rem"
+                  icon="add"
+                  flat
+                  class="bg-grey-3 input_btn"
+                  text-color="black"
+                />
+              </div>
+            </div>
+            <div class="q-pl-sm text-caption item-price hide_on_smallscreen">
+              N{{ item.price }}
+            </div>
 
-            <div class="row justify-center items-center input_container">
+            <div
+              class="row justify-center items-center input_container hide_on_smallscreen"
+            >
               <!-- :disable="item.quantity <= 1" -->
               <q-btn
                 round
@@ -60,22 +100,9 @@
               />
             </div>
 
-            <div class="q-pl-sm text-caption item-price">
-              N{{ this.$store.cart.totalPrice }}
+            <div class="q-pl-sm text-caption item-price total_price">
+              <div>N{{ this.$store.cart.totalPrice }}</div>
             </div>
-            <!-- <div class="cart-detail q-px-xs text-black relative-position"> -->
-            <!-- </div> -->
-            <!-- <q-btn
-              label="Remove"
-                @click="deleteProduct(item.product)"
-                no-caps
-                style="width: 100%"
-                size="0.8rem"
-                icon="delete"
-                outline
-                color="primary"
-                class="q-mx-auto"
-                /> -->
           </div>
 
           <q-separator class="q-my-md" />
@@ -110,8 +137,8 @@
             text-color="white"
             style="width: 100%"
             class="q-my-sm bg-primary"
-            to="/checkout"
             icon-right="arrow_forward"
+            @click="checkout"
           />
           <div class="row text-subtitle2 justify-between q-px-sm">
             <span>Estimated Delivery Date</span> <br />
@@ -126,6 +153,7 @@
 <script>
 import { ref } from "vue";
 // import CartItem from "../components/Cart/CartItem.vue";
+import axios from "axios";
 
 export default {
   data() {
@@ -136,6 +164,170 @@ export default {
   computed: {
     getSubtotal(quantity, price) {
       console.log(quantity, price);
+    },
+  },
+  methods: {
+    checkout() {
+      let cartArr = [];
+      this.cartItems.map((item) => {
+        let obj = {
+          id: item.id,
+          quantity: item.stock,
+        };
+        cartArr.push(obj);
+      });
+      console.log(cartArr);
+      this.$api
+        .post(`order/checkout`, { cart: cartArr })
+        .then((resp) => {
+          console.log(resp);
+
+          this.payWithPaystack(
+            resp.data.data.id,
+            resp.data.data.amount,
+            resp.data.data.is_paid
+          );
+        })
+        .catch(({ response }) => {
+          // this.$q.notify({
+          //   message: response.data.message,
+          //   color: "red",
+          //   position: "top",
+          // });
+          this.errors = response.data.errors;
+        });
+    },
+    redirect(id) {
+      this.$api
+        .post(`payment/paystack/${id}`)
+        .then((resp) => {
+          console.log(resp);
+          window.location.href = resp.data.data.url;
+        })
+        .catch(({ response }) => {
+          console.log(response);
+        });
+    },
+
+    payWithPaystack(id, amount, is_paid) {
+      console.log(amount, is_paid);
+      let price = amount;
+      let status = is_paid;
+      let router = this.$router;
+      let helper = this.$helper;
+      let reference = "baiptpatjkhlolatrlo";
+      let email = "moms@gmail.com";
+      let paystackData = {
+        amount,
+        reference,
+        email,
+      };
+
+      this.$q.loading.show();
+
+      this.$api
+        .post(`payment/paystack/${id}`, paystackData)
+        .then((resp) => {
+          this.$q.loading.hide();
+          console.log(resp);
+          // this.paystack(price, status).openIframe();
+          let handler = PaystackPop.setup({
+            key: "pk_test_285bb7525b2d3876efffce201f7a271d7c809839", // Replace with your public key
+            email: "moms@gmail.com",
+            amount: 100,
+            ref: "baiptpatjkhlolatrlo",
+            orderID: 999003,
+            // label: this.$store.userDetails.email,
+            onClose: function () {
+              console.log("closed");
+              helper.notify("Transaction cancelled.", "error");
+              // api.delete("/payment/terminate/transaction", {
+              //   data: { reference: ref },
+              // });
+            },
+            callback: function (response) {
+              let finalData = response;
+              console.log("callback");
+              console.log(response);
+              // window.location.href = response.redirecturl;
+              axios
+                .get(`${response.redirecturl}`)
+                .then((resp) => {
+                  console.log(resp);
+                  // axios
+                  //   .post(`${response.redirecturl}`, finalData)
+                  //   .then((resp) => {
+                  //     console.log(resp);
+                  //   })
+                  //   .catch((error) => {
+                  //     console.log(error);
+                  //   });
+                })
+                .catch(({ response }) => {
+                  console.log(response);
+                });
+              // router.push({
+              //   name: "homepage",
+              //   // params: {
+              //   //   ref: response.reference,
+              //   //   reference: response.reference,
+              //   // },
+              // });
+            },
+          });
+
+          handler.openIframe();
+
+          // if (!this.$q.platform.is.mobile) {
+          //   console.log(data);
+          //   return this.paystack(price, status).openIframe();
+          // } else {
+          //   console.log(data);
+          // }
+          // window.location.href = data.data.url;
+        })
+        .catch(({ response }) => {
+          this.$q.loading.hide();
+          console.log(response);
+        });
+    },
+    paystack(amount = 0, ref = null) {
+      console.log(amount);
+      let router = this.$router;
+      let helper = this.$helper;
+      const api = this.$api;
+      return PaystackPop.setup({
+        key: this.$config.settings.paystack_public_key, // Replace with your public key
+        email: this.$store.userDetails.email,
+        amount: amount * 100,
+        ref: ref,
+        label: this.$store.userDetails.email,
+        onClose: function () {
+          console.log("closed");
+          helper.notify("Transaction cancelled.", "error");
+          // api.delete("/payment/terminate/transaction", {
+          //   data: { reference: ref },
+          // });
+        },
+        callback: function (response) {
+          console.log("callback");
+          axios
+            .get(`${response.redirecturl}`)
+            .then((resp) => {
+              console.log(resp);
+            })
+            .catch(({ response }) => {
+              console.log(response);
+            });
+          // router.push({
+          //   name: "homepage",
+          //   // params: {
+          //   //   ref: response.reference,
+          //   //   reference: response.reference,
+          //   // },
+          // });
+        },
+      });
     },
   },
   // components: { CartItem },
@@ -185,12 +377,17 @@ export default {
 .item-name {
   font-size: 1.2rem;
   /* max-width: 70%; */
+  font-weight: 600;
   line-height: 1.1;
 }
 .item-price {
   font-size: 1.1rem;
   margin-top: 2%;
   text-align: center;
+}
+
+.show_on_smallscreen {
+  display: none;
 }
 
 @media screen and (max-width: 1150px) {
@@ -260,6 +457,42 @@ export default {
   }
   .item-price {
     font-size: 0.8rem;
+  }
+}
+@media screen and (max-width: 470px) {
+  .image_container {
+    height: 50px;
+    width: 70px;
+  }
+
+  .cart_item_input {
+    width: 35%;
+    display: flex;
+    justify-content: center;
+  }
+  .hide_on_smallscreen {
+    display: none;
+  }
+  .show_on_smallscreen {
+    display: flex;
+    margin: 7% 0;
+  }
+  .cart_item {
+    grid-template-columns: 25% 1.5fr 20%;
+    gap: 5px;
+    align-items: flex-start;
+  }
+  .item-price {
+    text-align: left !important;
+  }
+  .item-name {
+    align-content: flex-start;
+  }
+  .input_container {
+    justify-content: flex-start;
+  }
+  .total_price {
+    margin: auto 0 !important;
   }
 }
 
