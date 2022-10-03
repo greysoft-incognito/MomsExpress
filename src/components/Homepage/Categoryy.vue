@@ -155,6 +155,10 @@ export default {
   grid-template-columns: repeat(3, 1fr);
   gap: 15px;
 }
+.product_tile {
+  box-shadow: 0px 2px 8px -5.5px;
+  border-radius: 8px;
+}
 @media screen and (max-width: 720px) {
   .category_container {
     grid-template-columns: 1fr;

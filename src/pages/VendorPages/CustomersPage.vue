@@ -87,98 +87,7 @@ const columns = [
   { name: "amount", label: "Amount", align: "center", field: "amount" },
 ];
 
-const rows = [
-  {
-    id: "Frozen Yogurt",
-    date: 6.0,
-    customer: 159,
-    order: 24,
-    status: "1%",
-    amount: 4.0,
-    payment: 87,
-  },
-  {
-    id: "Ice cream sandwich",
-    date: 9.0,
-    customer: 237,
-    order: 37,
-    status: "1%",
-    amount: 4.3,
-    payment: 129,
-  },
-  {
-    id: "Eclair",
-    date: 16.0,
-    customer: 262,
-    order: 23,
-    status: "7%",
-    amount: 6.0,
-    payment: 337,
-  },
-  {
-    id: "Cupcake",
-    date: 3.7,
-    customer: 305,
-    order: 67,
-    status: "8%",
-    amount: 4.3,
-    payment: 413,
-  },
-  {
-    id: "Gingerbread",
-    date: 16.0,
-    customer: 356,
-    order: 49,
-    status: "16%",
-    amount: 3.9,
-    payment: 327,
-  },
-  {
-    id: "Jelly bean",
-    date: 0.0,
-    customer: 375,
-    order: 94,
-    status: "0%",
-    amount: 0.0,
-    payment: 50,
-  },
-  {
-    id: "Lollipop",
-    date: 0.2,
-    customer: 392,
-    order: 98,
-    status: "2%",
-    amount: 0,
-    payment: 38,
-  },
-  {
-    id: "Honeycomb",
-    date: 3.2,
-    customer: 408,
-    order: 87,
-    status: "45%",
-    amount: 6.5,
-    payment: 562,
-  },
-  {
-    id: "Donut",
-    date: 25.0,
-    customer: 452,
-    order: 51,
-    status: "22%",
-    amount: 4.9,
-    payment: 326,
-  },
-  {
-    id: "KitKat",
-    date: 26.0,
-    customer: 518,
-    order: 65,
-    status: "6%",
-    amount: 7,
-    payment: 54,
-  },
-];
+const rows = [];
 
 const tableLayout = null;
 
@@ -188,12 +97,8 @@ const pagination = {
   rowsPerPage: "10",
 };
 
-rows.forEach((row, index) => {
-  row.index = index + 1;
-});
-
 export default {
-  setup() {
+  data() {
     return {
       rows,
       columns,
@@ -206,8 +111,26 @@ export default {
     toggleLayout() {
       this.tableLayout = !this.tableLayout;
     },
+    getOrders() {
+      this.$api
+        .get(`orders/all`)
+        .then((resp) => {
+          console.log(resp.data);
+          this.rows = resp.data.data;
+        })
+        .catch((response) => {
+          this.$q.notify({
+            message: response.data.message,
+            color: "red",
+            position: "top",
+          });
+          this.errors = response.data.errors;
+        });
+    },
   },
-  mounted() {},
+  created() {
+    this.getOrders();
+  },
 };
 </script>
 

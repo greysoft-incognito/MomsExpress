@@ -26,8 +26,8 @@
     </div>
     <!-- <Category1 /> -->
     <!-- <Category2 /> -->
-    <Advert1 />
-    <Category3 />
+    <!-- <Advert1 /> -->
+    <!-- <Category3 /> -->
   </div>
 </template>
 

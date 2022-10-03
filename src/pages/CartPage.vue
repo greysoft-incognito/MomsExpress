@@ -16,11 +16,10 @@
             <div class="relative-position image_container">
               <q-img
                 class="product_image"
-                :src="`http://165.227.74.156/${item.uploads[0].url}`"
+                :src="`http://165.227.74.156/${item.product.uploads[0].url}`"
               />
-              <!-- {{ item.uploads[0].src }} -->
               <q-btn
-                @click="this.$store.cart.removeFromCart(item.id)"
+                @click="this.$store.cart.removeFromCart(item.product.id)"
                 icon="close"
                 round
                 size="0.5rem"
@@ -42,7 +41,7 @@
                 <!-- :disable="item.quantity <= 1" -->
                 <q-btn
                   round
-                  @click="this.$store.cart.remove(item.id)"
+                  @click="this.$store.cart.remove(item.product.id)"
                   size="0.65rem"
                   icon="remove"
                   flat
@@ -56,7 +55,7 @@
                   dense
                 />
                 <q-btn
-                  @click="this.$store.cart.add(item.id)"
+                  @click="this.$store.cart.add(item.product.id)"
                   round
                   size="0.65rem"
                   icon="add"
@@ -67,7 +66,7 @@
               </div>
             </div>
             <div class="q-pl-sm text-caption item-price hide_on_smallscreen">
-              N{{ item.price }}
+              ₦{{ item.product.price.toLocaleString() }}
             </div>
 
             <div
@@ -76,7 +75,7 @@
               <!-- :disable="item.quantity <= 1" -->
               <q-btn
                 round
-                @click="this.$store.cart.remove(item.id)"
+                @click="this.$store.cart.remove(item.product.id)"
                 size="0.65rem"
                 icon="remove"
                 flat
@@ -84,13 +83,13 @@
                 text-color="black"
               />
               <q-input
-                v-model="item.stock"
+                v-model="item.quantity"
                 class="text-center cart_item_input q-mr-sm"
                 outlined
                 dense
               />
               <q-btn
-                @click="this.$store.cart.add(item.id)"
+                @click="this.$store.cart.add(item.product.id)"
                 round
                 size="0.65rem"
                 icon="add"
@@ -101,7 +100,9 @@
             </div>
 
             <div class="q-pl-sm text-caption item-price total_price">
-              <div>N{{ this.$store.cart.totalPrice }}</div>
+              <div>
+                ₦{{ (item.product.price * item.quantity).toLocaleString() }}
+              </div>
             </div>
           </div>
 
@@ -115,22 +116,21 @@
           <div class="text-h5 text-left text-bold q-mb-md">CART TOTALS</div>
           <div class="row justify-between text-subtitle1 q-my-xs q-px-sm">
             <span>No. of Items</span>
-            <span class="text-bold"> 16</span>
+            <span class="text-bold"> {{ cartItems.length }}</span>
           </div>
           <div class="row justify-between text-subtitle1 q-my-xs q-px-sm">
             <span>Subtotal</span>
-            <span class="text-bold"> $1000</span>
+            <span class="text-bold">
+              ₦{{ this.$store.cart.totalPrice.toLocaleString() }}</span
+            >
           </div>
-          <div class="row text-subtitle1 q-my-xs justify-between q-px-sm">
-            <span>Shipping Fee</span> <span class="text-bold"> N0 </span>
-          </div>
+
           <q-separator spaced />
           <div class="row text-subtitle1 q-my-xs justify-between q-px-sm">
             <span>Total Amount</span>
             <span class="text-bold">
-              {{ this.$store.cart.totalPrice }}
+              ₦{{ this.$store.cart.totalPrice.toLocaleString() }}
             </span>
-            <!-- <span class="text-bold"> $1000 </span> -->
           </div>
           <q-btn
             label="Proceed To Checkout"
@@ -142,7 +142,7 @@
           />
           <div class="row text-subtitle2 justify-between q-px-sm">
             <span>Estimated Delivery Date</span> <br />
-            <span class="text-bold">4th May 2022 </span>
+            <span class="text-bold">4th October 2022 </span>
           </div>
         </div>
       </div>
@@ -152,18 +152,35 @@
 
 <script>
 import { ref } from "vue";
-// import CartItem from "../components/Cart/CartItem.vue";
 import axios from "axios";
 
 export default {
   data() {
     return {
       cartItems: this.$store.cart.plate,
+      totalPrice: this.$store.cart.totalPrice,
     };
   },
   computed: {
     getSubtotal(quantity, price) {
       console.log(quantity, price);
+    },
+    reference: function () {
+      let text;
+      let randomRef = "";
+      let characters =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      for (let i = 0; i < 15; i++)
+        text += characters.charAt(
+          Math.floor(Math.random() * characters.length)
+        );
+      return text;
+    },
+    orderId: function () {
+      let min = 100;
+      let max = 90000;
+      let num = Math.floor(Math.random() * min) + max;
+      return num;
     },
   },
   methods: {
@@ -171,8 +188,9 @@ export default {
       let cartArr = [];
       this.cartItems.map((item) => {
         let obj = {
-          id: item.id,
-          quantity: item.stock,
+          id: item.product.id,
+          quantity: item.quantity,
+          amount: item.product.price * item.quantity,
         };
         cartArr.push(obj);
       });
@@ -181,6 +199,7 @@ export default {
         .post(`order/checkout`, { cart: cartArr })
         .then((resp) => {
           console.log(resp);
+          console.log(resp.data.data.amount);
 
           this.payWithPaystack(
             resp.data.data.id,
@@ -189,11 +208,11 @@ export default {
           );
         })
         .catch(({ response }) => {
-          // this.$q.notify({
-          //   message: response.data.message,
-          //   color: "red",
-          //   position: "top",
-          // });
+          this.$q.notify({
+            message: "Error creating order. Please try again.",
+            color: "red",
+            position: "top",
+          });
           this.errors = response.data.errors;
         });
     },
@@ -215,10 +234,10 @@ export default {
       let status = is_paid;
       let router = this.$router;
       let helper = this.$helper;
-      let reference = "baiptpatjkhlolatrlo";
+      let reference = `${this.reference}`;
       let email = "moms@gmail.com";
       let paystackData = {
-        amount,
+        amount: 1200,
         reference,
         email,
       };
@@ -230,20 +249,17 @@ export default {
         .then((resp) => {
           this.$q.loading.hide();
           console.log(resp);
+          console.log(this.orderId);
           // this.paystack(price, status).openIframe();
           let handler = PaystackPop.setup({
             key: "pk_test_285bb7525b2d3876efffce201f7a271d7c809839", // Replace with your public key
             email: "moms@gmail.com",
             amount: 100,
-            ref: "baiptpatjkhlolatrlo",
-            orderID: 999003,
-            // label: this.$store.userDetails.email,
+            ref: `${this.reference}`,
+            orderID: this.orderId,
             onClose: function () {
               console.log("closed");
               helper.notify("Transaction cancelled.", "error");
-              // api.delete("/payment/terminate/transaction", {
-              //   data: { reference: ref },
-              // });
             },
             callback: function (response) {
               let finalData = response;
@@ -254,14 +270,6 @@ export default {
                 .get(`${response.redirecturl}`)
                 .then((resp) => {
                   console.log(resp);
-                  // axios
-                  //   .post(`${response.redirecturl}`, finalData)
-                  //   .then((resp) => {
-                  //     console.log(resp);
-                  //   })
-                  //   .catch((error) => {
-                  //     console.log(error);
-                  //   });
                 })
                 .catch(({ response }) => {
                   console.log(response);

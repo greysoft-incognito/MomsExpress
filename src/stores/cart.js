@@ -4,8 +4,8 @@ export const useCartStore = defineStore("cart", {
   state: () => ({
     plate: [],
     total: "",
-    singleProducts:[],
-    singleCategory:[],
+    singleProducts: [],
+    singleCategory: [],
     meals: [
       {
         id: 0,
@@ -35,8 +35,8 @@ export const useCartStore = defineStore("cart", {
     totalPrice: (state) => {
       // let findMeal = state.plate.find((mealItme) => mealItme.id === id);
       return Object.keys(state.plate).reduce((acc, id) => {
-        console.log(state.plate[id])
-        return acc + state.plate[id].price * state.plate[id].stock;
+        console.log(state.plate[id]);
+        return acc + state.plate[id].product.price * state.plate[id].quantity;
       }, 0);
     },
     // totalPrice: (state) => {
@@ -47,18 +47,30 @@ export const useCartStore = defineStore("cart", {
   },
   actions: {
     addToplate(meal, id) {
-      console.log(id);
+      console.log(id, meal);
+      console.log(this.plate);
       // console.log(this.meals[id].id);
+      let quantity = 1;
+      // // console.log("lets fly");mealItme.product.id === meal.id
+      let item = {
+        product: meal,
+        quantity,
+      };
+      let findMeal = this.plate.find(
+        (mealItme) => mealItme.product.id === meal.id
+        // console.log(mealItme.product.id, meal.id);
+      );
 
-      // console.log("lets fly");
-      let findMeal = this.plate.find((mealItme) => mealItme.id === meal.id);
+      console.log(findMeal);
       if (findMeal) {
-        findMeal.stock += 1;
-        meal.stock = findMeal.stock;
+        findMeal.quantity++;
+        quantity = findMeal.quantity;
+        console.log(quantity);
+        // meal.stock = findMeal.stock;
         return;
       }
-
-      this.plate.push(meal);
+      this.plate.push(item);
+      console.log(this.plate);
     },
     add(id) {
       console.log("add", id);
@@ -78,9 +90,10 @@ export const useCartStore = defineStore("cart", {
       //   };
       // }
 
-      let findMeal = this.plate.find((mealItme) => mealItme.id === id);
+      let findMeal = this.plate.find((mealItme) => mealItme.product.id === id);
+      console.log(findMeal);
       if (findMeal) {
-        findMeal.stock += 1;
+        findMeal.quantity += 1;
         // meal.stock = findMeal.stock;
         return;
       }
@@ -101,13 +114,13 @@ export const useCartStore = defineStore("cart", {
       // this.meals[id].stock -= 1;
       // this.plate[id].stock -= 1;
       // console.log(this.plate[id]);
-      findMeal.stock -= 1;
+      findMeal.quantity -= 1;
       // findMeal.stock -= 1;
       // console.log(this.plate[id]);
 
-      if (findMeal.stock <= 0) {
+      if (findMeal.quantity <= 0) {
         alert("Cannot Subtract");
-        findMeal.stock = 1;
+        findMeal.quantity = 1;
         // this.plate[id].stock = 1;
         return;
       }
@@ -122,9 +135,9 @@ export const useCartStore = defineStore("cart", {
     removeFromCart(id) {
       console.log(id);
       console.log(this.plate);
-      this.plate = this.plate.filter((items) => items.id !== id);
+      this.plate = this.plate.filter((items) => items.product.id !== id);
       console.log(this.plate);
-      window.location.reload()
+      window.location.reload();
     },
   },
 });
