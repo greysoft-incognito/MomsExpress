@@ -14,11 +14,11 @@ const links = [
     icon: "bookmark_border",
     link: "/vendor/orders",
   },
-  {
-    title: " Transaction History",
-    icon: "receipt",
-    link: "/vendor/transaction_history",
-  },
+  // {
+  //   title: " Transaction History",
+  //   icon: "receipt",
+  //   link: "/vendor/transaction_history",
+  // },
   {
     title: "Product",
     icon: "view_module",

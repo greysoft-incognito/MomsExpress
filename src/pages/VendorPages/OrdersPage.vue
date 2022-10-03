@@ -30,13 +30,34 @@
         <template v-slot:body="props">
           <q-tr class="q-pl-md" :props="props">
             <q-td key="index" class="text-center" :props="props">
-              {{ props.row.index }}
+              {{ props.row.order_number }}
             </q-td>
-            <q-td key="customer" :props="props"> Lorem Dude </q-td>
-            <q-td key="status" :props="props">pending</q-td>
-            <q-td key="phone" :props="props"> 08012345678 </q-td>
-            <q-td class="total" key="total" :props="props">5,000</q-td>
-            <q-td key="date" :props="props">1/12/2021</q-td>
+            <q-td key="customer" :props="props">
+              {{ props.row.product_name }}</q-td
+            >
+            <q-td key="phone" :props="props">
+              {{ props.row.product_quantity }}
+            </q-td>
+            <q-td
+              key="status"
+              :props="props"
+              class="text-bold"
+              :class="props.row.is_paid == true ? `text-green` : `text-red`"
+              >{{ props.row.is_paid == true ? `Paid` : `Unsettled` }}</q-td
+            >
+            <q-td class="total" key="total" :props="props">{{
+              props.row.product_amount
+            }}</q-td>
+            <q-td
+              key="date"
+              class="text-orange text-bold"
+              :class="
+                props.row.delivery === 'pending' ? `text-orange` : `text-green`
+              "
+              :props="props"
+              >{{ props.row.delivery }}</q-td
+            >
+
             <!-- <q-td key="action" :props="props" style="width: 10%">
               <div class="row justify-center">
                 <q-btn
@@ -62,128 +83,31 @@ import { ref } from "vue";
 const columns = [
   {
     name: "index",
-    label: "#",
+    label: "Order No.",
     field: "index",
     align: "center",
   },
   {
     name: "customer",
     align: "center",
-    label: "Customer",
+    label: "Item",
     field: "customer",
   },
+  { name: "phone", label: "Quantity", align: "center", field: "phone" },
+  { name: "date", label: "Payment", align: "center", field: "date" },
+  { name: "total", label: "Total(₦)", align: "center", field: "total" },
   {
     name: "status",
-    label: "Status",
+    label: "Delivery",
     align: "center",
     field: "status",
     // sortable: true,
     style: "width: 20px",
     sort: (a, b) => parseInt(a, 10) - parseInt(b, 10),
   },
-  { name: "phone", label: "Phone", align: "center", field: "phone" },
-  { name: "total", label: "Total(N)", align: "center", field: "total" },
-  { name: "date", label: "Date", align: "center", field: "date" },
-  // {
-  //   name: "action",
-  //   label: "",
-  //   field: "action",
-  //   align: "center",
-  // },
 ];
 
-const rows = [
-  {
-    id: "Frozen Yogurt",
-    customer: 159,
-    status: 6.0,
-    phone: 24,
-    total: "1%",
-    date: 4.0,
-    action: 87,
-  },
-  {
-    id: "Ice cream sandwich",
-    customer: 237,
-    status: 9.0,
-    phone: 37,
-    total: "1%",
-    date: 4.3,
-    action: 129,
-  },
-  {
-    id: "Eclair",
-    customer: 262,
-    status: 16.0,
-    phone: 23,
-    total: "7%",
-    date: 6.0,
-    action: 337,
-  },
-  {
-    id: "Cupcake",
-    customer: 305,
-    status: 3.7,
-    phone: 67,
-    total: "8%",
-    date: 4.3,
-    action: 413,
-  },
-  {
-    id: "Gingerbread",
-    customer: 356,
-    status: 16.0,
-    phone: 49,
-    total: "16%",
-    date: 3.9,
-    action: 327,
-  },
-  {
-    id: "Jelly bean",
-    customer: 375,
-    status: 0.0,
-    phone: 94,
-    total: "0%",
-    date: 0.0,
-    action: 50,
-  },
-  {
-    id: "Lollipop",
-    customer: 392,
-    status: 0.2,
-    phone: 98,
-    total: "2%",
-    date: 0,
-    action: 38,
-  },
-  {
-    id: "Honeycomb",
-    customer: 408,
-    status: 3.2,
-    phone: 87,
-    total: "45%",
-    date: 6.5,
-    action: 562,
-  },
-  {
-    id: "Donut",
-    customer: 452,
-    status: 25.0,
-    phone: 51,
-    total: "22%",
-    date: 4.9,
-    action: 326,
-  },
-  {
-    id: "KitKat",
-    customer: 518,
-    status: 26.0,
-    phone: 65,
-    total: "6%",
-    date: 7,
-    action: 54,
-  },
-];
+const rows = [];
 
 const tableLayout = null;
 
@@ -193,27 +117,37 @@ const pagination = {
   rowsPerPage: "10",
 };
 
-rows.forEach((row, index) => {
-  row.index = index + 1;
-});
-
 export default {
-  setup() {
+  data() {
     return {
       columns,
-      rows: ref(rows),
+      rows,
       filter: ref(""),
       tableLayout: ref(false),
       pagination,
     };
   },
   methods: {
-    // toggleLayout() {
-    //   this.tableLayout = !this.tableLayout;
-    //   console.log(this.tableLayout);
-    // },
+    getOrders() {
+      this.$api
+        .get(`orders/all`)
+        .then((resp) => {
+          console.log(resp.data);
+          this.rows = resp.data.data;
+        })
+        .catch((response) => {
+          this.$q.notify({
+            message: response.data.message,
+            color: "red",
+            position: "top",
+          });
+          this.errors = response.data.errors;
+        });
+    },
   },
-  mounted() {},
+  created() {
+    this.getOrders();
+  },
 };
 </script>
 

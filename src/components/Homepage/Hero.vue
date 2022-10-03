@@ -37,11 +37,37 @@
 import { ref } from "vue";
 
 export default {
-  setup() {
+  data() {
     return {
       slide: ref(1),
       autoplay: ref(true),
+      heroImages: [],
     };
+  },
+  methods: {
+    getAllProducts() {
+      this.$api
+        .get(`product/all`)
+        .then((resp) => {
+          console.log(resp);
+          this.heroImages =
+            resp.data.data[
+              Math.floor(Math.random() * resp.data.data.length - 1)
+            ];
+          console.log(this.heroImages);
+        })
+        .catch((response) => {
+          this.$q.notify({
+            message: response.data.message,
+            color: "red",
+            position: "top",
+          });
+          this.errors = response.data.errors;
+        });
+    },
+  },
+  created() {
+    this.getAllProducts();
   },
 };
 </script>

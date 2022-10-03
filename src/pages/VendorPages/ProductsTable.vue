@@ -263,11 +263,27 @@ import { exportFile, useMeta } from "quasar";
 import helper from "../../plugins/helpers";
 const columns = [
   {
+    name: "image_url",
+    required: true,
+    label: "",
+    align: "left",
+    field: "image_url",
+    sortable: true,
+  },
+  {
     name: "name",
     required: true,
-    label: "Name",
+    label: "Products",
     align: "left",
     field: "name",
+    sortable: true,
+  },
+  {
+    name: "category",
+    required: true,
+    label: "Category",
+    align: "left",
+    field: "category",
     sortable: true,
   },
   {
@@ -287,23 +303,6 @@ const columns = [
     sortable: true,
   },
 
-  {
-    name: "category",
-    required: true,
-    label: "Category",
-    align: "left",
-    field: "category",
-    sortable: true,
-  },
-
-  {
-    name: "image_url",
-    required: true,
-    label: "Image",
-    align: "left",
-    field: "image_url",
-    sortable: true,
-  },
   {
     name: "actions",
     required: true,

@@ -55,7 +55,10 @@
               class="add_to_cart"
               no-caps
               color="primary"
-              to="/product_detail"
+              :to="{
+                name: 'productDetail',
+                params: { name: product.slug, id: product.id },
+              }"
             />
 
             <div class="view_details">
@@ -154,6 +157,10 @@ export default {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 15px;
+}
+.product_tile {
+  box-shadow: 0px 2px 8px -5.5px;
+  border-radius: 8px;
 }
 @media screen and (max-width: 720px) {
   .category_container {
