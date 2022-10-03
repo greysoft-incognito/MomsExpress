@@ -20,13 +20,13 @@
           label="New Arrivals"
           no-caps
         />
-        <q-tab class="q-mx-sm" name="best_seller" label="Best Seller" no-caps />
+        <!-- <q-tab class="q-mx-sm" name="best_seller" label="Best Seller" no-caps />
         <q-tab
           class="q-mx-sm"
           name="most_popular"
           label="Most Popular"
           no-caps
-        />
+        /> -->
         <q-tab class="q-mx-sm" name="featured" label="Featured" no-caps />
       </q-tabs>
 
@@ -37,13 +37,13 @@
           <NewArrivals />
         </q-tab-panel>
 
-        <q-tab-panel name="best_seller">
+        <!-- <q-tab-panel name="best_seller">
           <BestSeller />
         </q-tab-panel>
 
         <q-tab-panel name="most_popular">
           <MostPopular />
-        </q-tab-panel>
+        </q-tab-panel> -->
 
         <q-tab-panel name="featured">
           <Featured />
@@ -100,7 +100,7 @@ export default {
 <style>
 .products {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 15px;
 }
 

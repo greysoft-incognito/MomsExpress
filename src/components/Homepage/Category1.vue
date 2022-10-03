@@ -158,7 +158,7 @@ export default {
         .then((resp) => {
           console.log(resp);
           this.products = resp.data.data;
-          thisproducts.splice(6, resp.data.data.length - 1);
+          this.products.splice(6, resp.data.data.length - 1);
           this.$store.cart.meals = resp.data.data;
           this.skeleton = false;
         })

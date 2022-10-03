@@ -55,7 +55,10 @@
               class="add_to_cart"
               no-caps
               color="primary"
-              to="/product_detail"
+              :to="{
+                name: 'productDetail',
+                params: { name: product.slug, id: product.id },
+              }"
             />
 
             <div class="view_details">
