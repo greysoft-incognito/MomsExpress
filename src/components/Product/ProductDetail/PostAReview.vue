@@ -18,19 +18,6 @@
         <q-input class="full-width" placeholder="Email" dense outlined />
       </div>
     </div>
-    <div class="q-my-sm row items-center checkbox_container">
-      <q-checkbox
-        v-model="customModel"
-        color="secondary"
-        class="text-grey"
-        true-value="yes"
-        false-value="no"
-      />
-      <p>
-        Save my name, email, and website in this browser for the next time I
-        comment.
-      </p>
-    </div>
 
     <q-btn class="q-my-md" label="SUbmit Review" color="primary" />
   </div>

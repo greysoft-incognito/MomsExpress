@@ -50,20 +50,37 @@
             More products
           </div>
           <div class="q-pa-md">
-            <div v-for="n in 4" :key="n" class="row items-center q-mb-md">
-              <q-img class="product_image" src="Images/2-1.jpg" />
-              <div class="q-ml-sm">
-                <div class="text-subtitle1">Cooking Pot</div>
-                <div class="row justify-center">
-                  <q-rating
-                    v-model="ratingModel"
-                    size="1.2rem"
-                    color="grey"
-                    readonly
-                    :color-selected="ratingColors"
-                  />
+            <div class="q-pa-md">
+              <div
+                v-for="products in categoryDetails2"
+                :key="products.id"
+                class="row items-center q-mb-md side_items_image_container"
+              >
+                <q-img
+                  class="product_image"
+                  :src="`http://165.227.74.156/${products.uploads[0].url}`"
+                />
+                <div class="q-ml-sm">
+                  <router-link
+                    class="text-subtitle1"
+                    :to="{
+                      name: 'productDetail',
+                      params: { name: products.slug, id: products.id },
+                    }"
+                  >
+                    {{ products.name }}
+                  </router-link>
+                  <div class="row">
+                    <q-rating
+                      v-model="ratingModel"
+                      size="1.2rem"
+                      color="grey"
+                      readonly
+                      color-selected="secondary"
+                    />
+                  </div>
+                  <div class="text-bold">₦53.00</div>
                 </div>
-                <div class="text-bold">$53.00</div>
               </div>
             </div>
           </div>
@@ -241,10 +258,108 @@
           <q-tab-panel name="reviews">
             <div class="review_top">
               <Ratings />
-              <PostAReview />
+              <div class="review_input text-grey-8">
+                <h6>Submit Your Review</h6>
+                <p>* Your email address will not be published.</p>
+                <p>Your Rating of This Product:</p>
+                <q-input
+                  outlined
+                  class="q-my-md"
+                  placeholder="Write your review here..."
+                  type="textarea"
+                  v-model="commentText"
+                />
+                <div class="fullname">
+                  <div class="q-my-sm">
+                    <q-input
+                      v-model="username"
+                      outlined
+                      placeholder="Your name"
+                      dense
+                    />
+                  </div>
+
+                  <div class="q-my-sm">
+                    <q-input
+                      v-model="email"
+                      class="full-width"
+                      placeholder="Email"
+                      dense
+                      outlined
+                    />
+                  </div>
+                </div>
+
+                <q-btn
+                  class="q-my-md"
+                  @click="postComment"
+                  label="SUbmit Review"
+                  color="primary"
+                />
+              </div>
             </div>
             <q-separator class="q-my-md" />
-            <Reviews />
+            <div class="reviews">
+              <div class="row justify-between q-my-sm">
+                <h6>Reviews</h6>
+                <q-space />
+                <!-- <q-btn
+                  flat
+                  icon-right="chevron_right"
+                  class="non_hover_btn q-pr-none"
+                  no-caps
+                  size="0.8rem"
+                  label="View all"
+                  :ripple="false"
+                /> -->
+              </div>
+            </div>
+
+            <div class="">
+              <div class="">
+                <q-list separator class="rounded-borders" style="">
+                  <q-item
+                    v-for="item in productDetails.comments"
+                    :key="item.id"
+                    class="q-my-sm q-px-none comments"
+                  >
+                    <!-- <q-item-section avatar top>
+            <q-avatar size="4rem">
+              <img src="https://cdn.quasar.dev/img/avatar2.jpg" />
+            </q-avatar>
+          </q-item-section> -->
+
+                    <q-item-section>
+                      <q-item-label lines="1">
+                        <span class="text-bold text-subtitle1">{{
+                          item.created_by
+                        }}</span>
+                        <span class="text-caption text-grey-8 q-ml-sm">
+                          {{ item.created_at }}
+                        </span>
+                      </q-item-label>
+
+                      <q-item-label>
+                        <q-rating
+                          class="q-mb-sm"
+                          v-model="ratingModel"
+                          size="1rem"
+                          color="grey"
+                          readonly
+                          :color-selected="ratingColors"
+                        />
+                      </q-item-label>
+
+                      <q-item-label class="text-grey-8">
+                        <div class="review_text">
+                          {{ item.comment }}
+                        </div>
+                      </q-item-label>
+                    </q-item-section>
+                  </q-item>
+                </q-list>
+              </div>
+            </div>
           </q-tab-panel>
         </q-tab-panels>
 
@@ -287,25 +402,81 @@ export default {
   components: { Ratings, PostAReview, Description, Reviews, RelatedProducts },
   data() {
     return {
+      commentText: "",
+      email: "",
+      username: "",
       productDetails: [],
+      categoryDetails2: [],
     };
   },
   created() {
+    this.getProductDetail();
     let detail = this.$router.currentRoute.value.params;
     let name = detail.name;
     console.log(detail);
     console.log(name);
     // this.skeleton = true;
-    this.$api
-      .get(`product/${name}`)
-      .then((res) => {
-        console.log(res);
-        this.productDetails = res.data.data;
-        this.$store.cart.singleProducts = this.productDetails;
-        this.message = res.data.message;
-        // this.skeleton = false;
-      })
-      .catch((err) => {});
+    this.getProductDetails(name);
+  },
+  methods: {
+    postComment() {
+      console.log(this.commentText);
+      let detail = this.$router.currentRoute.value.params;
+      let name = detail.name;
+      this.$api
+        .post(`${name}/comment/create`, {
+          comment: this.commentText,
+        })
+        .then((res) => {
+          this.commentText = "";
+          console.log(res);
+          this.getProductDetails(name);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    getProductDetails(name) {
+      this.$api
+        .get(`product/${name}`)
+        .then((res) => {
+          console.log(res);
+          this.productDetails = res.data.data;
+          this.$store.cart.singleProducts = this.productDetails;
+          this.message = res.data.message;
+          // this.skeleton = false;
+        })
+        .catch((err) => {});
+    },
+    getProductDetail() {
+      this.$api
+        .get(`/category/home-equipments`)
+        .then((res) => {
+          console.log(res);
+          this.categoryDetails2 = res.data.data.products.reverse();
+          this.categoryDetails2.splice(4, res.data.data.products.length - 1);
+          console.log(this.categoryDetails2);
+        })
+        .catch((err) => {});
+    },
+  },
+  computed: {
+    routeName() {
+      return this.$router.currentRoute.value.params.name;
+    },
+  },
+  watch: {
+    routeName: function () {
+      // if (this.$router.currentRoute.value.name === "product_detail") {
+      // this.getProductDetail();
+      let detail = this.$router.currentRoute.value.params;
+      let name = detail.name;
+      console.log(detail);
+      console.log(name);
+      // this.skeleton = true;
+      this.getProductDetails(name);
+    },
+    // },
   },
 };
 </script>
@@ -358,6 +529,15 @@ export default {
   width: 35%;
 }
 
+.review_text {
+  line-height: 1.5;
+}
+@media screen and (max-width: 400px) {
+  .comments {
+    display: block !important;
+  }
+}
+
 @media screen and (max-width: 1015px) {
   .product_splitter {
     display: block;
@@ -377,6 +557,18 @@ export default {
 @media screen and (max-width: 560px) {
   .review_top {
     grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 1448px) {
+  .checkbox_container p {
+    width: 85%;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .checkbox_container p {
+    font-size: 0.9rem;
   }
 }
 </style>
