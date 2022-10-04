@@ -218,4 +218,15 @@ export default {
   right: 2%;
   top: 2%;
 }
+@media (max-width: 800px) {
+  .products {
+    grid-template-columns: repeat(2, 1fr);
+    padding-bottom: 3rem;
+  }
+}
+@media (max-width: 500px) {
+  .products {
+    grid-template-columns: 1fr;
+  }
+}
 </style>
