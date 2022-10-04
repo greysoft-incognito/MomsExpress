@@ -162,6 +162,7 @@ export default {
 .q-panel > div {
   height: 50%;
   width: 100%;
+
 }
 .q-carousel__navigation {
   display: none;

@@ -16,7 +16,7 @@
             <q-separator />
             <div class="q-pa-md">
               <div
-                v-for="products in categoryDetails.products"
+                v-for="products in categoryDetails2"
                 :key="products.id"
                 class="row items-center q-mb-md side_items_image_container"
               >
@@ -58,17 +58,15 @@
             <q-separator />
             <div class="q-py-sm">
               <ul class="q-px-md">
-                <router-link to="/">
-                  <li>Clothing</li>
-                </router-link>
-                <router-link to="/">
-                  <li>Cosmetics</li>
-                </router-link>
-                <router-link to="/">
-                  <li>Electronics</li>
-                </router-link>
-                <router-link to="/">
-                  <li>Clothing</li>
+                <router-link
+                  v-for="cat in getCategory"
+                  :key="cat.id"
+                  :to="{
+                    name: 'category',
+                    params: { categoryname: cat.slug, id: cat.id },
+                  }"
+                >
+                  <li>{{ cat.name }}</li>
                 </router-link>
               </ul>
             </div>
@@ -83,11 +81,26 @@
           >
             <q-separator />
             <div class="q-pa-md">
-              <div v-for="n in 3" :key="n" class="row items-center q-mb-md">
-                <q-img class="product_image" src="Images/2-1.jpg" />
+              <div
+                v-for="products in categoryDetails3"
+                :key="products.id"
+                class="row items-center q-mb-md side_items_image_container"
+              >
+                <q-img
+                  class="product_image"
+                  :src="`http://165.227.74.156/${products.uploads[0].url}`"
+                />
                 <div class="q-ml-sm">
-                  <div class="text-subtitle1">Cooking Pot</div>
-                  <div class="row justify-center">
+                  <router-link
+                    class="text-subtitle1"
+                    :to="{
+                      name: 'productDetail',
+                      params: { name: products.slug, id: products.id },
+                    }"
+                  >
+                    {{ products.name }}
+                  </router-link>
+                  <div class="row">
                     <q-rating
                       v-model="ratingModel"
                       size="1.2rem"
@@ -218,17 +231,16 @@ import Wishlist from "components/Buyer/AccountComponents/Wishlist.vue";
 import SingleProductTile from "src/components/Product/SingleProductTile.vue";
 
 export default {
-  setup() {
+  data() {
     return {
       tab: ref("orders"),
       splitterModel: ref(25),
       ratingModel: ref(4),
       ratingColors: ["green"],
-    };
-  },
-  data() {
-    return {
       categoryDetails: [],
+      categoryDetails2: [],
+      categoryDetails3: [],
+      getCategory: [],
     };
   },
   components: { Addresses, Ordes, Wishlist, AccountDetails, SingleProductTile },
@@ -239,6 +251,8 @@ export default {
   },
   created() {
     // this.skeleton = true;
+    this.getSideBarProducts();
+    this.getCategories();
     if (
       this.$router.currentRoute.value.params.categoryname === "all-products"
     ) {
@@ -280,6 +294,53 @@ export default {
             position: "top",
           });
           this.errors = response.data.errors;
+        });
+    },
+    getSideBarProducts() {
+      this.$api
+        .get(`product/all`)
+        .then((resp) => {
+          console.log(resp);
+          this.categoryDetails2 = resp.data.data;
+          this.categoryDetails2.splice(4, resp.data.data.length - 1);
+          this.categoryDetails3 = resp.data.data;
+          this.categoryDetails3.splice(4, resp.data.data.length - 1);
+          // this.skeleton = false;
+          console.log(this.categoryDetails2);
+          console.log(this.categoryDetails3);
+        })
+        .catch((response) => {
+          console.log(response);
+          // this.$q.notify({
+          //   message: response.data.message,
+          //   color: "red",
+          //   position: "top",
+          // });
+          // this.errors = response.data.errors;
+        });
+    },
+    getCategories() {
+      this.$api
+        .get("category/all")
+        .then((resp) => {
+          console.log(resp);
+          this.getCategory = resp.data.data;
+          this.getCategory.splice(5, resp.data.data.length - 1);
+          // this.loading = false;
+        })
+        .catch(({ response }) => {
+          this.loading = false;
+          // this.$q.notify({
+          //   message: response.data.message || response.data.payload,
+          //   color: "red",
+          //   position: "top",
+          //   timeout: 3000,
+          // });
+          this.errors = response.data.errors;
+          // setTimeout(() => {
+          //   this.errors = [];
+          // }, 7000);
+          // console.log(response);
         });
     },
   },
