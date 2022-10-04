@@ -5,6 +5,7 @@
       class="search_input"
       outlined
       dense
+      @click="toggle()"
     >
       <template v-slot:prepend>
         <q-icon name="search" color="primary" />
@@ -21,26 +22,72 @@
           indicator-color="primary"
           align="justify"
         >
-          <!-- <q-tab name="main" label="main menu" /> -->
+          <q-tab name="main" label="main menu" />
           <q-tab name="categories" label="categories" />
         </q-tabs>
 
         <q-separator />
 
         <q-tab-panels v-model="tab" animated class="bg-grey-3">
-          <!-- <q-tab-panel name="main" class="q-px-none">
+          <q-tab-panel name="main" class="q-px-none relative-position">
             <q-list separator>
+              <q-item class="q-px-sm" exact to="/" clickable v-ripple>
+                <q-item-section>Home</q-item-section>
+              </q-item>
               <q-item
-                class="q-px-none"
+                class="q-px-sm"
+                :to="{
+                  name: 'category',
+                  params: { categoryname: 'all-products' },
+                }"
                 clickable
                 v-ripple
-                v-for="n in 6"
-                :key="n"
               >
-                <q-item-section>Single line item</q-item-section>
+                <q-item-section>Shop</q-item-section>
+              </q-item>
+
+              <q-item class="q-px-sm" to="/cart" clickable v-ripple>
+                <q-item-section>Cart</q-item-section>
+              </q-item>
+
+              <q-item
+                v-show="$store.auth.userDetails !== null"
+                class="q-px-sm"
+                clickable
+                v-ripple
+                :to="
+                  $store.auth.vendorDetails === null ? `/account` : `/vendor`
+                "
+              >
+                <q-item-section>{{
+                  $store.auth.vendorDetails === null ? "Account" : "Dashboard"
+                }}</q-item-section>
+              </q-item>
+
+              <q-item
+                v-show="$store.auth.userDetails !== null"
+                class="q-px-sm"
+                clickable
+                v-ripple
+                to="/logout"
+              >
+                <q-item-section>Logout</q-item-section>
+              </q-item>
+
+              <q-item
+                v-show="
+                  $store.auth.userDetails === null ||
+                  $store.auth.vendorDetails === null
+                "
+                class="q-px-sm"
+                clickable
+                @click="signIn()"
+                v-ripple
+              >
+                <q-item-section>Sign In</q-item-section>
               </q-item>
             </q-list>
-          </q-tab-panel> -->
+          </q-tab-panel>
 
           <q-tab-panel name="categories">
             <q-list separator>
@@ -79,13 +126,10 @@
 import { ref } from "vue";
 
 export default {
-  setup() {
-    return {
-      tab: ref("categories"),
-    };
-  },
+  props: ["toggleAuthForm", "toggleSearchDialog"],
   data() {
     return {
+      tab: ref("main"),
       getCategory: [],
     };
   },
@@ -94,6 +138,12 @@ export default {
     this.getCategories();
   },
   methods: {
+    signIn() {
+      this.toggleAuthForm();
+    },
+    toggle() {
+      this.toggleSearchDialog();
+    },
     getCategories() {
       this.$api
         .get("category/all")
