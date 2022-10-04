@@ -221,6 +221,7 @@ export default {
 @media (max-width: 800px) {
   .products {
     grid-template-columns: repeat(2, 1fr);
+    padding-bottom: 3rem;
   }
 }
 @media (max-width: 500px) {
