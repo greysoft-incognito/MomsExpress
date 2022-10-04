@@ -11,7 +11,11 @@
     </q-header>
 
     <q-drawer :width="280" :breakpoint="770" v-model="leftDrawerOpen" bordered>
-      <MainEssentialLinks class="full-height" />
+      <MainEssentialLinks
+        class="full-height"
+        :toggleAuthForm="toggleAuthForm"
+        :toggleSearchDialog="toggleSearchDialog"
+      />
     </q-drawer>
 
     <q-page-container>
@@ -41,6 +45,7 @@
       </q-btn>
     </q-page-sticky>
 
+    <!-- Authentication Form Dialog -->
     <q-dialog v-model="alert">
       <q-card style="width: 500px; max-width: 80vw">
         <q-card-section class="row">
@@ -83,29 +88,128 @@
       </q-card>
     </q-dialog>
 
+    <!-- Mobile Screen Serach Dialog -->
+    <q-dialog
+      v-model="mobleDialog"
+      persistent
+      :maximized="maximizedToggle"
+      transition-show="slide-up"
+      transition-hide="slide-down"
+      class="mobile_dialog"
+    >
+      <q-card class="bg-white text-black">
+        <q-bar>
+          <q-space />
+
+          <q-btn dense flat icon="close" v-close-popup>
+            <q-tooltip class="bg-white text-primary">Close</q-tooltip>
+          </q-btn>
+        </q-bar>
+
+        <q-card-section>
+          <q-input
+            placeholder="Search for products"
+            class="search_input"
+            outlined
+            v-model="search"
+            dense
+            @click="search !== '' ? (result = true) : (result = false)"
+            @blur="result = false"
+            @keydown="
+              (result = true), search.length > 1 ? getSearch(search) : ''
+            "
+          >
+            <template v-slot:prepend>
+              <q-icon name="search" color="primary" />
+              <q-separator class="q-ma-sm" vertical />
+            </template>
+          </q-input>
+        </q-card-section>
+
+        <q-card-section class="q-pt-none">
+          <q-list>
+            <!-- <q-scroll-area style="height: auto"> -->
+            <q-list-item>
+              <div
+                class="search"
+                v-for="product in searchResults"
+                :key="product.id"
+                @click="searchProductDetail(product.slug, product.id)"
+              >
+                {{ product.name }}
+              </div>
+            </q-list-item>
+            <!-- :to="{
+              name: 'productDetail',
+              params: { name: product.slug, id: product.id },
+            }" -->
+
+            <!-- </q-scroll-area> -->
+          </q-list>
+
+          <div v-show="searchResults.length == 0" class="text-center text-grey">
+            Your results would show here
+          </div>
+        </q-card-section>
+      </q-card>
+    </q-dialog>
+
     <q-footer class="row items-center mobile_footer q-py-xs">
       <div class="text-center">
         <q-btn icon="home" to="/" flat :ripple="false" />
         <div class="text-caption">Home</div>
       </div>
+
       <div class="text-center">
-        <q-btn icon="format_list_bulleted" flat :ripple="false" />
+        <q-btn
+          :to="{
+            name: 'category',
+            params: { categoryname: 'all-products' },
+          }"
+          icon="format_list_bulleted"
+          flat
+          :ripple="false"
+        />
         <div class="text-caption">Shop</div>
       </div>
-      <div class="text-center">
-        <q-btn icon="perm_identity" flat :ripple="false" />
-        <div class="text-caption">Account</div>
+
+      <div
+        v-show="
+          $store.auth.userDetails === null || $store.auth.vendorDetails === null
+        "
+        class="text-center"
+      >
+        <q-btn
+          icon="perm_identity"
+          @click="alert = true"
+          flat
+          :ripple="false"
+        />
+        <div class="text-caption">Sign In</div>
       </div>
+
+      <div v-show="$store.auth.userDetails !== null" class="text-center">
+        <q-btn
+          icon="perm_identity"
+          :to="$store.auth.vendorDetails === null ? `/account` : `/vendor`"
+          flat
+          :ripple="false"
+        />
+        <div class="text-caption">
+          {{ $store.auth.vendorDetails === null ? "Account" : "Dashboard" }}
+        </div>
+      </div>
+
       <div class="text-center">
         <q-btn class="" to="/cart" flat icon="shopping_cart">
           <q-badge color="red" class="text-bold" floating transparent>
-            4
+            {{ this.$store.cart.plate.length }}
           </q-badge>
         </q-btn>
         <div class="text-caption">Cart</div>
       </div>
       <div class="text-center">
-        <q-btn icon="search" flat :ripple="false" />
+        <q-btn @click="mobleDialog = true" icon="search" flat :ripple="false" />
         <div class="text-caption">Search</div>
       </div>
     </q-footer>
@@ -142,11 +246,16 @@ export default defineComponent({
     MainEssentialLinks,
   },
 
-  setup() {
+  data() {
     const leftDrawerOpen = ref(false);
     const alert = ref(false);
 
     return {
+      search: "",
+      searchResults: [],
+      result: "",
+      mobleDialog: ref(false),
+      maximizedToggle: ref(true),
       essentialLinks: links,
       leftDrawerOpen,
       tab: ref("Signin"),
@@ -157,6 +266,7 @@ export default defineComponent({
         console.log("please");
       },
       toggleAuthForm() {
+        // if (leftDrawerOpen === true) leftDrawerOpen === false;
         alert.value = !alert.value;
       },
 
@@ -167,9 +277,45 @@ export default defineComponent({
     };
   },
   methods: {
+    toggleSearchDialog() {
+      this.mobleDialog = !this.mobleDialog;
+      this.leftDrawerOpen == false;
+    },
     authTypeChecker(value) {
       if (value === "register") this.tab = "signup";
       if (value === "login") this.tab = "Signin";
+    },
+    getSearch(input) {
+      // let query = "ipho";
+      this.$api
+        .get(`search`, { params: { query: input } })
+        .then((resp) => {
+          console.log(resp);
+          this.searchResults = resp.data.data;
+          if (resp.data.data.length == 0) {
+            this.$q.notify({
+              message: "No result for this search",
+              color: "orange",
+              position: "bottom",
+            });
+          }
+        })
+        .catch((response) => {
+          this.$q.notify({
+            message: response.data.message,
+            color: "red",
+            position: "top",
+          });
+          this.errors = response.data.errors;
+        });
+    },
+    searchProductDetail(slug, productId) {
+      this.$router.push({
+        name: "productDetail",
+        params: { name: slug, id: productId },
+      });
+      this.mobleDialog = false;
+      this.search = "";
     },
   },
   mounted() {
@@ -179,6 +325,17 @@ export default defineComponent({
 </script>
 
 <style>
+.search {
+  cursor: pointer;
+  margin: 2% 0;
+  text-decoration: none;
+  color: black;
+  display: block;
+  width: fit-content;
+}
+.search:hover {
+  color: #d56c33 !important;
+}
 .mobile_footer {
   display: none;
   grid-template-columns: repeat(5, 1fr);

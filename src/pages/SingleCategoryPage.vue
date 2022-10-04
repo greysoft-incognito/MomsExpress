@@ -108,18 +108,24 @@
         <div class="bg-grey-3 shop_banner column flex-center">
           <q-icon size="3.5rem" name="wallpaper" color="grey" />
           <div class="q-my-sm text-h5 text-bold text-uppercase">
-            {{ categoryDetails.name }}
+            {{
+              categoryDetails.name
+                ? categoryDetails.name
+                : this.$router.currentRoute.value.params.categoryname
+            }}
           </div>
         </div>
 
-        <div v-if="this.$store.cart.singleCategory.products.length !== 0">
+        <div v-if="this.$store.cart.singleCategory.products !== []">
           <h5 class="q-my-md text-bold">Products</h5>
 
           <q-separator />
           <!-- {{ this.$store.cart.singleCategory }} -->
           <div class="products_container q-my-md">
             <div
-              v-for="products in categoryDetails.products"
+              v-for="products in categoryDetails.products
+                ? categoryDetails.products
+                : categoryDetails"
               :key="products.id"
               class="column q-mb-md text-center border_card product_tile"
             >
@@ -190,7 +196,7 @@
           </div>
         </div>
         <q-page
-          v-if="this.$store.cart.singleCategory.products.length == 0"
+          v-if="this.$store.cart.singleCategory.products === []"
           class="noLength no_item_in_cart text-h4 text-center q-my-xl q-py-lg"
         >
           <div class="text-center text-primary text-bold">
@@ -233,7 +239,15 @@ export default {
   },
   created() {
     // this.skeleton = true;
-    this.getProductDetail();
+    if (
+      this.$router.currentRoute.value.params.categoryname === "all-products"
+    ) {
+      this.getAllProducts();
+    } else {
+      this.getProductDetail();
+    }
+
+    console.log(this.$router.currentRoute.value.name);
   },
   methods: {
     getProductDetail() {
@@ -250,10 +264,36 @@ export default {
         })
         .catch((err) => {});
     },
+    getAllProducts() {
+      this.$api
+        .get(`product/all`)
+        .then((resp) => {
+          console.log(resp);
+          this.categoryDetails = resp.data.data;
+          this.$store.cart.singleCategory = this.categoryDetails;
+          // this.skeleton = false;
+        })
+        .catch((response) => {
+          this.$q.notify({
+            message: response.data.message,
+            color: "red",
+            position: "top",
+          });
+          this.errors = response.data.errors;
+        });
+    },
   },
   watch: {
     routeName: function () {
-      this.getProductDetail();
+      if (this.$router.currentRoute.value.name === "category") {
+        if (
+          this.$router.currentRoute.value.params.categoryname === "all-products"
+        ) {
+          this.getAllProducts();
+        } else {
+          this.getProductDetail();
+        }
+      }
     },
   },
 };
