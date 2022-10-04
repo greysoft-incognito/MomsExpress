@@ -45,6 +45,7 @@
           <div class="image_container">
             <!-- <q-img class="border_card image" src="Images/2-1.jpg" /> -->
             <q-img
+              style="object-fit: contain"
               class="border_card image"
               :src="`http://165.227.74.156/${product.uploads[0].url}`"
             />
@@ -155,7 +156,7 @@ export default {
 }
 .products {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 15px;
 }
 .product_tile {

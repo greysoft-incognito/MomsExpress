@@ -74,10 +74,7 @@
         <div class="product_detail_container">
           <!-- `http://165.227.74.156/${productDetails.uploads[0].url}` -->
           <!-- {{ this.$store.cart.singleProducts.uploads[0] }} -->
-          <div
-            v-if="this.$store.cart.singleProducts.uploads.length"
-            class="product_detail_images"
-          >
+          <div class="product_detail_images">
             <q-carousel swipeable animated v-model="slide" thumbnails infinite>
               <q-carousel-slide
                 :name="1"

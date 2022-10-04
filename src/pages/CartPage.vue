@@ -264,23 +264,26 @@ export default {
             callback: function (response) {
               let finalData = response;
               console.log("callback");
+
               console.log(response);
               // window.location.href = response.redirecturl;
               axios
                 .get(`${response.redirecturl}`)
                 .then((resp) => {
                   console.log(resp);
+                  helper.notify({
+                    message: resp.data,
+                    color: "green",
+                    position: "top",
+                  });
+                  router.push({
+                    name: "homepage",
+                  });
+                  this.$store.cart.plate = [];
                 })
                 .catch(({ response }) => {
                   console.log(response);
                 });
-              // router.push({
-              //   name: "homepage",
-              //   // params: {
-              //   //   ref: response.reference,
-              //   //   reference: response.reference,
-              //   // },
-              // });
             },
           });
 

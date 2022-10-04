@@ -107,6 +107,10 @@ a {
   border-radius: 4px;
 }
 
+.image .q-img__image {
+  object-fit: contain !important;
+}
+
 //Account Tabs size
 .account_tab .q-tab {
   height: 35px !important;
