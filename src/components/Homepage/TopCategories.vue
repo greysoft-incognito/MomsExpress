@@ -32,7 +32,31 @@
         class="column bg-grey-2 border_card card"
       >
         <!-- <div class="image_container"> -->
-        <q-img class="border_card image" src="Images/2-1.jpg" />
+        <q-img
+          v-if="category.name === 'Jewelry & Watches'"
+          class="border_card image"
+          src="/images/watch.jpeg"
+        />
+        <q-img
+          v-if="category.name === 'Babies and Kids'"
+          class="border_card image"
+          src="/images/baby.jpeg"
+        />
+        <q-img
+          v-if="category.name === 'Bags & Shoes'"
+          class="border_card image"
+          src="/images/bag.jpeg"
+        />
+        <q-img
+          v-if="category.name === 'Automobiles'"
+          class="border_card image"
+          src="/images/auto.jpeg"
+        />
+        <q-img
+          v-if="category.name === `Men's Fashion`"
+          class="border_card image"
+          src="/images/men.jpeg"
+        />
         <!-- </div> -->
         <div class="text-center text-subtitle1 text-bold q-my-xs">
           {{ category.name }}

@@ -163,4 +163,14 @@ export default {
   height: 50%;
   width: 100%;
 }
+.q-carousel__navigation {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .q-panel > div {
+    height: 80%;
+    width: 100%;
+  }
+}
 </style>
