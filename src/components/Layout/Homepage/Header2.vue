@@ -47,7 +47,6 @@
             class="search-result text-black text-subtitle2 bg-white"
           >
             <q-list>
-              <!-- <q-scroll-area style="height: auto"> -->
               <q-list-item>
                 <router-link
                   class="search"

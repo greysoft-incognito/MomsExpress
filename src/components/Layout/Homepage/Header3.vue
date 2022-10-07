@@ -80,8 +80,8 @@
           </q-list>
         </q-btn-dropdown> -->
         <!-- <router-link class="q-mx-md" to="/">Vendor</router-link> -->
-        <router-link class="q-mx-md" to="/category">Trending</router-link>
-        <router-link class="q-mx-md" to="/category">New</router-link>
+        <!-- <router-link class="q-mx-md" to="/category">Trending</router-link>
+        <router-link class="q-mx-md" to="/category">New</router-link> -->
       </div>
     </div>
   </q-toolbar>

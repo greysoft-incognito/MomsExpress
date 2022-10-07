@@ -35,27 +35,27 @@
         <q-img
           v-if="category.name === 'Jewelry & Watches'"
           class="border_card image"
-          src="/images/watch.jpeg"
+          src="/Images/watch.jpeg"
         />
         <q-img
           v-if="category.name === 'Babies and Kids'"
           class="border_card image"
-          src="/images/baby.jpeg"
+          src="/Images/baby.jpeg"
         />
         <q-img
           v-if="category.name === 'Bags & Shoes'"
           class="border_card image"
-          src="/images/bag.jpeg"
+          src="/Images/bag.jpeg"
         />
         <q-img
           v-if="category.name === 'Automobiles'"
           class="border_card image"
-          src="/images/auto.jpeg"
+          src="/Images/auto.jpeg"
         />
         <q-img
           v-if="category.name === `Men's Fashion`"
           class="border_card image"
-          src="/images/men.jpeg"
+          src="/Images/men.jpeg"
         />
         <!-- </div> -->
         <div class="text-center text-subtitle1 text-bold q-my-xs">

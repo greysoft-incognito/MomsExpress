@@ -1,6 +1,21 @@
 <template>
   <div class="products">
     <div
+      v-for="n in 8"
+      :key="n"
+      :class="skeleton === false ? 'hide-skeleton' : ''"
+    >
+      <q-card flat v-show="skeleton">
+        <q-skeleton height="170px" class="border_card image" square />
+
+        <q-card-section>
+          <q-skeleton type="text" class="text-subtitle1" />
+          <q-skeleton type="text" width="50%" class="text-subtitle1" />
+          <q-skeleton type="text" class="text-caption" />
+        </q-card-section>
+      </q-card>
+    </div>
+    <div
       class="column q-mb-md text-center border_card product_tile"
       v-for="product in products"
       :key="product.id"
@@ -73,6 +88,7 @@ export default {
       ratingModel: ref(4),
       ratingColors: ["green"],
       products: [],
+      skeleton: true,
     };
   },
   methods: {
@@ -81,6 +97,7 @@ export default {
         .get(`product/all`)
         .then((resp) => {
           console.log(resp);
+          this.skeleton = false;
           this.products = resp.data.data;
           this.products.splice(8, resp.data.data.length - 1);
         })
@@ -101,6 +118,9 @@ export default {
 </script>
 
 <style scoped>
+.hide-skeleton {
+  display: none;
+}
 .image_container {
   height: 280px;
   position: relative;

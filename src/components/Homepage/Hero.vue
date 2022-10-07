@@ -5,6 +5,7 @@
       v-model="slide"
       navigation
       class="carousel"
+      :autoplay="true"
       infinite
       arrows
       transition-prev="slide-right"
@@ -22,7 +23,7 @@
           <div class="category">
             {{ product.category }}
           </div>
-          <div class="price">${{ product.price }}</div>
+          <div class="price">₦{{ product.price }}</div>
           <div class="name">
             {{ product.name }}
           </div>
@@ -61,7 +62,7 @@ export default {
         .then((resp) => {
           console.log(resp);
           let newData = resp.data.data;
-          this.heroImages = newData.slice(41, 45);
+          this.heroImages = newData.splice(41, 45);
           // this.heroImages =
           //   resp.data.data[
           //     Math.floor(Math.random() * resp.data.data.length - 1)
@@ -162,7 +163,6 @@ export default {
 .q-panel > div {
   height: 50%;
   width: 100%;
-
 }
 .q-carousel__navigation {
   display: none;
