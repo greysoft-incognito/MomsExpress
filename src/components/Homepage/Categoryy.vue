@@ -14,15 +14,14 @@
     <!-- {{ products }} -->
     <!-- {{ banner }} -->
     <q-separator class="q-my-md" />
-    <div v-if="skeleton">
-      <div style="height: 100%; gap: 1rem" class="row no-wrap lar items-start">
-        <q-card
-          v-for="type in skele"
-          :key="type"
-          flat
-          style="max-width: 300px; height: 100%; width: 300px"
-        >
-          <q-skeleton height="150px" square />
+
+    <div v-if="skeleton" class="category_container">
+      <div class="banner">
+        <q-skeleton height="100%" square />
+      </div>
+      <div style="gap: 1rem" class="row no-wrap lar items-start products">
+        <q-card v-for="n in 8" :key="n" flat>
+          <q-skeleton height="200px" square />
 
           <q-card-section>
             <q-skeleton type="text" class="text-subtitle1" />
@@ -160,7 +159,7 @@ export default {
   gap: 15px;
 }
 .product_tile {
-  box-shadow: 0px 2px 8px -5.5px;
+  /* box-shadow: 0px 2px 8px -5.5px; */
   border-radius: 8px;
 }
 @media screen and (max-width: 720px) {
@@ -222,11 +221,6 @@ export default {
   .products {
     grid-template-columns: repeat(2, 1fr);
     padding-bottom: 3rem;
-  }
-}
-@media (max-width: 500px) {
-  .products {
-    grid-template-columns: 1fr;
   }
 }
 </style>

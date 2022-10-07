@@ -88,6 +88,23 @@
       </template>
 
       <template v-slot:before>
+        <!-- <div
+          class="product_detail_container"
+          style="padding: 0 4%"
+          v-if="skeleton"
+        >
+          <q-skeleton
+            class="col-lg-5 col-md-5 col-sm-12 col-xs-12"
+            height="350px"
+          />
+          <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 q-px-lg">
+            <q-skeleton type="text" width="50%" height="50px" />
+            <q-skeleton type="text" width="30%" height="30px" />
+            <q-skeleton type="text" width="30%" height="30px" />
+            <q-skeleton type="text" width="70%" height="180px" />
+            <q-skeleton type="text" width="30%" height="30px" />
+          </div>
+        </div> -->
         <div class="product_detail_container">
           <!-- `http://165.227.74.156/${productDetails.uploads[0].url}` -->
           <!-- {{ this.$store.cart.singleProducts.uploads[0] }} -->
@@ -384,7 +401,7 @@ export default {
       tab: ref("orders"),
       splitterModel: ref(25),
       comment: "",
-      // skeleton: true,
+      skeleton: true,
       slide: 1,
       tab: ref("description"),
       // tab: ref("reviews"),
@@ -441,6 +458,7 @@ export default {
         .get(`product/${name}`)
         .then((res) => {
           console.log(res);
+          this.skeleton = false;
           this.productDetails = res.data.data;
           this.$store.cart.singleProducts = this.productDetails;
           this.message = res.data.message;

@@ -16,6 +16,31 @@
             <q-separator />
             <div class="q-pa-md">
               <div
+                v-for="n in 6"
+                :key="n"
+                :class="skeleton1 === false ? 'hide-skeleton' : ''"
+                class="side_items_image_container"
+              >
+                <q-card flat class="row items-center" v-show="skeleton1">
+                  <q-skeleton height="70px" width="70px" square />
+
+                  <q-card-section>
+                    <q-skeleton
+                      type="text"
+                      width="100px"
+                      class="text-subtitle1"
+                    />
+                    <q-skeleton
+                      type="text"
+                      width="100px"
+                      class="text-subtitle1"
+                    />
+
+                    <q-skeleton type="text" class="text-caption" />
+                  </q-card-section>
+                </q-card>
+              </div>
+              <div
                 v-for="products in categoryDetails2"
                 :key="products.id"
                 class="row items-center q-mb-md side_items_image_container"
@@ -57,6 +82,19 @@
           >
             <q-separator />
             <div class="q-py-sm">
+              <div
+                v-for="n in 6"
+                :key="n"
+                :class="skeleton2 === false ? 'hide-skeleton' : ''"
+              >
+                <q-card
+                  flat
+                  class="row items-center q-ml-md"
+                  v-show="skeleton2"
+                >
+                  <q-skeleton type="text" width="65%" class="text-subtitle1" />
+                </q-card>
+              </div>
               <ul class="q-px-md">
                 <router-link
                   v-for="cat in getCategory"
@@ -81,6 +119,31 @@
           >
             <q-separator />
             <div class="q-pa-md">
+              <div
+                v-for="n in 6"
+                :key="n"
+                :class="skeleton1 === false ? 'hide-skeleton' : ''"
+                class="side_items_image_container"
+              >
+                <q-card flat class="row items-center" v-show="skeleton1">
+                  <q-skeleton height="70px" width="70px" square />
+
+                  <q-card-section>
+                    <q-skeleton
+                      type="text"
+                      width="100px"
+                      class="text-subtitle1"
+                    />
+                    <q-skeleton
+                      type="text"
+                      width="100px"
+                      class="text-subtitle1"
+                    />
+
+                    <q-skeleton type="text" class="text-caption" />
+                  </q-card-section>
+                </q-card>
+              </div>
               <div
                 v-for="products in categoryDetails3"
                 :key="products.id"
@@ -206,6 +269,21 @@
               <div class="text-bold price_text">₦{{ products.price }}</div>
             </div>
             <!-- <SingleProductTile v-for="n in 10" :key="n" /> -->
+            <div
+              v-for="n in 6"
+              :key="n"
+              :class="skeleton === false ? 'hide-skeleton' : ''"
+            >
+              <q-card flat v-show="skeleton">
+                <q-skeleton height="150px" square />
+
+                <q-card-section>
+                  <q-skeleton type="text" class="text-subtitle1" />
+                  <q-skeleton type="text" width="50%" class="text-subtitle1" />
+                  <q-skeleton type="text" class="text-caption" />
+                </q-card-section>
+              </q-card>
+            </div>
           </div>
         </div>
         <q-page
@@ -241,6 +319,9 @@ export default {
       categoryDetails2: [],
       categoryDetails3: [],
       getCategory: [],
+      skeleton: true,
+      skeleton1: true,
+      skeleton2: true,
     };
   },
   components: { Addresses, Ordes, Wishlist, AccountDetails, SingleProductTile },
@@ -271,6 +352,7 @@ export default {
         .get(`/category/${detail}`)
         .then((res) => {
           console.log(res);
+          this.skeleton = false;
           this.categoryDetails = res.data.data;
           this.$store.cart.singleCategory = this.categoryDetails;
           this.message = res.data.message;
@@ -301,6 +383,7 @@ export default {
         .get(`product/all`)
         .then((resp) => {
           console.log(resp);
+          this.skeleton1 = false;
           this.categoryDetails2 = resp.data.data;
           this.categoryDetails2.splice(4, resp.data.data.length - 1);
           this.categoryDetails3 = resp.data.data;
@@ -324,6 +407,7 @@ export default {
         .get("category/all")
         .then((resp) => {
           console.log(resp);
+          this.skeleton2 = false;
           this.getCategory = resp.data.data;
           this.getCategory.splice(5, resp.data.data.length - 1);
           // this.loading = false;
@@ -361,6 +445,9 @@ export default {
 </script>
 
 <style scoped>
+.hide-skeleton {
+  display: none;
+}
 .non_hover_btn:hover {
   color: #808080 !important;
 }

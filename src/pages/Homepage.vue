@@ -7,6 +7,22 @@
     <PopularDepartments />
     <Advert2 />
     <!-- <Category1 /> -->
+    <div v-if="skeleton" class="category_container big_screen_padding">
+      <div class="banner">
+        <q-skeleton height="100%" square />
+      </div>
+      <div style="gap: 1rem" class="row no-wrap lar items-start products">
+        <q-card v-for="n in 8" :key="n" flat>
+          <q-skeleton height="200px" square />
+
+          <q-card-section>
+            <q-skeleton type="text" class="text-subtitle1" />
+            <q-skeleton type="text" width="50%" class="text-subtitle1" />
+            <q-skeleton type="text" class="text-caption" />
+          </q-card-section>
+        </q-card>
+      </div>
+    </div>
     <div v-if="categories.length">
       <Categoryy
         :products="phoneAndTablets"
@@ -105,6 +121,7 @@ export default {
         .get("category/all")
         .then((resp) => {
           console.log(resp);
+          this.skeleton = false;
           this.categories = resp.data.data;
           this.phoneAndTablets = this.categories[0];
           this.electronics = this.categories[6];
@@ -113,7 +130,6 @@ export default {
           this.clothes = this.categories[2];
           this.women_fashion = this.categories[10];
           this.home_equipments = this.categories[9];
-          this.skeleton = false;
         })
         .catch(({ response }) => {
           this.loading = false;
@@ -124,4 +140,30 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.category_container {
+  display: grid;
+  grid-template-columns: 25% 2fr;
+  gap: 25px;
+  padding-bottom: 5%;
+}
+.products {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+@media screen and (max-width: 720px) {
+  .category_container {
+    grid-template-columns: 1fr;
+  }
+  .banner {
+    height: 25vh;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .products {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+</style>

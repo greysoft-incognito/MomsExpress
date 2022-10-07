@@ -473,7 +473,7 @@ export default {
     deleteProducts(slug) {
       this.$helper
         .notify(
-          "Are you sure you want to delete this product? This action may be irreversible!",
+          "Are you sure? This action is  irreversible!",
           "error",
           true,
           "Yes, Delete!"
