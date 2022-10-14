@@ -50,21 +50,21 @@
           </q-input>
 
           <div
-            v-if="(result, search === '' ? (result = false) : result)"
+            v-if="search === '' ? (result = false) : result"
             class="search-result text-black text-subtitle2 bg-white"
           >
             <q-list>
-              <q-list-item>
-                <router-link
-                  class="search"
-                  v-for="product in searchResults"
-                  :key="product._id"
-                  :to="{
-                    name: 'productDetail',
-                    params: { name: product.slug, id: product.id },
-                  }"
-                  >{{ product.name }}</router-link
-                >
+              <q-list-item
+                class="search"
+                v-for="product in searchResults"
+                :key="product._id"
+                @click="searchRoute(product.slug, product.id)"
+              >
+                <!-- :to="{
+                  name: 'productDetail',
+                  params: { name: product.slug, id: product.id },
+                }" -->
+                {{ product.name }}
               </q-list-item>
               <!-- </q-scroll-area> -->
             </q-list>
@@ -134,6 +134,12 @@ export default {
           });
           this.errors = response.data.errors;
         });
+    },
+    searchRoute(slug, product_id) {
+      this.$router.push({
+        name: "productDetail",
+        params: { name: slug, id: product_id },
+      });
     },
   },
   mounted() {

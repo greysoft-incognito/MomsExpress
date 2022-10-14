@@ -181,9 +181,9 @@
       </template>
 
       <template v-slot:after>
-        <div class="bg-grey-3 shop_banner column flex-center">
-          <q-icon size="3.5rem" name="wallpaper" color="grey" />
-          <div class="q-my-sm text-h5 text-bold text-uppercase">
+        <div class="bg-orange-4 shop_banner column flex-center">
+          <!-- <q-icon size="3.5rem" name="wallpaper" color="grey" /> -->
+          <div class="q-my-sm text-h5 text-white text-bold text-uppercase">
             {{
               categoryDetails.name
                 ? categoryDetails.name
@@ -206,6 +206,7 @@
               class="column q-mb-md text-center border_card product_tile"
             >
               <div class="image_container">
+                <div class="overlay"></div>
                 <q-img
                   class="border_card image"
                   :src="`http://165.227.74.156/${products.uploads[0].url}`"
@@ -329,6 +330,14 @@ export default {
     routeName() {
       return this.$router.currentRoute.value.params.categoryname;
     },
+    // randomNumber() {
+    //   let products = this.categoryDetails.products;
+    //   return Math.floor(
+    //     Math.random() * this.categoryDetails.products
+    //       ? this.categoryDetails.products.length
+    //       : ""
+    //   );
+    // },
   },
   created() {
     // this.skeleton = true;
@@ -515,12 +524,26 @@ ul a:hover {
   display: none;
 }
 
+.overlay {
+  background: rgb(128, 128, 128, 0.35);
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: 2;
+  display: none;
+}
+
+.image_container:hover .overlay {
+  display: block;
+}
 .image_container:hover .add_to_cart {
   display: block;
+  z-index: 3;
 }
 
 .image_container:hover .view_details {
   display: grid;
+  z-index: 3;
 }
 .product_tile {
   position: relative;

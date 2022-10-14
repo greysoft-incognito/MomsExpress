@@ -12,8 +12,8 @@ const links = [
 
   {
     title: "Sales",
-    icon: "category",
-    link: "/",
+    icon: "fa-solid fa-wallet",
+    link: "/admin/sales",
   },
   {
     title: "Users",

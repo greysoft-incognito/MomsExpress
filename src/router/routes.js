@@ -81,11 +81,7 @@ const routes = [
         name: "Home",
         component: () => import("src/pages/VendorPages/DashboardPage.vue"),
       },
-      {
-        path: "customers",
-        name: "Customers",
-        component: () => import("src/pages/VendorPages/CustomersPage.vue"),
-      },
+
       {
         path: "orders",
         name: "Orders",
@@ -136,6 +132,11 @@ const routes = [
         path: "categories",
         name: "Categories",
         component: () => import("src/pages/AdminPages/CategoriesPage.vue"),
+      },
+      {
+        path: "sales",
+        name: "sales",
+        component: () => import("src/pages/AdminPages/SalesPage.vue"),
       },
       {
         path: "user_detail",

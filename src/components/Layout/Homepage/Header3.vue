@@ -52,7 +52,15 @@
 
       <div class="nav_links row q-ml-lg text-black items-center">
         <router-link class="q-mx-md" to="/">Home</router-link>
-        <router-link class="q-mx-md" to="/">Shop</router-link>
+        <router-link
+          class="q-mx-md"
+          :to="{
+            name: 'category',
+            params: { categoryname: 'all-products' },
+          }"
+          >Shop</router-link
+        >
+
         <!-- <q-btn-dropdown
           flat
           no-caps

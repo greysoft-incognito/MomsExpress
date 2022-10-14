@@ -4,11 +4,11 @@ const links = [
     icon: "dashboard",
     link: "/vendor",
   },
-  {
-    title: "Customers",
-    icon: "people",
-    link: "/vendor/customers",
-  },
+  // {
+  //   title: "Customers",
+  //   icon: "people",
+  //   link: "/vendor/customers",
+  // },
   {
     title: "Orders",
     icon: "bookmark_border",

@@ -22,6 +22,7 @@
       :key="product.id"
     >
       <div class="image_container">
+        <div class="overlay"></div>
         <img
           class="border_card image"
           :src="`http://165.227.74.156/${product.uploads[0].url}`"
@@ -145,12 +146,26 @@ export default {
   display: none;
 }
 
+.overlay {
+  background: rgb(128, 128, 128, 0.35);
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: 2;
+  display: none;
+}
+
+.image_container:hover .overlay {
+  display: block;
+}
 .image_container:hover .add_to_cart {
   display: block;
+  z-index: 3;
 }
 
 .image_container:hover .view_details {
   display: grid;
+  z-index: 3;
 }
 .product_tile {
   position: relative;
