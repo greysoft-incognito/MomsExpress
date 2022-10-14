@@ -5,26 +5,46 @@
     </div>
 
     <div class="top_cards q-mt-lg">
+      <div class="card bg-white q-pt-md">
+        <div class="text-caption text-weight-light q-px-md text-uppercase">
+          Total Sales
+        </div>
+
+        <div class="row justify-between q-px-md text-h6 text-bold items-center">
+          <div>
+            <span class="text-subtitle1 text-bold q-my-auto"> ₦ </span>
+            <span class="">{{ total }}</span>
+          </div>
+          <div class="row items-center">
+            <q-icon
+              size="0.9rem"
+              :name="`fa-solid fa-caret-up`"
+              color="green"
+            />
+            <div :class="`text-green text-subtitle2`">10%</div>
+          </div>
+        </div>
+      </div>
       <TopCards :cards="cards" />
     </div>
 
     <div class="middle_cards q-mt-xl">
-      <div id="chart" class="middle_card q-pa-md bg-white">
+      <!-- <div id="chart" class="middle_card q-pa-md bg-white">
         <apexchart
           type="line"
           :options="chartOptionsA"
           :series="seriesA"
         ></apexchart>
-      </div>
+      </div> -->
 
-      <div id="chart" class="middle_card q-pa-md bg-white">
+      <!-- <div id="chart" class="middle_card q-pa-md bg-white">
         <apexchart
           type="pie"
           :options="chartOptionsB"
           :series="seriesB"
           width="500"
         ></apexchart>
-      </div>
+      </div> -->
     </div>
 
     <div class="bottom_cards q-mt-xl">
@@ -40,28 +60,32 @@ import TopCards from "../../components/Vendor/Dashboard/TopCards.vue";
 import BottomCards from "../../components/Vendor/Dashboard/BottomCards.vue";
 
 const cards = [
-  {
-    title: "Total Sales",
-    symbol: "$",
-    icon: "fa-caret-up",
-    icon_color: "green",
-  },
+  // {
+  //   title: "Total Sales",
+  //   symbol: "₦",
+  //   icon: "fa-caret-up",
+  //   number: "",
+  //   icon_color: "green",
+  // },
   {
     title: "Sales today",
-    symbol: "$",
+    symbol: "₦",
     icon: "fa-caret-down",
+    number: "",
     icon_color: "red",
   },
   {
     title: "Total customers",
     symbol: "",
     icon: "fa-caret-up",
+    number: "",
     icon_color: "green",
   },
   {
     title: "New customers",
     symbol: "",
     icon: "fa-caret-down",
+    number: "",
     icon_color: "red",
   },
 ];
@@ -203,7 +227,38 @@ export default defineComponent({
           },
         ],
       },
+      total: null,
     };
+  },
+  computed() {
+    // this.orders.reduce((acc, id) => {
+    //   console.log();
+    //   return acc + state.plate[id].product.price * state.plate[id].quantity;
+    // }, 0);
+  },
+  methods: {
+    getOrders() {
+      this.$api
+        .get(`orders/all`)
+        .then((resp) => {
+          this.orders = resp.data.data;
+          this.total = resp.data.data.reduce((sum, item) => {
+            console.log(item.product_amount);
+            return (sum = +item.product_amount).toLocaleString();
+          });
+        })
+        .catch((response) => {
+          // this.$q.notify({
+          //   message: response.data.message,
+          //   color: "red",
+          //   position: "top",
+          // });
+          this.errors = response.data.errors;
+        });
+    },
+  },
+  created() {
+    this.getOrders();
   },
 });
 </script>
@@ -224,7 +279,7 @@ export default defineComponent({
 }
 .middle_cards {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 20px;
 }
 

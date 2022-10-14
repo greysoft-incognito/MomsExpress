@@ -9,7 +9,7 @@
         <div class="text-h6">Collection</div>
 
         <div class="q-mt-lg text-bold">
-          Starting at <span class="text-orange text-bold">$170.00</span>
+          Starting at <span class="text-orange text-bold">₦170.00</span>
         </div>
       </div>
     </div>
@@ -20,7 +20,7 @@
         <div class="text-h6">Collection</div>
 
         <div class="q-mt-lg text-bold">
-          Starting at <span class="text-orange text-bold">$90.00</span>
+          Starting at <span class="text-orange text-bold">₦90.00</span>
         </div>
       </div>
     </div>

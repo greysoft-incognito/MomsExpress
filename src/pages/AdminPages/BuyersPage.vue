@@ -86,7 +86,7 @@ const rows = [
     email: "emma@gmail.com",
     name: "Emma Babylon ",
     phone: "08112345678",
-    order: "Nigh Gown",
+    order: "Night Gown",
   },
 ];
 

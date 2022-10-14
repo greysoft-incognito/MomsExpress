@@ -25,13 +25,13 @@
         <div class="q-px-md">
           <div
             @click="this.$router.push('/admin/user_detail')"
-            v-for="n in 9"
+            v-for="n in people"
             :key="n"
             class="user_item q-my-sm q-px-sm q-py-md row justify-between"
           >
-            <div>tobiikupolati@gmail.com</div>
-            <div>Buyer</div>
-            <div>2mins ago</div>
+            <div>{{ n.email }}</div>
+            <!-- <div>Buyer</div> -->
+            <div>{{ n.date }}</div>
           </div>
         </div>
       </div>
@@ -84,6 +84,24 @@ export default defineComponent({
   data() {
     return {
       cards,
+      people: [
+        {
+          email: "joshchief169@gmail.com",
+          date: "3 weeks Ago ",
+        },
+        {
+          email: "tobiikupolati@gmail.com",
+          date: "2weeks Ago",
+        },
+        {
+          email: "moms@gmail.com",
+          date: "2weeks Ago",
+        },
+        {
+          email: "emma@gmail.com",
+          date: "1 week Ago ",
+        },
+      ],
       series: [
         {
           name: "Buyers",

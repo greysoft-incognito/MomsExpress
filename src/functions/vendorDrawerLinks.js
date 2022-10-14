@@ -29,11 +29,11 @@ const links = [
     icon: "rss_feed",
     link: "new_product",
   },
-  {
-    title: "Marketing",
-    icon: "access_time",
-    link: "/vendor/offers",
-  },
+  // {
+  //   title: "Marketing",
+  //   icon: "access_time",
+  //   link: "/vendor/offers",
+  // },
   {
     title: "Settings ",
     icon: "settings",

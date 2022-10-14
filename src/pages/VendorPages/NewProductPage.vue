@@ -113,7 +113,7 @@
             </div>
 
             <div class="q-mt-lg">
-              <label for="">Short Description</label>
+              <label for=""> Description</label>
               <q-input
                 v-model="description"
                 type="textarea"
@@ -128,10 +128,10 @@
               </div>
             </div>
 
-            <div class="q-my-lg">
+            <!-- <div class="q-my-lg">
               <label class="text-grey-9">Product Details</label>
               <vue-editor class="q-mt-xs" v-model="content"></vue-editor>
-            </div>
+            </div> -->
           </div>
         </div>
 

@@ -30,11 +30,11 @@ const links = [
     icon: "chat",
     link: "/admin/issues",
   },
-  {
-    title: "Marketing ",
-    icon: "rss_feed",
-    link: "/admin/marketing",
-  },
+  // {
+  //   title: "Marketing ",
+  //   icon: "rss_feed",
+  //   link: "/admin/marketing",
+  // },
 ];
 
 export default links;

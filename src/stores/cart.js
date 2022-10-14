@@ -35,7 +35,6 @@ export const useCartStore = defineStore("cart", {
     totalPrice: (state) => {
       // let findMeal = state.plate.find((mealItme) => mealItme.id === id);
       return Object.keys(state.plate).reduce((acc, id) => {
-        console.log(state.plate[id]);
         return acc + state.plate[id].product.price * state.plate[id].quantity;
       }, 0);
     },
