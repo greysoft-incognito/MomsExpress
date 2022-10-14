@@ -14,9 +14,12 @@
       <router-link
         to="/"
         style="height: 70px"
-        class="text-primary text-bold text-h5 q-px-md row justify-center items-center"
+        class="text-primary q-px-md column justify-center items-left moms_logo"
       >
-        <div>MOMS<span class="text-secondary">EXPRESS</span></div>
+        <h5 class="text-bold">
+          MOMS<span class="text-secondary">EXPRESS</span>
+        </h5>
+        <p class="small_text">MSME Online Market Store</p>
       </router-link>
       <q-list>
         <EssentialLink
@@ -62,4 +65,12 @@ export default defineComponent({
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.moms_logo {
+  margin: 0;
+}
+.small_text {
+  font-size: 0.65rem;
+  margin: 0;
+}
+</style>

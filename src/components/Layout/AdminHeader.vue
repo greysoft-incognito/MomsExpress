@@ -12,22 +12,11 @@
     />
 
     <div class="row justify-between full-width">
-      <div>
-        <q-input
-          placeholder="search for users and categories..."
-          class="search_input"
-          borderless
-        >
-          <template v-slot:prepend>
-            <q-icon name="search" color="primary" />
-            <q-separator class="q-ma-sm" vertical />
-          </template>
-        </q-input>
-      </div>
+      <q-space />
 
       <div class="row text-black items-center">
-        <q-separator class="q-ma-xs" vertical />
-        <q-btn
+        <!-- <q-separator class="q-ma-xs" vertical /> -->
+        <!-- <q-btn
           color="grey"
           size="0.8rem"
           round
@@ -35,8 +24,9 @@
           class="q-mx-md"
           icon="chat "
           to="/admin/issues"
-        />
-        <q-separator class="q-ma-xs" vertical />
+        /> -->
+        <!-- <q-separator class="q-ma-xs" vertical /> -->
+        <div class="text-subtitle text-primary">Admin</div>
 
         <q-btn
           color="grey"
@@ -46,7 +36,7 @@
           class="q-mx-md"
           icon="logout"
         />
-        <q-separator class="q-ma-xs" vertical />
+        <!-- <q-separator class="q-ma-xs" vertical /> -->
       </div>
     </div>
   </q-toolbar>

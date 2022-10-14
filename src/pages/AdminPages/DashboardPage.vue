@@ -2,7 +2,6 @@
   <q-page class="q-px-lg q-py-xl">
     <!-- {{ this.$store.auth }} -->
     <div class="text-h6">{{ $route.name }}</div>
-    <div class="text-weight-thin">Lorem Store Name</div>
 
     <div class="top_cards q-mt-lg">
       <TopCards :cards="cards" />

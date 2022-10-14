@@ -231,7 +231,7 @@
                 >
                   View vendor
                 </router-link> -->
-                <q-btn
+                <!-- <q-btn
                   label="View Vendor"
                   :to="{
                     name: 'vendorpage',
@@ -242,7 +242,7 @@
                   outline
                   color="secondary"
                   no-caps
-                />
+                /> -->
               </div>
             </div>
           </div>

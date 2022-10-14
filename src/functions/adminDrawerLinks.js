@@ -9,15 +9,11 @@ const links = [
     icon: "category",
     link: "/admin/categories",
   },
-  {
-    title: "Orders",
-    icon: "category",
-    link: "/admin/k",
-  },
+
   {
     title: "Sales",
     icon: "category",
-    link: "/admin",
+    link: "/",
   },
   {
     title: "Users",
