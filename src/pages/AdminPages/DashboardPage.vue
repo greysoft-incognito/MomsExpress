@@ -47,26 +47,30 @@ import TopCards from "../../components/Admin/Dashboard/TopCards.vue";
 const cards = [
   {
     title: "Total Users",
-    symbol: "$",
+    symbol: "₦",
     icon: "fa-caret-up",
+    number: "4",
     icon_color: "green",
   },
   {
     title: "Total No. of Buyers",
-    symbol: "$",
+    symbol: "₦",
     icon: "fa-caret-down",
+    number: "3",
     icon_color: "red",
   },
   {
     title: "Total No. of Sellers ",
     symbol: "",
     icon: "fa-caret-up",
+    number: "1",
     icon_color: "green",
   },
   {
     title: "No. of visitors",
     symbol: "",
     icon: "fa-caret-down",
+    number: "10",
     icon_color: "red",
   },
 ];

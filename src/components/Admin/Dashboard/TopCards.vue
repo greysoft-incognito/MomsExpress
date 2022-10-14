@@ -6,10 +6,10 @@
 
     <div class="row justify-between q-px-md text-h6 text-bold items-center">
       <div>
-        <span class="text-subtitle1 text-bold q-my-auto">{{
+        <!-- <span class="text-subtitle1 text-bold q-my-auto">{{
           item.symbol
-        }}</span>
-        <span class="">0</span>
+        }}</span> -->
+        <span class="">{{ item.number }}</span>
       </div>
       <div class="row items-center">
         <q-icon
