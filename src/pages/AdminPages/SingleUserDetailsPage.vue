@@ -14,7 +14,6 @@
 
       <div>
         <div class="text-h6">{{ $route.name }}</div>
-        <div class="text-weight-thin">Lorem Store Name</div>
       </div>
     </div>
 
@@ -24,13 +23,13 @@
 
         <StoreInfo />
 
-        <div class="border-radius timeline bg-white q-pa-md">
+        <!-- <div class="border-radius timeline bg-white q-pa-md">
           <div class="text-h6 text-bold q-mb-md">User Activities</div>
 
           <q-scroll-area style="height: 50vh; width: 100%">
             <UserTimeline />
           </q-scroll-area>
-        </div>
+        </div> -->
       </div>
 
       <div class="column q-gutter-y-md">

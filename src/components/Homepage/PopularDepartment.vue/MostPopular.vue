@@ -11,8 +11,8 @@ import SingleProductTile from "src/components/Product/SingleProductTile.vue";
 export default {
   setup() {
     return {
-      ratingModel: ref(4),
-      ratingColors: ["green"],
+      // ratingModel: ref(4),
+      // ratingColors: ["green"],
     };
   },
   components: { SingleProductTile },

@@ -36,21 +36,23 @@
           />
         </template>
         <template v-slot:body="props">
-          <q-tr class="q-pl-md" :props="props">
+          <q-tr :props="props">
             <q-td key="index" class="text-center" :props="props">
-              {{ props.row.index }}
+              {{ props.row.order_number }}
             </q-td>
             <q-td key="date" :props="props"> 1/08/2022 </q-td>
             <q-td key="customer" style="width: 20%" :props="props"
-              >tobiikupolati@gmail.com
+              >{{ props.row.customers_name }}
             </q-td>
             <q-td key="order" class="order" style="width: 20%" :props="props">
-              Bag, shoe, face, cap(2)
+              {{ props.row.product_name }}
             </q-td>
             <q-td key="status" style="width: 10%" :props="props">
               <q-badge color="green"> successful </q-badge></q-td
             >
-            <q-td key="amount" :props="props">$10,000</q-td>
+            <q-td key="amount" :props="props">{{
+              props.row.product_amount
+            }}</q-td>
             <q-td key="payment" :props="props"> Paystack </q-td>
           </q-tr>
         </template>
@@ -67,13 +69,14 @@ const columns = [
     name: "index",
     label: "#",
     field: "index",
-  },
-  {
-    name: "date",
     align: "center",
-    label: "Date",
-    field: "date",
   },
+  // {
+  //   name: "date",
+  //   align: "center",
+  //   label: "Date",
+  //   field: "date",
+  // },
   {
     name: "customer",
     label: "Customer",

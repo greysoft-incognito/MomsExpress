@@ -34,7 +34,7 @@
               params: { categoryname: category.slug, id: category.id },
             }"
           >
-            <q-icon name="settings" class="q-mr-sm" />
+            <!-- <q-icon name="settings" class="q-mr-sm" /> -->
             <span>{{ category.name }}</span></q-item
           >
 
@@ -52,7 +52,15 @@
 
       <div class="nav_links row q-ml-lg text-black items-center">
         <router-link class="q-mx-md" to="/">Home</router-link>
-        <router-link class="q-mx-md" to="/">Shop</router-link>
+        <router-link
+          class="q-mx-md"
+          :to="{
+            name: 'category',
+            params: { categoryname: 'all-products' },
+          }"
+          >Shop</router-link
+        >
+
         <!-- <q-btn-dropdown
           flat
           no-caps
@@ -111,7 +119,7 @@ export default {
       this.$api
         .get("category/all")
         .then((resp) => {
-          console.log(resp);
+          // console.log(resp);
           this.getCategory = resp.data.data;
           this.loading = false;
         })

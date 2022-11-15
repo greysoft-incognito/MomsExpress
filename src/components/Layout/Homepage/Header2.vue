@@ -16,8 +16,15 @@
         <q-space />
       </div>
 
-      <router-link to="/" class="text-primary text-bold text-h5">
-        <div>MOMS<span class="text-secondary">EXPRESS</span></div>
+      <router-link
+        to="/"
+        style="height: 70px"
+        class="text-primary q-px-md column justify-center items-left moms_logo"
+      >
+        <h5 class="text-bold">
+          MOMS<span class="text-secondary">EXPRESS</span>
+        </h5>
+        <p class="small_text">MSME Online Market Store</p>
       </router-link>
 
       <q-space />
@@ -43,22 +50,22 @@
           </q-input>
 
           <div
-            v-if="(result, search === '' ? (result = false) : result)"
+            v-if="search === '' ? (result = false) : result"
             class="search-result text-black text-subtitle2 bg-white"
           >
             <q-list>
-              <q-list-item>
-                <router-link
-                  class="search"
-                  v-for="product in searchResults"
-                  :key="product._id"
-                  :to="{
-                    name: 'productDetail',
-                    params: { name: product.slug, id: product.id },
-                  }"
-                  >{{ product.name }}</router-link
-                >
-              </q-list-item>
+              <div
+                class="search"
+                v-for="product in searchResults"
+                :key="product._id"
+                @click="searchRoute(product.slug, product.id)"
+              >
+                <!-- :to="{
+                  name: 'productDetail',
+                  params: { name: product.slug, id: product.id },
+                }" -->
+                {{ product.name }}
+              </div>
               <!-- </q-scroll-area> -->
             </q-list>
           </div>
@@ -128,6 +135,12 @@ export default {
           this.errors = response.data.errors;
         });
     },
+    searchRoute(slug, product_id) {
+      this.$router.push({
+        name: "productDetail",
+        params: { name: slug, id: product_id },
+      });
+    },
   },
   mounted() {
     // this.getSearch();
@@ -136,6 +149,13 @@ export default {
 </script>
 
 <style scoped>
+.moms_logo {
+  margin: 0;
+}
+.small_text {
+  font-size: 0.65rem;
+  margin: 0;
+}
 .layout_header {
   height: 70px !important;
 }

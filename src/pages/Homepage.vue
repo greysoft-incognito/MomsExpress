@@ -120,7 +120,7 @@ export default {
       this.$api
         .get("category/all")
         .then((resp) => {
-          console.log(resp);
+          // console.log(resp);
           this.skeleton = false;
           this.categories = resp.data.data;
           this.phoneAndTablets = this.categories[0];

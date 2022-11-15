@@ -2,15 +2,7 @@
   <div class="big_screen_padding banner">
     <div class="banner_container">
       <div class="row items-center item">
-        <q-icon size="2.5rem" class="q-mr-sm icon" name="local_shipping" />
-        <div>
-          <div class="sup_text text-bold">Free Shipping & Returns</div>
-          <div class="sub_text">For all orders over $99</div>
-        </div>
-      </div>
-
-      <div class="row items-center item">
-        <q-icon size="2.5rem" class="q-mr-sm icon" name="paid" />
+        <q-icon size="2.5rem" class="q-mr-sm icon" name="mdi-currency-ngn" />
         <div>
           <div class="sup_text text-bold">Money Back Guarantee</div>
           <div class="sub_text">Any back within 30 days</div>
@@ -43,7 +35,9 @@ export default {};
 <style scoped>
 .banner_container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  justify-content: center;
+  place-items: center;
+  grid-template-columns: repeat(3, 1fr);
   border: 1px solid rgb(128, 128, 128, 0.3);
   margin: 4% 0;
   padding: 2% 4%;

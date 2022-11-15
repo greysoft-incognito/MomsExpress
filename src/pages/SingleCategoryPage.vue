@@ -59,7 +59,7 @@
                   >
                     {{ products.name }}
                   </router-link>
-                  <div class="row">
+                  <!-- <div class="row">
                     <q-rating
                       v-model="ratingModel"
                       size="1.2rem"
@@ -67,7 +67,7 @@
                       readonly
                       color-selected="secondary"
                     />
-                  </div>
+                  </div> -->
                   <div class="text-bold">₦53.00</div>
                 </div>
               </div>
@@ -163,7 +163,7 @@
                   >
                     {{ products.name }}
                   </router-link>
-                  <div class="row">
+                  <!-- <div class="row">
                     <q-rating
                       v-model="ratingModel"
                       size="1.2rem"
@@ -171,7 +171,7 @@
                       readonly
                       color-selected="secondary"
                     />
-                  </div>
+                  </div> -->
                   <div class="text-bold">₦53.00</div>
                 </div>
               </div>
@@ -181,9 +181,9 @@
       </template>
 
       <template v-slot:after>
-        <div class="bg-grey-3 shop_banner column flex-center">
-          <q-icon size="3.5rem" name="wallpaper" color="grey" />
-          <div class="q-my-sm text-h5 text-bold text-uppercase">
+        <div class="bg-orange-4 shop_banner column flex-center">
+          <!-- <q-icon size="3.5rem" name="wallpaper" color="grey" /> -->
+          <div class="q-my-sm text-h5 text-white text-bold text-uppercase">
             {{
               categoryDetails.name
                 ? categoryDetails.name
@@ -206,6 +206,7 @@
               class="column q-mb-md text-center border_card product_tile"
             >
               <div class="image_container">
+                <div class="overlay"></div>
                 <q-img
                   class="border_card image"
                   :src="`http://165.227.74.156/${products.uploads[0].url}`"
@@ -224,16 +225,6 @@
                 />
 
                 <div class="view_details">
-                  <q-btn
-                    icon="fa-regular fa-heart"
-                    class="non_hover_btn bg-white q-mb-sm"
-                    no-caps
-                    size="0.75rem"
-                    round
-                    flat
-                    color="primary"
-                  />
-
                   <q-btn
                     icon="fa-solid fa-cart-plus"
                     class="non_hover_btn bg-white"
@@ -255,7 +246,7 @@
               >
                 {{ products.name }}
               </router-link>
-              <div class="row justify-center">
+              <!-- <div class="row justify-center">
                 <q-rating
                   v-model="ratingModel"
                   size="1.1rem"
@@ -265,7 +256,7 @@
                   class="stars"
                 />
                 <span class="review_text">( 2 reviews)</span>
-              </div>
+              </div> -->
               <div class="text-bold price_text">₦{{ products.price }}</div>
             </div>
             <!-- <SingleProductTile v-for="n in 10" :key="n" /> -->
@@ -313,8 +304,8 @@ export default {
     return {
       tab: ref("orders"),
       splitterModel: ref(25),
-      ratingModel: ref(4),
-      ratingColors: ["green"],
+      // ratingModel: ref(4),
+      // ratingColors: ["green"],
       categoryDetails: [],
       categoryDetails2: [],
       categoryDetails3: [],
@@ -329,6 +320,14 @@ export default {
     routeName() {
       return this.$router.currentRoute.value.params.categoryname;
     },
+    // randomNumber() {
+    //   let products = this.categoryDetails.products;
+    //   return Math.floor(
+    //     Math.random() * this.categoryDetails.products
+    //       ? this.categoryDetails.products.length
+    //       : ""
+    //   );
+    // },
   },
   created() {
     // this.skeleton = true;
@@ -341,17 +340,13 @@ export default {
     } else {
       this.getProductDetail();
     }
-
-    console.log(this.$router.currentRoute.value.name);
   },
   methods: {
     getProductDetail() {
       let detail = this.$router.currentRoute.value.params.categoryname;
-      console.log(detail);
       this.$api
         .get(`/category/${detail}`)
         .then((res) => {
-          console.log(res);
           this.skeleton = false;
           this.categoryDetails = res.data.data;
           this.$store.cart.singleCategory = this.categoryDetails;
@@ -394,6 +389,9 @@ export default {
         })
         .catch((response) => {
           console.log(response);
+          setTimeout(() => {
+            this.skeleton1 = false;
+          }, 7000);
           // this.$q.notify({
           //   message: response.data.message,
           //   color: "red",
@@ -406,7 +404,6 @@ export default {
       this.$api
         .get("category/all")
         .then((resp) => {
-          console.log(resp);
           this.skeleton2 = false;
           this.getCategory = resp.data.data;
           this.getCategory.splice(5, resp.data.data.length - 1);
@@ -515,12 +512,26 @@ ul a:hover {
   display: none;
 }
 
+.overlay {
+  background: rgb(128, 128, 128, 0.35);
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: 2;
+  display: none;
+}
+
+.image_container:hover .overlay {
+  display: block;
+}
 .image_container:hover .add_to_cart {
   display: block;
+  z-index: 3;
 }
 
 .image_container:hover .view_details {
   display: grid;
+  z-index: 3;
 }
 .product_tile {
   position: relative;

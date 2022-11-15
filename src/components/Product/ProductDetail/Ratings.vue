@@ -2,7 +2,7 @@
   <div class="q-mt-md q-pt-xs">
     <div class="text-subtitle2">Customer rating</div>
     <div class="text-h3">{{ rating_point }}</div>
-    <div>
+    <!-- <div>
       <q-rating
         v-model="rating_point"
         max="5"
@@ -14,7 +14,7 @@
         no-dimming
         readonly
       />
-    </div>
+    </div> -->
     <div class="text-subtitle2 text-grey-8">(300 reviews)</div>
     <div class="text-subtitle2 text-grey-10 q-mt-sm">
       93% of lorem customers would recommend
@@ -113,7 +113,7 @@
 export default {
   setup() {
     return {
-      rating_point: 3.5,
+      // rating_point: 3.5,
     };
   },
 };

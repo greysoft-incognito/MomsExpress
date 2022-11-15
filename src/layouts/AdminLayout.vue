@@ -4,10 +4,23 @@
       <Header :toggleLeftDrawer="toggleLeftDrawer" />
     </q-header>
 
-    <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
-      <div style="height: 70px" class="flex flex-center q-px-md">
-        <q-img src="Images/lorem_logo.svg" />
-      </div>
+    <q-drawer
+      width="250"
+      :breakpoint="770"
+      v-model="leftDrawerOpen"
+      show-if-above
+      bordered
+    >
+      <router-link
+        to="/"
+        style="height: 70px"
+        class="text-primary q-px-md column justify-center items-left moms_logo"
+      >
+        <h5 class="text-bold">
+          MOMS<span class="text-secondary">EXPRESS</span>
+        </h5>
+        <p class="small_text">MSME Online Market Store</p>
+      </router-link>
       <q-list>
         <EssentialLink
           v-for="link in essentialLinks"
@@ -54,4 +67,12 @@ export default defineComponent({
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.moms_logo {
+  margin: 0;
+}
+.small_text {
+  font-size: 0.65rem;
+  margin: 0;
+}
+</style>

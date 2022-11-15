@@ -27,10 +27,10 @@ const api = axios.create({
 });
 
 // Get the token from session storage
-let token = localStorage.getItem("token");
+let token = localStorage.getItem("token") || this.$store.auth.token;
 // console.log(token)
 axios.interceptors.response.use(function (response) {
-  console.log(response);
+  // console.log(response);
   if (response.data && response.data.token) {
     token = response.data.token;
   }
@@ -63,9 +63,9 @@ export default boot(({ app, router }) => {
         "Authorization"
       ] = `Bearer ${store.auth.token}`;
     }
-    console.log(to.meta.requireGuest);
-    console.log(!store.auth.token);
-    console.log(store.auth.userDetails);
+    // console.log(to.meta.requireGuest);
+    // console.log(!store.auth.token);
+    // console.log(store.auth.userDetails);
     if (to.name === "logout" && store.auth.userDetails) {
       store.auth.logOut(store.auth.userDetails).then(() => {
         return router.replace({ name: "homepage" });

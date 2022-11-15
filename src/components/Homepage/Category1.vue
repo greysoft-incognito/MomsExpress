@@ -72,16 +72,6 @@
 
               <div class="view_details">
                 <q-btn
-                  icon="fa-regular fa-heart"
-                  class="non_hover_btn"
-                  no-caps
-                  size="0.75rem"
-                  round
-                  flat
-                  color="primary"
-                />
-
-                <q-btn
                   @click="this.$store.cart.addToplate(product, product.id)"
                   icon="fa-solid fa-cart-plus"
                   class="non_hover_btn"
@@ -103,7 +93,7 @@
               {{ product.name }}
             </router-link>
 
-            <div class="row justify-center q-my-sm">
+            <!-- <div class="row justify-center q-my-sm">
               <q-rating
                 v-model="ratingModel"
                 size="1.2rem"
@@ -112,7 +102,7 @@
                 :color-selected="ratingColors"
               />
               <span>( 2 reviews)</span>
-            </div>
+            </div> -->
             <div class="text-bold">${{ product.price }}</div>
           </div>
           <SingleProductTile v-for="n in 6" :key="n" />
@@ -131,8 +121,8 @@ export default {
   components: { SingleProductTile },
   setup() {
     return {
-      ratingModel: ref(4),
-      ratingColors: ["green"],
+      // ratingModel: ref(4),
+      // ratingColors: ["green"],
     };
   },
   created() {

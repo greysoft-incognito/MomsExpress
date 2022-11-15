@@ -70,7 +70,7 @@
                   >
                     {{ products.name }}
                   </router-link>
-                  <div class="row">
+                  <!-- <div class="row">
                     <q-rating
                       v-model="ratingModel"
                       size="1.2rem"
@@ -78,7 +78,7 @@
                       readonly
                       color-selected="secondary"
                     />
-                  </div>
+                  </div> -->
                   <div class="text-bold">₦53.00</div>
                 </div>
               </div>
@@ -145,7 +145,7 @@
               <h4 class="product_price">₦{{ productDetails.price }}</h4>
               <!-- <h4 class="product_price">{{ productDetails.id }}</h4> -->
 
-              <div class="q-my-sm text-grey-8">
+              <!-- <div class="q-my-sm text-grey-8">
                 <q-rating
                   v-model="ratingModel"
                   size="1.1rem"
@@ -154,7 +154,7 @@
                   :color-selected="ratingColors"
                 />
                 <span>( 2 reviews)</span>
-              </div>
+              </div> -->
 
               <!-- <div>
                 <div class="row q-my-sm items-center text-grey-8">
@@ -231,7 +231,7 @@
                 >
                   View vendor
                 </router-link> -->
-                <q-btn
+                <!-- <q-btn
                   label="View Vendor"
                   :to="{
                     name: 'vendorpage',
@@ -242,7 +242,7 @@
                   outline
                   color="secondary"
                   no-caps
-                />
+                /> -->
               </div>
             </div>
           </div>
@@ -274,7 +274,7 @@
 
           <q-tab-panel name="reviews">
             <div class="review_top">
-              <Ratings />
+              <!-- <Ratings /> -->
               <div class="review_input text-grey-8">
                 <h6>Submit Your Review</h6>
                 <p>* Your email address will not be published.</p>
@@ -356,7 +356,7 @@
                         </span>
                       </q-item-label>
 
-                      <q-item-label>
+                      <!-- <q-item-label>
                         <q-rating
                           class="q-mb-sm"
                           v-model="ratingModel"
@@ -365,7 +365,7 @@
                           readonly
                           :color-selected="ratingColors"
                         />
-                      </q-item-label>
+                      </q-item-label> -->
 
                       <q-item-label class="text-grey-8">
                         <div class="review_text">
@@ -405,8 +405,8 @@ export default {
       slide: 1,
       tab: ref("description"),
       // tab: ref("reviews"),
-      ratingColors: ["green"],
-      ratingModel: ref(4),
+      // ratingColors: ["green"],
+      // ratingModel: ref(4),
       meal: {
         id: 0,
         img: "Images/2-1.jpg",
@@ -430,8 +430,8 @@ export default {
     this.getProductDetail();
     let detail = this.$router.currentRoute.value.params;
     let name = detail.name;
-    console.log(detail);
-    console.log(name);
+    // console.log(detail);
+    // console.log(name);
     // this.skeleton = true;
     this.getProductDetails(name);
   },
@@ -457,7 +457,6 @@ export default {
       this.$api
         .get(`product/${name}`)
         .then((res) => {
-          console.log(res);
           this.skeleton = false;
           this.productDetails = res.data.data;
           this.$store.cart.singleProducts = this.productDetails;
@@ -470,10 +469,8 @@ export default {
       this.$api
         .get(`/category/home-equipments`)
         .then((res) => {
-          console.log(res);
           this.categoryDetails2 = res.data.data.products.reverse();
           this.categoryDetails2.splice(4, res.data.data.products.length - 1);
-          console.log(this.categoryDetails2);
         })
         .catch((err) => {});
     },
@@ -489,8 +486,6 @@ export default {
       // this.getProductDetail();
       let detail = this.$router.currentRoute.value.params;
       let name = detail.name;
-      console.log(detail);
-      console.log(name);
       // this.skeleton = true;
       this.getProductDetails(name);
     },
@@ -528,7 +523,7 @@ export default {
 
 .review_top {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1fr;
   gap: 20px;
 }
 .product_splitter {

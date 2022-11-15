@@ -9,15 +9,11 @@ const links = [
     icon: "category",
     link: "/admin/categories",
   },
-  {
-    title: "Orders",
-    icon: "category",
-    link: "/admin/k",
-  },
+
   {
     title: "Sales",
-    icon: "category",
-    link: "/admin",
+    icon: "fa-solid fa-wallet",
+    link: "/admin/sales",
   },
   {
     title: "Users",
@@ -34,11 +30,11 @@ const links = [
     icon: "chat",
     link: "/admin/issues",
   },
-  {
-    title: "Marketing ",
-    icon: "rss_feed",
-    link: "/admin/marketing",
-  },
+  // {
+  //   title: "Marketing ",
+  //   icon: "rss_feed",
+  //   link: "/admin/marketing",
+  // },
 ];
 
 export default links;

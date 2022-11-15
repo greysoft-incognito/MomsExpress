@@ -22,6 +22,7 @@
       :key="product.id"
     >
       <div class="image_container">
+        <div class="overlay"></div>
         <img
           class="border_card image"
           :src="`http://165.227.74.156/${product.uploads[0].url}`"
@@ -33,21 +34,15 @@
           class="add_to_cart"
           no-caps
           color="primary"
-          to="/product_detail"
+          :to="{
+            name: 'productDetail',
+            params: { name: product.slug, id: product.id },
+          }"
         />
 
         <div class="view_details">
           <q-btn
-            icon="fa-regular fa-heart"
-            class="non_hover_btn bg-white q-mb-sm"
-            no-caps
-            size="0.75rem"
-            round
-            flat
-            color="primary"
-          />
-
-          <q-btn
+            @click="this.$store.cart.addToplate(product, product.id)"
             icon="fa-solid fa-cart-plus"
             class="non_hover_btn bg-white"
             no-caps
@@ -64,7 +59,7 @@
       >
         {{ product.name }}
       </router-link>
-      <div class="row justify-center">
+      <!-- <div class="row justify-center">
         <q-rating
           v-model="ratingModel"
           size="1.1rem"
@@ -74,7 +69,7 @@
           class="stars"
         />
         <span class="review_text">( 2 reviews)</span>
-      </div>
+      </div> -->
       <div class="text-bold price_text">₦{{ product.price }}</div>
     </div>
   </div>
@@ -87,8 +82,8 @@ import SingleProductTile from "src/components/Product/SingleProductTile.vue";
 export default {
   data() {
     return {
-      ratingModel: ref(4),
-      ratingColors: ["green"],
+      // ratingModel: ref(4),
+      // ratingColors: ["green"],
       products: [],
       skeleton: true,
     };
@@ -99,7 +94,6 @@ export default {
       this.$api
         .get(`/category/electronics`)
         .then((resp) => {
-          console.log(resp);
           this.skeleton = false;
           this.products = resp.data.data.products.reverse();
           this.products.splice(8, resp.data.data.products.length - 1);
@@ -145,12 +139,26 @@ export default {
   display: none;
 }
 
+.overlay {
+  background: rgb(128, 128, 128, 0.35);
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: 2;
+  display: none;
+}
+
+.image_container:hover .overlay {
+  display: block;
+}
 .image_container:hover .add_to_cart {
   display: block;
+  z-index: 3;
 }
 
 .image_container:hover .view_details {
   display: grid;
+  z-index: 3;
 }
 .product_tile {
   position: relative;
