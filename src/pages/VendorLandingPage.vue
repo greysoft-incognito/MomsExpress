@@ -163,14 +163,14 @@
             <img src="Images/smiling_man.jpg" />
           </q-avatar>
 
-          <q-rating
+          <!-- <q-rating
             v-model="ratingModel"
             size="1.1rem"
             color="grey"
             readonly
             color-selected="secondary"
             class="stars q-mx-auto q-my-md"
-          />
+          /> -->
 
           <p class="review text-grey-7">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore ad
@@ -247,8 +247,8 @@ import { ref } from "vue";
 export default {
   data() {
     return {
-      ratingModel: ref(4),
-      ratingColors: ["green"],
+      // ratingModel: ref(4),
+      // ratingColors: ["green"],
       alert: false,
       // customModel: "no",
       form: {

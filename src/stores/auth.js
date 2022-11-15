@@ -12,7 +12,7 @@ export const useAuthStore = defineStore("auth", {
   },
   actions: {
     setUserDetails(data) {
-      console.log(data);
+      // console.log(data);
       const token = data.data[0];
       const user = data.data[1];
 
@@ -22,12 +22,12 @@ export const useAuthStore = defineStore("auth", {
       this.token = token;
 
       //Update Vendor details
-      console.log(user.vendor);
+      // console.log(user.vendor);
       localStorage.setItem("vendorDetails", JSON.stringify(user.vendor));
       this.vendorDetails = user.vendor;
     },
     setVendorDetails(data) {
-      console.log(data);
+      // console.log(data);
       const vendorDetails = data.data;
       localStorage.setItem("vendorDetails", JSON.stringify(vendorDetails));
       this.vendorDetails = data.data;
@@ -42,8 +42,7 @@ export const useAuthStore = defineStore("auth", {
           userDetails = null;
         })
         .catch(({ response }) => {
-
-          console.log({ response });
+          // console.log({ response });
           this.token = null;
           this.userDetails = null;
           userDetails = null;

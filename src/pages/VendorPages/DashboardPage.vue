@@ -25,7 +25,46 @@
           </div>
         </div>
       </div>
-      <TopCards :cards="cards" />
+
+      <div class="card bg-white q-pt-md">
+        <div class="text-caption text-weight-light q-px-md text-uppercase">
+          Total Orders
+        </div>
+
+        <div class="row justify-between q-px-md text-h6 text-bold items-center">
+          <div>
+            <span class="">{{ orders }}</span>
+          </div>
+          <div class="row items-center">
+            <q-icon
+              size="0.9rem"
+              :name="`fa-solid fa-caret-up`"
+              color="green"
+            />
+            <div :class="`text-green text-subtitle2`">10%</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card bg-white q-pt-md">
+        <div class="text-caption text-weight-light q-px-md text-uppercase">
+          Total Customers
+        </div>
+
+        <div class="row justify-between q-px-md text-h6 text-bold items-center">
+          <div>
+            <span class="">{{ customers }}</span>
+          </div>
+          <div class="row items-center">
+            <q-icon
+              size="0.9rem"
+              :name="`fa-solid fa-caret-up`"
+              color="green"
+            />
+            <div :class="`text-green text-subtitle2`">10%</div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="middle_cards q-mt-xl">
@@ -48,7 +87,10 @@
     </div>
 
     <div class="bottom_cards q-mt-xl">
-      <BottomCards />
+      <BottomCards
+        :recentOrders="recentOrders"
+        :customersList="customersList"
+      />
     </div>
   </q-page>
 </template>
@@ -56,50 +98,16 @@
 <script>
 import { defineComponent } from "vue";
 import VueApexCharts from "vue3-apexcharts";
-import TopCards from "../../components/Vendor/Dashboard/TopCards.vue";
 import BottomCards from "../../components/Vendor/Dashboard/BottomCards.vue";
-
-const cards = [
-  // {
-  //   title: "Total Sales",
-  //   symbol: "₦",
-  //   icon: "fa-caret-up",
-  //   number: "",
-  //   icon_color: "green",
-  // },
-  {
-    title: "Sales today",
-    symbol: "₦",
-    icon: "fa-caret-down",
-    number: "",
-    icon_color: "red",
-  },
-  {
-    title: "Total customers",
-    symbol: "",
-    icon: "fa-caret-up",
-    number: "",
-    icon_color: "green",
-  },
-  {
-    title: "New customers",
-    symbol: "",
-    icon: "fa-caret-down",
-    number: "",
-    icon_color: "red",
-  },
-];
 
 export default defineComponent({
   name: "DashboardPage",
   components: {
     apexchart: VueApexCharts,
-    TopCards,
     BottomCards,
   },
   data() {
     return {
-      cards,
       seriesA: [
         {
           name: "Session Duration",
@@ -228,37 +236,136 @@ export default defineComponent({
         ],
       },
       total: null,
+      orders: null,
+      customers: null,
+      recentOrders: [],
+      customersList: null,
     };
   },
-  computed() {
-    // this.orders.reduce((acc, id) => {
-    //   console.log();
-    //   return acc + state.plate[id].product.price * state.plate[id].quantity;
-    // }, 0);
-  },
+
   methods: {
     getOrders() {
       this.$api
         .get(`orders/all`)
         .then((resp) => {
-          this.orders = resp.data.data;
-          this.total = resp.data.data.reduce((sum, item) => {
-            console.log(item.product_amount);
-            return (sum = +item.product_amount).toLocaleString();
+          let arr = resp.data.data;
+          let bro = arr.map((item) => {
+            return item.customers_name;
           });
+          let newArr = [];
+
+          bro.forEach((item) => {
+            if (item !== null) {
+              if (newArr.length) {
+                let hi = newArr.find((stuff) => item === stuff);
+                if (!hi) newArr.push(item);
+              } else {
+                newArr.push(item);
+              }
+            }
+          });
+          const userData = this.$store.auth.userDetails.name;
+          newArr = newArr.filter((item) => item !== userData);
+          this.customersList = newArr;
+          this.customers = newArr.length;
+
+          //Getting the number of time an item showed in the orders array
+          const uniqueArray = [];
+          arr.forEach((m) => {
+            const obj = { key: m.product_name, count: 1 };
+            const index = uniqueArray.findIndex((f) => {
+              return f.key === m.product_name;
+            });
+            index === -1
+              ? uniqueArray.push(obj)
+              : (uniqueArray[index].count += 1);
+          });
+
+          console.log(uniqueArray);
+          let recentArr = [];
+          uniqueArray.forEach((item) => {
+            if (item.count >= 4) {
+              console.log(item);
+              recentArr.push(item);
+            }
+          });
+          this.recentOrders = recentArr;
         })
         .catch((response) => {
+          console.log(response);
           // this.$q.notify({
           //   message: response.data.message,
           //   color: "red",
           //   position: "top",
           // });
-          this.errors = response.data.errors;
+          // this.errors = response.data.errors;
         });
     },
+    totalSales() {
+      let details = this.$store.auth.vendorDetails.slug;
+      if (details) {
+        this.$api
+          .get(`/business/${details}/vendor/sales`)
+          .then((resp) => {
+            this.total = resp.data.data;
+          })
+          .catch((response) => {
+            console.log(response);
+            // this.$q.notify({
+            //   message: response.data.message,
+            //   color: "red",
+            //   position: "top",
+            // });
+            // this.errors = response.data.errors;
+          });
+      }
+    },
+    totalOrders() {
+      let details = this.$store.auth.vendorDetails.slug;
+      if (details) {
+        this.$api
+          .get(`/business/${details}/vendor/orders`)
+          .then((resp) => {
+            this.orders = resp.data.data;
+          })
+          .catch((response) => {
+            console.log(response);
+            // this.$q.notify({
+            //   message: response.data.message,
+            //   color: "red",
+            //   position: "top",
+            // });
+            // this.errors = response.data.errors;
+          });
+      }
+    },
+    // totalCustomers() {
+    //   let details = this.$store.auth.vendorDetails.slug;
+    //   if (details) {
+    //     this.$api
+    //       .get(`/business/${details}/vendor/customers`)
+    //       .then((resp) => {
+    //         console.log(resp);
+    //         this.customers = resp.data.data;
+    //       })
+    //       .catch((response) => {
+    //         console.log(response);
+    //         // this.$q.notify({
+    //         //   message: response.data.message,
+    //         //   color: "red",
+    //         //   position: "top",
+    //         // });
+    //         // this.errors = response.data.errors;
+    //       });
+    //   }
+    // },
   },
   created() {
     this.getOrders();
+
+    this.totalSales();
+    this.totalOrders();
+    // this.totalCustomers();
   },
 });
 </script>
@@ -285,7 +392,7 @@ export default defineComponent({
 
 .bottom_cards {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 20px;
 }
 .bottom_card {
@@ -303,6 +410,12 @@ export default defineComponent({
 .user_item {
   background-color: rgb(173, 215, 230, 0.3);
   border-radius: 10px;
+}
+
+@media screen and (max-width: 1450px) {
+  .top_cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 @media screen and (max-width: 1150px) {
   .top_cards {

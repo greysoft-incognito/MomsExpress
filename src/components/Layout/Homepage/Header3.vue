@@ -34,7 +34,7 @@
               params: { categoryname: category.slug, id: category.id },
             }"
           >
-            <q-icon name="settings" class="q-mr-sm" />
+            <!-- <q-icon name="settings" class="q-mr-sm" /> -->
             <span>{{ category.name }}</span></q-item
           >
 
@@ -119,7 +119,7 @@ export default {
       this.$api
         .get("category/all")
         .then((resp) => {
-          console.log(resp);
+          // console.log(resp);
           this.getCategory = resp.data.data;
           this.loading = false;
         })

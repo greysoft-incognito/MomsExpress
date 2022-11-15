@@ -99,7 +99,7 @@
                 <q-img class="product_image" src="Images/2-1.jpg" />
                 <div class="q-ml-sm">
                   <div class="text-subtitle1">Cooking Pot</div>
-                  <div class="row justify-center">
+                  <!-- <div class="row justify-center">
                     <q-rating
                       v-model="ratingModel"
                       size="1.2rem"
@@ -107,8 +107,8 @@
                       readonly
                       :color-selected="ratingColors"
                     />
-                  </div>
-                  <div class="text-bold">$53.00</div>
+                  </div> -->
+                  <div class="text-bold">₦53.00</div>
                 </div>
               </div>
             </div>

@@ -64,8 +64,8 @@ export default {
   setup() {
     return {
       tab: ref("new_arrivals"),
-      ratingModel: ref(4),
-      ratingColors: ["green"],
+      // ratingModel: ref(4),
+      // ratingColors: ["green"],
     };
   },
   components: { NewArrivals, BestSeller, MostPopular, Featured },

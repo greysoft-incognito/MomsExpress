@@ -152,7 +152,7 @@ export default {
       this.$api
         .get("category/all")
         .then((resp) => {
-          console.log(resp);
+          // console.log(resp);
           this.categories = resp.data.data;
           this.loading = false;
         })

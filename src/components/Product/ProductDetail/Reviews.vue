@@ -32,7 +32,7 @@
               </span>
             </q-item-label>
 
-            <q-item-label>
+            <!-- <q-item-label>
               <q-rating
                 class="q-mb-sm"
                 v-model="ratingModel"
@@ -41,7 +41,7 @@
                 readonly
                 :color-selected="ratingColors"
               />
-            </q-item-label>
+            </q-item-label> -->
 
             <q-item-label class="text-grey-8">
               <div class="review_text">
@@ -64,8 +64,8 @@ import { ref } from "vue";
 export default {
   setup() {
     return {
-      ratingModel: ref(3),
-      ratingColors: ["green"],
+      // ratingModel: ref(3),
+      // ratingColors: ["green"],
     };
   },
 };

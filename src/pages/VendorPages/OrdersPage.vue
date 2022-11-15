@@ -132,7 +132,7 @@ export default {
       this.$api
         .get(`orders/all`)
         .then((resp) => {
-          console.log(resp.data);
+          // console.log(resp.data);
           this.rows = resp.data.data;
         })
         .catch((response) => {
@@ -147,6 +147,7 @@ export default {
   },
   created() {
     this.getOrders();
+    // console.log(this.$store.auth.token);
   },
 };
 </script>

@@ -9,7 +9,12 @@
 
   <div class="q-my-sm">
     <label class="text-grey"> Password*</label>
-    <q-input class="full-width" outlined v-model="form.password" />
+    <q-input
+      class="full-width"
+      @keydown.enter="login"
+      outlined
+      v-model="form.password"
+    />
     <div class="error" v-if="errors.password">
       {{ errors.password[0] }}
     </div>

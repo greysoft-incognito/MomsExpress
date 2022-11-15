@@ -42,16 +42,6 @@
 
         <div class="view_details">
           <q-btn
-            icon="fa-regular fa-heart"
-            class="non_hover_btn bg-white q-mb-sm"
-            no-caps
-            size="0.75rem"
-            round
-            flat
-            color="primary"
-          />
-
-          <q-btn
             icon="fa-solid fa-cart-plus"
             class="non_hover_btn bg-white"
             no-caps
@@ -72,7 +62,7 @@
       >
         {{ products.name }}
       </router-link>
-      <div class="row justify-center">
+      <!-- <div class="row justify-center">
         <q-rating
           v-model="ratingModel"
           size="1.1rem"
@@ -82,7 +72,7 @@
           class="stars"
         />
         <span class="review_text">( 2 reviews)</span>
-      </div>
+      </div> -->
       <div class="text-bold price_text">₦{{ products.price }}</div>
     </div>
     <!-- <SingleProductTile v-for="n in 10" :key="n" /> -->
@@ -100,8 +90,6 @@ export default {
   },
   methods: {
     getProductDetail() {
-      let detail = this.$router.currentRoute.value.params.categoryname;
-      console.log(detail);
       this.$api
         .get(`product/all`)
         .then((res) => {

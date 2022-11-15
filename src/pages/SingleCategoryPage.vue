@@ -59,7 +59,7 @@
                   >
                     {{ products.name }}
                   </router-link>
-                  <div class="row">
+                  <!-- <div class="row">
                     <q-rating
                       v-model="ratingModel"
                       size="1.2rem"
@@ -67,7 +67,7 @@
                       readonly
                       color-selected="secondary"
                     />
-                  </div>
+                  </div> -->
                   <div class="text-bold">₦53.00</div>
                 </div>
               </div>
@@ -163,7 +163,7 @@
                   >
                     {{ products.name }}
                   </router-link>
-                  <div class="row">
+                  <!-- <div class="row">
                     <q-rating
                       v-model="ratingModel"
                       size="1.2rem"
@@ -171,7 +171,7 @@
                       readonly
                       color-selected="secondary"
                     />
-                  </div>
+                  </div> -->
                   <div class="text-bold">₦53.00</div>
                 </div>
               </div>
@@ -226,16 +226,6 @@
 
                 <div class="view_details">
                   <q-btn
-                    icon="fa-regular fa-heart"
-                    class="non_hover_btn bg-white q-mb-sm"
-                    no-caps
-                    size="0.75rem"
-                    round
-                    flat
-                    color="primary"
-                  />
-
-                  <q-btn
                     icon="fa-solid fa-cart-plus"
                     class="non_hover_btn bg-white"
                     no-caps
@@ -256,7 +246,7 @@
               >
                 {{ products.name }}
               </router-link>
-              <div class="row justify-center">
+              <!-- <div class="row justify-center">
                 <q-rating
                   v-model="ratingModel"
                   size="1.1rem"
@@ -266,7 +256,7 @@
                   class="stars"
                 />
                 <span class="review_text">( 2 reviews)</span>
-              </div>
+              </div> -->
               <div class="text-bold price_text">₦{{ products.price }}</div>
             </div>
             <!-- <SingleProductTile v-for="n in 10" :key="n" /> -->
@@ -314,8 +304,8 @@ export default {
     return {
       tab: ref("orders"),
       splitterModel: ref(25),
-      ratingModel: ref(4),
-      ratingColors: ["green"],
+      // ratingModel: ref(4),
+      // ratingColors: ["green"],
       categoryDetails: [],
       categoryDetails2: [],
       categoryDetails3: [],
@@ -350,17 +340,13 @@ export default {
     } else {
       this.getProductDetail();
     }
-
-    console.log(this.$router.currentRoute.value.name);
   },
   methods: {
     getProductDetail() {
       let detail = this.$router.currentRoute.value.params.categoryname;
-      console.log(detail);
       this.$api
         .get(`/category/${detail}`)
         .then((res) => {
-          console.log(res);
           this.skeleton = false;
           this.categoryDetails = res.data.data;
           this.$store.cart.singleCategory = this.categoryDetails;
@@ -403,6 +389,9 @@ export default {
         })
         .catch((response) => {
           console.log(response);
+          setTimeout(() => {
+            this.skeleton1 = false;
+          }, 7000);
           // this.$q.notify({
           //   message: response.data.message,
           //   color: "red",
@@ -415,7 +404,6 @@ export default {
       this.$api
         .get("category/all")
         .then((resp) => {
-          console.log(resp);
           this.skeleton2 = false;
           this.getCategory = resp.data.data;
           this.getCategory.splice(5, resp.data.data.length - 1);

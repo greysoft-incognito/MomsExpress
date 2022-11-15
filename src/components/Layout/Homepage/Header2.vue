@@ -54,7 +54,7 @@
             class="search-result text-black text-subtitle2 bg-white"
           >
             <q-list>
-              <q-list-item
+              <div
                 class="search"
                 v-for="product in searchResults"
                 :key="product._id"
@@ -65,7 +65,7 @@
                   params: { name: product.slug, id: product.id },
                 }" -->
                 {{ product.name }}
-              </q-list-item>
+              </div>
               <!-- </q-scroll-area> -->
             </q-list>
           </div>

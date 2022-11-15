@@ -140,10 +140,10 @@
             icon-right="arrow_forward"
             @click="checkout"
           />
-          <div class="row text-subtitle2 justify-between q-px-sm">
+          <!-- <div class="row text-subtitle2 justify-between q-px-sm">
             <span>Estimated Delivery Date</span> <br />
             <span class="text-bold">4th October 2022 </span>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -194,13 +194,9 @@ export default {
         };
         cartArr.push(obj);
       });
-      console.log(cartArr);
       this.$api
         .post(`order/checkout`, { cart: cartArr })
         .then((resp) => {
-          console.log(resp);
-          console.log(resp.data.data.amount);
-
           this.payWithPaystack(
             resp.data.data.id,
             resp.data.data.amount,
@@ -229,11 +225,12 @@ export default {
     },
 
     payWithPaystack(id, amount, is_paid) {
-      console.log(amount, is_paid);
       let price = amount;
       let status = is_paid;
       let router = this.$router;
       let helper = this.$helper;
+      let store = this.$store;
+      let notify = this.$q;
       let reference = `${this.reference}`;
       let email = "moms@gmail.com";
       let paystackData = {
@@ -248,54 +245,44 @@ export default {
         .post(`payment/paystack/${id}`, paystackData)
         .then((resp) => {
           this.$q.loading.hide();
-          console.log(resp);
-          console.log(this.orderId);
           // this.paystack(price, status).openIframe();
           let handler = PaystackPop.setup({
             key: "pk_test_285bb7525b2d3876efffce201f7a271d7c809839", // Replace with your public key
             email: "moms@gmail.com",
-            amount: 100,
+            amount: this.$store.cart.totalPrice * 100,
             ref: `${this.reference}`,
             orderID: this.orderId,
             onClose: function () {
-              console.log("closed");
               helper.notify("Transaction cancelled.", "error");
             },
             callback: function (response) {
               let finalData = response;
-              console.log("callback");
 
-              console.log(response);
               // window.location.href = response.redirecturl;
               axios
                 .get(`${response.redirecturl}`)
                 .then((resp) => {
                   console.log(resp);
-                  helper.notify({
+                  notify.notify({
                     message: resp.data,
                     color: "green",
                     position: "top",
+                    timeout: 3000,
                   });
+                  // helper.notify("Payment Successful", "green");
+                  store.cart.plate = [];
                   router.push({
                     name: "homepage",
                   });
-                  this.$store.cart.plate = [];
                 })
                 .catch(({ response }) => {
                   console.log(response);
+                  // helper.notify("Payment not Successful", "red");
                 });
             },
           });
 
           handler.openIframe();
-
-          // if (!this.$q.platform.is.mobile) {
-          //   console.log(data);
-          //   return this.paystack(price, status).openIframe();
-          // } else {
-          //   console.log(data);
-          // }
-          // window.location.href = data.data.url;
         })
         .catch(({ response }) => {
           this.$q.loading.hide();

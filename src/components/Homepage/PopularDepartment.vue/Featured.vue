@@ -38,16 +38,6 @@
 
         <div class="view_details">
           <q-btn
-            icon="fa-regular fa-heart"
-            class="non_hover_btn bg-white q-mb-sm"
-            no-caps
-            size="0.75rem"
-            round
-            flat
-            color="primary"
-          />
-
-          <q-btn
             icon="fa-solid fa-cart-plus"
             class="non_hover_btn bg-white"
             no-caps
@@ -64,7 +54,7 @@
       >
         {{ product.name }}
       </router-link>
-      <div class="row justify-center">
+      <!-- <div class="row justify-center">
         <q-rating
           v-model="ratingModel"
           size="1.1rem"
@@ -74,7 +64,7 @@
           class="stars"
         />
         <span class="review_text">( 2 reviews)</span>
-      </div>
+      </div> -->
       <div class="text-bold price_text">₦{{ product.price }}</div>
     </div>
   </div>
@@ -86,8 +76,8 @@ import { ref } from "vue";
 export default {
   data() {
     return {
-      ratingModel: ref(4),
-      ratingColors: ["green"],
+      // ratingModel: ref(4),
+      // ratingColors: ["green"],
       products: [],
       skeleton: true,
     };

@@ -129,7 +129,7 @@
         <q-card-section class="q-pt-none">
           <q-list>
             <!-- <q-scroll-area style="height: auto"> -->
-            <q-list-item>
+            <div>
               <div
                 class="search"
                 v-for="product in searchResults"
@@ -138,7 +138,7 @@
               >
                 {{ product.name }}
               </div>
-            </q-list-item>
+            </div>
             <!-- :to="{
               name: 'productDetail',
               params: { name: product.slug, id: product.id },
@@ -318,9 +318,9 @@ export default defineComponent({
       this.search = "";
     },
   },
-  mounted() {
-    console.log(this.$router.currentRoute.value.path);
-  },
+  // mounted() {
+  //   console.log(this.$router.currentRoute.value.path);
+  // },
 });
 </script>
 
