@@ -35,9 +35,9 @@
               :class="props.row.active == false ? `text-black` : `text-green`"
             >
               <!-- {{ props.row.active == false ? `inactive` : `active` }} -->
-              <q-spinner-audio
+              <q-spinner-puff
                 v-if="loading === true"
-                color="primary"
+                color="secondary"
                 size="2em"
               />
               <q-toggle
@@ -232,7 +232,7 @@ export default {
             color: "green",
             position: "top",
           });
-          console.log(resp);
+          // console.log(resp);
           this.bank = "";
           this.account_no = "";
           this.account_name = "";
@@ -267,7 +267,7 @@ export default {
             }, 1000);
           }
           // this.toggle = false;
-          console.log(resp);
+          // console.log(resp);
         })
         .catch(({ response }) => {
           this.loading = false;
@@ -279,12 +279,12 @@ export default {
       this.$api
         .delete(`bank/delete/${id}`)
         .then((resp) => {
-          console.log(resp);
+          // console.log(resp);
           this.getAccounts();
           // this.toggle = false;
         })
         .catch(({ response }) => {
-          console.log(response);
+          // console.log(response);
           this.$q.notify({
             message: response.data.message,
             color: "red",

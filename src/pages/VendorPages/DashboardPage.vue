@@ -281,11 +281,11 @@ export default defineComponent({
               : (uniqueArray[index].count += 1);
           });
 
-          console.log(uniqueArray);
+          // console.log(uniqueArray);
           let recentArr = [];
           uniqueArray.forEach((item) => {
             if (item.count >= 4) {
-              console.log(item);
+              // console.log(item);
               recentArr.push(item);
             }
           });

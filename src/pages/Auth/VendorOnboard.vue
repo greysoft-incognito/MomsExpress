@@ -9,7 +9,7 @@
         </div> -->
         <div class="opening_text">
           <span class="text-primary">
-            <span class="bold">MOMS</span>EXPRESS
+            <span class="bold">5PAYS</span>
           </span>
         </div>
         <div class="form_data">

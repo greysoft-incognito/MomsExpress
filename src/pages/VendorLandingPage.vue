@@ -5,7 +5,9 @@
         <p class="sub_text q-my-sm text-primary text-bold text-h6">
           Create a store
         </p>
-        <h3 class="text-bold">Build your online store on MOMS</h3>
+        <h3 class="text-bold">
+          Build your online store on <span class="text-primary">5Pays</span>
+        </h3>
         <q-img class="small_screen" src="Images/first_image.jpg" />
         <p class="q-my-md one_long_text">
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione
@@ -152,7 +154,7 @@
 
     <div class="section_four text-center big_screen_padding">
       <h6 class="text-primary text-bold sub_text">What they say</h6>
-      <h4 class="text-bold q-my-sm">Success stories from MOMS Express</h4>
+      <h4 class="text-bold q-my-sm">Success stories from 5Pays</h4>
       <div class="testimonies_cont">
         <div
           class="bg-grey-3 column q-pa-md testimony_card"
@@ -185,10 +187,8 @@
       </div>
     </div>
 
-    <div class="section_five big_screen_padding bg-grey-3">
-      <h6 class="text-primary text-center text-bold sub_text">
-        Frequently Asked Questions
-      </h6>
+    <div class="section_five big_screen_padding bg-primary text-white">
+      <h6 class="text-center text-bold sub_text">Frequently Asked Questions</h6>
       <h4 class="text-bold text-center q-my-sm">
         Find an answer to your Question
       </h4>
@@ -198,7 +198,7 @@
           <h6 class="sub_text text-bold q-mb-md">
             How can I add new products?
           </h6>
-          <p class="text-grey-7 answers">
+          <p class="text-white answers">
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Atque
             quibusdam enim numquam, saepe cum dicta incidunt repellendus iure
             eum voluptatibus eligendi facilis id hic voluptas possimus dolor
@@ -208,7 +208,7 @@
 
         <div class="q-mb-lg">
           <h6 class="sub_text text-bold q-mb-md">How do I get paid?</h6>
-          <p class="text-grey-7 answers">
+          <p class="text-white answers">
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Atque
             quibusdam enim numquam, saepe cum dicta incidunt repellendus iure
             eum voluptatibus eligendi facilis id hic voluptas possimus dolor
@@ -218,7 +218,7 @@
 
         <div class="q-mb-lg">
           <h6 class="sub_text text-bold q-mb-md">How can I know stock?</h6>
-          <p class="text-grey-7 answers">
+          <p class="text-white answers">
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Atque
             quibusdam enim numquam, saepe cum dicta incidunt repellendus iure
             eum voluptatibus eligendi facilis id hic voluptas possimus dolor
@@ -230,7 +230,7 @@
           <h6 class="sub_text text-bold q-mb-md">
             Do I need a credit answersor debit card to create a shop?
           </h6>
-          <p class="text-grey-7">
+          <p class="text-white">
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Atque
             quibusdam enim numquam, saepe cum dicta incidunt repellendus iure
             eum voluptatibus eligendi facilis id hic voluptas possimus dolor

@@ -1,6 +1,9 @@
 <template>
   <div>
-    <q-carousel
+    <div class="carousel">
+      <!-- <img src="banner.svg" alt="" /> -->
+    </div>
+    <!-- <q-carousel
       animated
       v-model="slide"
       navigation
@@ -40,7 +43,7 @@
           </q-btn>
         </div>
       </q-carousel-slide>
-    </q-carousel>
+    </q-carousel> -->
   </div>
 </template>
 
@@ -67,7 +70,7 @@ export default {
           //   resp.data.data[
           //     Math.floor(Math.random() * resp.data.data.length - 1)
           //   ];
-          console.log(this.heroImages);
+          // console.log(this.heroImages);
         })
         .catch((response) => {
           this.$q.notify({
@@ -80,16 +83,15 @@ export default {
     },
   },
   created() {
-    this.getAllProducts();
+    // this.getAllProducts();
   },
 };
 </script>
 
 <style>
 .carousel {
-  height: 80vh !important;
-  background: url("https://images.unsplash.com/photo-1649424219467-4dd79e189be2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1812&q=80")
-    no-repeat center center/cover;
+  height: 40vh !important;
+  background: url("/banner.svg") no-repeat center center/cover;
   position: relative;
 }
 .carousel::before {
@@ -99,8 +101,8 @@ export default {
   right: 0;
   width: 100%;
   height: 100%;
-  background: #333;
-  opacity: 0.7;
+  /* background: #333;
+  opacity: 0.7; */
 }
 .q-carousel__control {
   z-index: 10;

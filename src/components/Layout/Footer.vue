@@ -1,7 +1,9 @@
 <template>
-  <div class="footer_main bg-primary big_screen_padding">
+  <div class="footer_main bg-grey-3 text-primary text-bold big_screen_padding">
     <div class="moms">
-      <div class="text-h4 text-bold">MOMS</div>
+      <div class="text-h4 text-bold logo_div">
+        <img src="logo.png" class="logo" />
+      </div>
       <div class="q-mt-md">
         A platform that serves as an online marketplace, where parties involved
         in the trading of different products perform trading activities.
@@ -32,10 +34,11 @@
       </ul>
     </div>
 
-    <div class="footer_categories">
+    <div class="footer_categories text-bold">
       <div class="text-h5 text-bold">Categories:</div>
       <ul>
         <router-link
+          class="text-primary"
           v-for="category in categories"
           :key="category.id"
           :to="{
@@ -54,6 +57,7 @@
           <div class="text-h5 text-bold">Customer Care</div>
           <ul>
             <router-link
+              class="text-primary"
               :to="
                 this.$store.auth.vendorDetails === null ? `/account` : `/vendor`
               "
@@ -61,6 +65,7 @@
               <li>My Account</li>
             </router-link>
             <router-link
+              class="text-primary"
               :to="
                 this.$store.auth.vendorDetails === null ? `/account` : `/vendor`
               "
@@ -119,7 +124,7 @@
               />
             </router-link>
           </div>
-          <div class="text-subtitle1 text-bold">@moms</div>
+          <div class="text-subtitle1 text-bold">@5pays</div>
         </div>
       </div>
 
@@ -179,6 +184,12 @@ export default {
 </script>
 
 <style scoped>
+.logo_div {
+  height: 70px;
+}
+.logo {
+  height: 90%;
+}
 .footer_main {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -209,6 +220,5 @@ li {
 .footer_categories li,
 .customer_care li {
   margin: 1.5% 0;
-  color: white !important;
 }
 </style>
