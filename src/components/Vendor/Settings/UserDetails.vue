@@ -37,16 +37,18 @@
         />
       </div>
 
-      <div class="q-mt-lg row">
+      <!-- <div class="q-mt-lg row">
         <q-btn
           label="Save changes "
           class="bordered-btn"
           color="primary"
           no-caps
           size="1.1rem"
+          @click="updateDetails"
+          :loading="loading"
         />
         <q-space />
-      </div>
+      </div> -->
     </div>
 
     <q-separator class="q-my-xl" />
@@ -113,11 +115,12 @@ export default {
       oldPassword: "",
       newPassword: "",
       newPassword2: "",
+      loading: false,
     };
   },
   created() {
     this.userData = JSON.parse(localStorage.getItem("userdet"));
-    this.fullname = this.userData.fullname;
+    this.fullname = this.userData.name;
     this.email = this.userData.email;
     this.phone = this.userData.phone;
   },
@@ -146,6 +149,28 @@ export default {
           this.errors = response.data.errors;
         });
     },
+    // updateDetails() {
+    //   this.loading = true;
+    //   let form = {
+    //     fullname: this.fullname,
+    //     phone: this.phone,
+    //   };
+    //   this.$api
+    //     .patch(`vendor/owner/update`, form)
+    //     .then((resp) => {
+    //       this.loading = false;
+    //       console.log(resp);
+    //     })
+    //     .catch(({ response }) => {
+    //       console.log(response);
+    //       this.$q.notify({
+    //         message: response.data.message,
+    //         color: "red",
+    //         position: "top",
+    //       });
+    //       this.errors = response.data.errors;
+    //     });
+    // },
   },
 };
 </script>

@@ -313,7 +313,7 @@ export default {
       );
       // let uniqueChars = [...new Set(this.arr)];
 
-      console.log(filteredList);
+      // console.log(filteredList);
 
       for (let i = 0; i < this.arr.length; i++) {
         let reader = new FileReader();
@@ -353,13 +353,13 @@ export default {
     },
 
     uploadProduct() {
-      console.log("first");
+      // console.log("first");
       const name = this.productName;
       const description = this.description;
       const price = this.price;
       const category = this.category;
       const stock = this.stock;
-      console.log(this.arr[0]);
+      // console.log(this.arr[0]);
 
       let imagesOne = this.arr.length ? this.arr[0] : "";
       // console.log(imagesOne);
@@ -389,7 +389,7 @@ export default {
               position: "top",
               timeout: 3000,
             });
-            console.log(resp);
+            // console.log(resp);
             this.loading = false;
             this.category = "";
             this.productName = "";
@@ -429,7 +429,7 @@ export default {
       this.$api
         .get("category/all")
         .then((resp) => {
-          console.log(resp);
+          // console.log(resp);
           this.getCategory = resp.data.data;
           this.loading = false;
         })

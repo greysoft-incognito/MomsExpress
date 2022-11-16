@@ -232,7 +232,7 @@ export default {
       let store = this.$store;
       let notify = this.$q;
       let reference = `${this.reference}`;
-      let email = "moms@gmail.com";
+      let email = this.$store.auth.userDetails.email;
       let paystackData = {
         amount: 1200,
         reference,
@@ -248,7 +248,7 @@ export default {
           // this.paystack(price, status).openIframe();
           let handler = PaystackPop.setup({
             key: "pk_test_285bb7525b2d3876efffce201f7a271d7c809839", // Replace with your public key
-            email: "moms@gmail.com",
+            email: email,
             amount: this.$store.cart.totalPrice * 100,
             ref: `${this.reference}`,
             orderID: this.orderId,

@@ -16,10 +16,7 @@
         style="height: 70px"
         class="text-primary q-px-md column justify-center items-left moms_logo"
       >
-        <h5 class="text-bold">
-          MOMS<span class="text-secondary">EXPRESS</span>
-        </h5>
-        <p class="small_text">MSME Online Market Store</p>
+        <img src="logo.png" class="logo" />
       </router-link>
       <q-list>
         <EssentialLink
@@ -66,11 +63,14 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.moms_logo {
-  margin: 0;
+.logo {
+  width: 70%;
+  height: 80%;
 }
-.small_text {
-  font-size: 0.65rem;
-  margin: 0;
+
+@media screen and (max-width: 700px) {
+  .logo {
+    height: 60%;
+  }
 }
 </style>

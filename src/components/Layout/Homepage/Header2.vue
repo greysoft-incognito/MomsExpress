@@ -21,10 +21,7 @@
         style="height: 70px"
         class="text-primary q-px-md column justify-center items-left moms_logo"
       >
-        <h5 class="text-bold">
-          MOMS<span class="text-secondary">EXPRESS</span>
-        </h5>
-        <p class="small_text">MSME Online Market Store</p>
+        <img src="logo.png" class="logo" />
       </router-link>
 
       <q-space />
@@ -54,7 +51,11 @@
             class="search-result text-black text-subtitle2 bg-white"
           >
             <q-list>
+              <div v-if="!searchResults.length" class="flex flex-center">
+                <div class="text-subtitle1 text-secondary">No Search Found</div>
+              </div>
               <div
+                v-else
                 class="search"
                 v-for="product in searchResults"
                 :key="product._id"
@@ -123,7 +124,7 @@ export default {
       this.$api
         .get(`search`, { params: { query: input } })
         .then((resp) => {
-          console.log(resp);
+          // console.log(resp);
           this.searchResults = resp.data.data;
         })
         .catch((response) => {
@@ -149,8 +150,15 @@ export default {
 </script>
 
 <style scoped>
-.moms_logo {
-  margin: 0;
+.logo {
+  /* width: 100%; */
+  height: 80%;
+}
+
+@media screen and (max-width: 700px) {
+  .logo {
+    height: 60%;
+  }
 }
 .small_text {
   font-size: 0.65rem;

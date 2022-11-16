@@ -1,7 +1,7 @@
 <template>
   <div class="q-my-sm">
     <label class="text-grey">Email address*</label>
-    <q-input outlined v-model="form.email" />
+    <q-input outlined v-model="form.email" type="email" />
     <div class="error" v-if="errors.email">
       {{ errors.email[0] }}
     </div>
@@ -9,7 +9,13 @@
 
   <div class="q-my-sm">
     <label class="text-grey"> Password*</label>
-    <q-input class="full-width" outlined v-model="form.password" />
+    <q-input
+      class="full-width"
+      outlined
+      v-model="form.password"
+      @keydown.enter="register"
+      type="password"
+    />
     <div class="error" v-if="errors.password">
       {{ errors.password[0] }}
     </div>
