@@ -247,7 +247,7 @@ export default {
           this.$q.loading.hide();
           // this.paystack(price, status).openIframe();
           let handler = PaystackPop.setup({
-            key: "pk_test_285bb7525b2d3876efffce201f7a271d7c809839", // Replace with your public key
+            key: "pk_test_9787e124516f80ee1b6c0567545289fa1e528f76", // Replace with your public key
             email: email,
             amount: this.$store.cart.totalPrice * 100,
             ref: `${this.reference}`,
@@ -328,7 +328,6 @@ export default {
       });
     },
   },
-  // components: { CartItem },
 };
 </script>
 
