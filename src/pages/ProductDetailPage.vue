@@ -112,7 +112,7 @@
             <q-carousel swipeable animated v-model="slide" thumbnails infinite>
               <q-carousel-slide
                 :name="1"
-                :img-src="`http://165.227.74.156/${this.$store.cart.singleProducts.uploads[0].url}`"
+                :img-src="`http://165.227.74.156/${this.$store.cart.singleProducts.uploads[0]?.url}`"
               />
               <!-- <q-carousel-slide
                 :name="2"
