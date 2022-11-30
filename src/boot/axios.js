@@ -1,6 +1,7 @@
 import { boot } from "quasar/wrappers";
 import axios from "axios";
 import loadStore from "stores/loader";
+import { useAuthStore } from "stores/auth";
 
 // Be careful when using SSR for cross-request state pollution
 // due to creating a Singleton instance here;
@@ -26,8 +27,9 @@ const api = axios.create({
   },
 });
 
+const store = useAuthStore();
 // Get the token from session storage
-let token = localStorage.getItem("token") || this.$store.auth.token;
+let token = localStorage.getItem("token") || store.token;
 // console.log(token)
 axios.interceptors.response.use(function (response) {
   // console.log(response);
