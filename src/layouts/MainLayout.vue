@@ -116,7 +116,7 @@
             @click="search !== '' ? (result = true) : (result = false)"
             @blur="result = false"
             @keydown="
-              (result = true), search.length > 1 ? getSearch(search) : ''
+              (result = true), search.length >= 1 ? getSearch(search) : ''
             "
           >
             <template v-slot:prepend>
@@ -173,12 +173,7 @@
         <div class="text-caption">Shop</div>
       </div>
 
-      <div
-        v-show="
-          $store.auth.userDetails === null || $store.auth.vendorDetails === null
-        "
-        class="text-center"
-      >
+      <div v-show="$store.auth.userDetails === null" class="text-center">
         <q-btn
           icon="perm_identity"
           @click="alert = true"
@@ -316,6 +311,7 @@ export default defineComponent({
       });
       this.mobleDialog = false;
       this.search = "";
+      this.searchResults = [];
     },
   },
   // mounted() {

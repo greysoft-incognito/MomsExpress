@@ -16,10 +16,10 @@ export const useAuthStore = defineStore("auth", {
       const token = data.data[0];
       const user = data.data[1];
 
-      localStorage.setItem("token", token);
-      localStorage.setItem("userdet", JSON.stringify(user));
       this.userDetails = user;
       this.token = token;
+      localStorage.setItem("token", token);
+      localStorage.setItem("userdet", JSON.stringify(user));
 
       //Update Vendor details
       // console.log(user.vendor);
