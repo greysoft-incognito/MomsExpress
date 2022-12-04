@@ -48,7 +48,7 @@ export default {};
 }
 @media screen and (max-width: 850px) {
   .advert1_container {
-    display: block;
+    grid-template-columns: 1fr;
   }
   .right {
     display: none;
