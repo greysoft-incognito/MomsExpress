@@ -33,7 +33,7 @@
                 {{ item.name }}
               </div>
               <div class="text-caption item-price show_on_smallscreen">
-                N{{ item.price }}
+                ₦{{ item.product.price.toLocaleString() }}
               </div>
               <div
                 class="row justify-center items-center input_container show_on_smallscreen"
@@ -49,7 +49,7 @@
                   text-color="black"
                 />
                 <q-input
-                  v-model="item.stock"
+                  v-model="item.quantity"
                   class="text-center cart_item_input q-mr-sm"
                   outlined
                   dense
@@ -65,6 +65,7 @@
                 />
               </div>
             </div>
+
             <div class="q-pl-sm text-caption item-price hide_on_smallscreen">
               ₦{{ item.product.price.toLocaleString() }}
             </div>
@@ -100,7 +101,7 @@
             </div>
 
             <div class="q-pl-sm text-caption item-price total_price">
-              <div>
+              <div class="text-bold">
                 ₦{{ (item.product.price * item.quantity).toLocaleString() }}
               </div>
             </div>
@@ -457,8 +458,8 @@ export default {
 }
 @media screen and (max-width: 470px) {
   .image_container {
-    height: 50px;
-    width: 70px;
+    height: 100%;
+    width: 75px;
   }
 
   .cart_item_input {
@@ -474,7 +475,7 @@ export default {
     margin: 7% 0;
   }
   .cart_item {
-    grid-template-columns: 25% 1.5fr 20%;
+    grid-template-columns: 25% 45% 25%;
     gap: 5px;
     align-items: flex-start;
   }
@@ -503,13 +504,18 @@ export default {
   .cart-detail {
     width: 50%;
   }
+  .input_container {
+    justify-content: flex-start;
+    gap: 5px;
+    align-items: center;
+  }
 
   .cart_item_input {
-    width: 20%;
+    width: 25%;
     font-size: 0.7rem;
     position: static;
-    margin: 1% 0 0;
-    height: 20px !important;
+    /* margin: 1% 0 0; */
+    /* height: 20px !important; */
   }
 
   .button {
