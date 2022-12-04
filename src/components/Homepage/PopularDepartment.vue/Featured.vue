@@ -3,6 +3,7 @@
     <div
       v-for="n in 8"
       :key="n"
+      class="product_tile"
       :class="skeleton === false ? 'hide-skeleton' : ''"
     >
       <q-card flat v-show="skeleton">
@@ -177,6 +178,35 @@ export default {
   }
 }
 
+@media screen and (max-width: 770px) {
+  .products {
+    display: flex !important;
+    position: relative;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none; /* hiding the scrollbar for Internet Explorer, Edge */
+    scrollbar-width: none; /* hiding the scrollbar for Firefox */
+    scroll-behavior: smooth;
+  }
+  .products::-webkit-scrollbar {
+    display: none; /* hiding the scrollbar for Chrome, Safari, and Opera */
+  }
+  .product_tile {
+    width: 20%;
+    flex: 1 0 25%;
+  }
+}
+
+@media screen and (max-width: 670px) {
+  .products {
+    gap: 10px;
+  }
+  .product_tile {
+    flex: 1 0 28%;
+  }
+}
+
 @media screen and (max-width: 570px) {
   .image_container {
     height: 180px;
@@ -188,6 +218,18 @@ export default {
   .price_text,
   .review_text {
     font-size: 0.8rem;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .product_tile {
+    flex: 1 0 30%;
+  }
+}
+
+@media screen and (max-width: 390px) {
+  .product_tile {
+    flex: 1 0 38%;
   }
 }
 </style>

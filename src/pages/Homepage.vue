@@ -23,6 +23,7 @@
         </q-card>
       </div>
     </div>
+
     <div v-if="categories.length">
       <Categoryy
         :products="phoneAndTablets"
@@ -74,9 +75,7 @@ import Advert1 from "src/components/Homepage/Advert1.vue";
 import TopCategories from "src/components/Homepage/TopCategories.vue";
 import PopularDepartments from "../components/Homepage/PopularDepartments.vue";
 import Advert2 from "src/components/Homepage/Advert2.vue";
-import Category1 from "src/components/Homepage/Category1.vue";
 import Categoryy from "src/components/Homepage/Categoryy.vue";
-import Category2 from "src/components/Homepage/Category2.vue";
 import Category3 from "src/components/Homepage/Category3.vue";
 export default {
   components: {
@@ -86,9 +85,7 @@ export default {
     TopCategories,
     PopularDepartments,
     Advert2,
-    Category1,
     Categoryy,
-    Category2,
     Advert1,
     Category3,
   },
@@ -113,6 +110,7 @@ export default {
       computers: [],
       women_fashion: [],
       skele: ["ske", "ske", "ske", "ske", "ske", "ske", "ske"],
+      width: 0,
     };
   },
   methods: {
@@ -123,6 +121,14 @@ export default {
           // console.log(resp);
           this.skeleton = false;
           this.categories = resp.data.data;
+          let num = 8;
+          if (this.width <= 1010 && this.width >= 800) num = 6;
+          if (this.width <= 800 && this.width >= 720) num = 4;
+          if (this.width < 720) num = 8;
+
+          this.categories.forEach((item) => {
+            item.products.splice(num, item.products.length - 1);
+          });
           this.phoneAndTablets = this.categories[0];
           this.electronics = this.categories[6];
           this.computers = this.categories[7];
@@ -136,6 +142,16 @@ export default {
           this.errors = response.data.errors;
         });
     },
+    handleResize() {
+      this.width = window.innerWidth;
+    },
+  },
+  mounted() {
+    window.addEventListener("resize", this.handleResize);
+    this.handleResize();
+  },
+  unmounted() {
+    window.removeEventListener("resize", this.handleResize);
   },
 };
 </script>

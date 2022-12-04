@@ -48,9 +48,9 @@ module.exports = configure(function (ctx) {
         // rootURL: "http://165.227.74.156/api/",
         baseURL: "https://moon.5pays.store/api/",
         rootURL: "https://moon.5pays.store/api/",
-        site_name: "Moms Express",
-        description: "Moms Express",
-        keywords: "Moms Express",
+        site_name: "5Pays",
+        description: "5Pays",
+        keywords: "5Pays",
       },
 
       // transpile: false,
@@ -139,8 +139,8 @@ module.exports = configure(function (ctx) {
       chainWebpackCustomSW(/* chain */) {},
 
       manifest: {
-        name: `moms`,
-        short_name: `moms`,
+        name: `5pays`,
+        short_name: `5pays`,
         description: `An online market store for MSME owners`,
         display: "standalone",
         orientation: "portrait",
@@ -204,7 +204,7 @@ module.exports = configure(function (ctx) {
       builder: {
         // https://www.electron.build/configuration/configuration
 
-        appId: "momsexpress",
+        appId: "5pays",
       },
 
       // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain

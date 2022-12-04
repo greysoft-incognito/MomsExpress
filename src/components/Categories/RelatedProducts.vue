@@ -95,7 +95,9 @@ export default {
         .then((res) => {
           console.log(res);
           this.categoryDetails = res.data.data;
+          console.log(this.categoryDetails);
           this.categoryDetails.splice(3, res.data.data.length - 1);
+          console.log(this.categoryDetails);
           // this.skeleton = false;
         })
         .catch((err) => {});

@@ -145,6 +145,9 @@ export default {
   .product {
     flex: 1 0 38%;
   }
+  .q-tab-panel {
+    padding: 0 5px !important;
+  }
 }
 
 @media screen and (max-width: 400px) {
