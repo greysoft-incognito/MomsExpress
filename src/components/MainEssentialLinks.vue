@@ -75,10 +75,7 @@
               </q-item>
 
               <q-item
-                v-show="
-                  $store.auth.userDetails === null ||
-                  $store.auth.vendorDetails === null
-                "
+                v-show="$store.auth.userDetails === null"
                 class="q-px-sm"
                 clickable
                 @click="signIn()"
@@ -101,7 +98,7 @@
                   params: { categoryname: category.slug, id: category.id },
                 }"
               >
-                <q-icon name="settings" class="q-mr-sm" />
+                <!-- <q-icon name="settings" class="q-mr-sm" /> -->
                 <span>{{ category.name }}</span></q-item
               >
 

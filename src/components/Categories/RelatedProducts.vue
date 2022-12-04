@@ -112,8 +112,8 @@ export default {
 <style scoped>
 .related_container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  /* grid-template-columns: 1fr 1fr 1fr; */
+  /* grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); */
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 30px;
 }
 
@@ -177,6 +177,11 @@ export default {
   .price_text,
   .review_text {
     font-size: 0.8rem;
+  }
+  .related_container {
+    grid-template-columns: 80%;
+    justify-content: center;
+    /* place-items: center; */
   }
 }
 </style>

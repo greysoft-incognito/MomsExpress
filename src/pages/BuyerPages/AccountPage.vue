@@ -28,12 +28,7 @@
           :ripple="false"
           label="Orders"
         />
-        <q-tab
-          class="text-capitalize"
-          name="wishlist"
-          :ripple="false"
-          label="Wishlist"
-        />
+
         <!-- <q-tab
           @click="this.$router.push('/vendorOnboard')"
           :ripple="false"
@@ -54,10 +49,6 @@
 
         <q-tab-panel name="orders">
           <Ordes />
-        </q-tab-panel>
-
-        <q-tab-panel name="wishlist">
-          <Wishlist />
         </q-tab-panel>
       </q-tab-panels>
     </div>
@@ -126,10 +117,6 @@
           <q-tab-panel name="orders">
             <Ordes />
           </q-tab-panel>
-
-          <q-tab-panel name="wishlist">
-            <Wishlist />
-          </q-tab-panel>
         </q-tab-panels>
       </template>
     </q-splitter>
@@ -141,7 +128,6 @@ import { ref } from "vue";
 import AccountDetails from "components/Buyer/AccountComponents/AccountDetails.vue";
 import Addresses from "components/Buyer/AccountComponents/Addresses.vue";
 import Ordes from "components/Buyer/AccountComponents/Orders.vue";
-import Wishlist from "components/Buyer/AccountComponents/Wishlist.vue";
 
 export default {
   setup() {
@@ -150,7 +136,7 @@ export default {
       splitterModel: ref(20),
     };
   },
-  components: { Addresses, Ordes, Wishlist, AccountDetails },
+  components: { Addresses, Ordes, AccountDetails },
 };
 </script>
 
