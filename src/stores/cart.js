@@ -18,18 +18,13 @@ export const useCartStore = defineStore("cart", {
   },
   actions: {
     addToplate(meal, id) {
-      // console.log(id, meal);
-      // console.log(this.plate);
-      // console.log(this.meals[id].id);
       let quantity = 1;
-      // // console.log("lets fly");mealItme.product.id === meal.id
       let item = {
         product: meal,
         quantity,
       };
       let findMeal = this.plate.find(
         (mealItme) => mealItme.product.id === meal.id
-        // console.log(mealItme.product.id, meal.id);
       );
 
       // console.log(findMeal);
@@ -41,25 +36,8 @@ export const useCartStore = defineStore("cart", {
         return;
       }
       this.plate.push(item);
-      // console.log(this.plate);
     },
     add(id) {
-      // console.log(this.meals[id]);
-      // if (this.meals[id] && this.plate[id]) {
-      //   this.meals[id].stock += 1;
-      //   this.plate[id].stock += 1;
-      //   console.log(this.plate[id]);
-      // } else {
-      //   this.meals[id] = {
-      //     id,
-      //     stock: 1,
-      //   };
-      //   this.plate[id] = {
-      //     id,
-      //     stock: 1,
-      //   };
-      // }
-
       let findMeal = this.plate.find((mealItme) => mealItme.product.id === id);
       if (findMeal) {
         findMeal.quantity += 1;
@@ -87,8 +65,8 @@ export const useCartStore = defineStore("cart", {
       // console.log(id);
       // console.log(this.plate);
       this.plate = this.plate.filter((items) => items.product.id !== id);
-      // console.log(this.plate);
-      window.location.reload();
+      console.log(this.plate);
+      // window.location.reload();
     },
   },
 });

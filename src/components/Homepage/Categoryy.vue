@@ -62,6 +62,19 @@
               }"
             />
 
+            <q-btn
+              label="Add to Cart"
+              :ripple="false"
+              flat
+              class="add_to_cart add_to_cart2 bg-primary text-white"
+              no-caps
+              color="primary"
+              :to="{
+                name: 'productDetail',
+                params: { name: product.slug, id: product.id },
+              }"
+            />
+
             <div class="view_details">
               <q-btn
                 @click="this.$store.cart.addToplate(product, product.id)"
@@ -152,13 +165,24 @@ export default {
 .product_tile {
   /* box-shadow: 0px 2px 8px -5.5px; */
   border-radius: 8px;
+  transition: 0.8s;
+}
+
+@media screen and (max-width: 1010px) {
+  .category_container {
+    grid-template-columns: 30% 2fr;
+    gap: 15px;
+  }
+  .products {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 @media screen and (max-width: 720px) {
-  .category_container {
-    grid-template-columns: 1fr;
-  }
   .banner {
     height: 25vh;
+  }
+  .category_container {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -186,6 +210,10 @@ export default {
   display: none;
 }
 
+.add_to_cart2 {
+  display: none;
+}
+
 .overlay {
   background: rgb(128, 128, 128, 0.35);
   height: 100%;
@@ -195,6 +223,31 @@ export default {
   display: none;
 }
 
+@media screen and (max-width: 770px) {
+  .overlay {
+    background: transparent;
+    display: block;
+  }
+  /* .view_details {
+    display: block !important;
+    background: white;
+    border-radius: 50%;
+    top: 5% !important;
+  } */
+  .add_to_cart2 {
+    display: block !important;
+  }
+  .image_container:hover .overlay {
+    display: none !important;
+  }
+  .image_container:hover .add_to_cart {
+    display: none !important;
+  }
+
+  .image_container:hover .view_details {
+    display: none !important;
+  }
+}
 .image_container:hover .overlay {
   display: block;
 }

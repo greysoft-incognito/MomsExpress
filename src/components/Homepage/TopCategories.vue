@@ -10,6 +10,7 @@
           :key="type"
           flat
           style="max-width: 300px; height: 100%; width: 300px"
+          class="border_card card"
         >
           <q-skeleton height="150px" square />
 
@@ -58,7 +59,7 @@
           src="/Images/men.jpeg"
         />
         <!-- </div> -->
-        <div class="text-center text-subtitle1 text-bold q-my-xs">
+        <div class="text-center text-subtitle1 text-bold q-my-xs category_name">
           {{ category.name }}
         </div>
       </router-link>
@@ -178,6 +179,11 @@ export default {
 @media screen and (max-width: 470px) {
   .card {
     flex: 1 0 40%;
+  }
+  .category_name {
+    white-space: pre-wrap;
+    text-align: center;
+    line-height: 1.3;
   }
 }
 

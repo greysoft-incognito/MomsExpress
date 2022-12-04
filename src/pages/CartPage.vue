@@ -1,6 +1,6 @@
 <template>
   <q-page
-    v-if="!cartItems.length"
+    v-if="!store.plate.length"
     class="column flex-center big_screen_padding"
   >
     <div class="text-center text-primary text-h5 text-bold">
@@ -9,9 +9,9 @@
     <q-icon name="shopping_cart" size="3rem" color="primary" />
   </q-page>
   <div class="q-pa-md padding-footer q-mt-md q-mb-xl big_screen_padding">
-    <div v-if="cartItems.length" class="cart_section">
+    <div v-if="store.plate.length" class="cart_section">
       <div>
-        <div v-for="item in cartItems" :key="item._id">
+        <div v-for="item in store.plate" :key="item._id">
           <div class="cart_item items-center q-my-lg">
             <div class="relative-position image_container">
               <q-img
@@ -153,18 +153,17 @@
 <script>
 import { ref } from "vue";
 import axios from "axios";
+import { useCartStore } from "src/stores/cart";
 
 export default {
   data() {
     return {
       cartItems: this.$store.cart.plate,
       totalPrice: this.$store.cart.totalPrice,
+      store: useCartStore(),
     };
   },
   computed: {
-    getSubtotal(quantity, price) {
-      console.log(quantity, price);
-    },
     reference: function () {
       let text;
       let randomRef = "";
