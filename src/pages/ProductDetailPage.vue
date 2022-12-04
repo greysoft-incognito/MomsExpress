@@ -58,7 +58,7 @@
               >
                 <q-img
                   class="product_image"
-                  :src="`http://165.227.74.156/${products.uploads[0].url}`"
+                  :src="`https://moon.5pays.store/${products.uploads[0].url}`"
                 />
                 <div class="q-ml-sm">
                   <router-link
@@ -106,13 +106,13 @@
           </div>
         </div> -->
         <div class="product_detail_container">
-          <!-- `http://165.227.74.156/${productDetails.uploads[0].url}` -->
+          <!-- `https://moon.5pays.store/${productDetails.uploads[0].url}` -->
           <!-- {{ this.$store.cart.singleProducts.uploads[0] }} -->
           <div class="product_detail_images">
             <q-carousel swipeable animated v-model="slide" thumbnails infinite>
               <q-carousel-slide
                 :name="1"
-                :img-src="`http://165.227.74.156/${this.$store.cart.singleProducts.uploads[0]?.url}`"
+                :img-src="`https://moon.5pays.store/${this.$store.cart.singleProducts.uploads[0]?.url}`"
               />
               <!-- <q-carousel-slide
                 :name="2"

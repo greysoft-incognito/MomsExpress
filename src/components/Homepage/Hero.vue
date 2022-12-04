@@ -20,7 +20,7 @@
         v-for="(product, index) in heroImages"
         :key="product.id"
         :name="index"
-        :img-src="`http://165.227.74.156/${product.uploads[0].url}`"
+        :img-src="`https://moon.5pays.store/${product.uploads[0].url}`"
       >
         <div class="hold">
           <div class="category">

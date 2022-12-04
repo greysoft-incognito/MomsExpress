@@ -16,7 +16,7 @@
             <div class="relative-position image_container">
               <q-img
                 class="product_image"
-                :src="`http://165.227.74.156/${item.uploads[0].url}`"
+                :src="`https://moon.5pays.store/${item.uploads[0].url}`"
               />
               <!-- {{ item.uploads[0].src }} -->
               <q-btn

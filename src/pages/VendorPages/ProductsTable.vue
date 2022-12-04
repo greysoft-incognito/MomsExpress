@@ -77,7 +77,9 @@
       <template v-slot:body-cell-image_url="props">
         <q-td :props="props">
           <q-avatar size="90px" class="shadow-10">
-            <img :src="`http://165.227.74.156/${props.row.uploads[0].url}`" />
+            <img
+              :src="`https://moon.5pays.store/${props.row.uploads[0].url}`"
+            />
           </q-avatar>
         </q-td>
       </template>

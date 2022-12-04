@@ -25,7 +25,7 @@
       <div class="image_container">
         <q-img
           class="border_card image"
-          :src="`http://165.227.74.156/${products.uploads[0].url}`"
+          :src="`https://moon.5pays.store/${products.uploads[0].url}`"
         />
         <!-- <div class="add_to_cart bg-primary text-white">add to cart</div> -->
         <q-btn

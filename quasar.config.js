@@ -44,8 +44,8 @@ module.exports = configure(function (ctx) {
     build: {
       vueRouterMode: "hash", // available values: 'hash', 'history'
       env: {
-        // baseURL: "http://165.227.74.156/api/",
-        // rootURL: "http://165.227.74.156/api/",
+        // baseURL: "https://moon.5pays.store/api/",
+        // rootURL: "https://moon.5pays.store/api/",
         baseURL: "https://moon.5pays.store/api/",
         rootURL: "https://moon.5pays.store/api/",
         site_name: "5Pays",

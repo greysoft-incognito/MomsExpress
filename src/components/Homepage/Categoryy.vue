@@ -47,26 +47,14 @@
             <q-img
               style="object-fit: contain"
               class="border_card image"
-              :src="`http://165.227.74.156/${product.uploads[0].url}`"
+              :src="`https://moon.5pays.store/${product.uploads[0].url}`"
             />
+
             <!-- <div class="add_to_cart bg-primary text-white">add to cart</div> -->
             <q-btn
               label="View details"
               :ripple="false"
               class="add_to_cart"
-              no-caps
-              color="primary"
-              :to="{
-                name: 'productDetail',
-                params: { name: product.slug, id: product.id },
-              }"
-            />
-
-            <q-btn
-              label="Add to Cart"
-              :ripple="false"
-              flat
-              class="add_to_cart add_to_cart2 bg-primary text-white"
               no-caps
               color="primary"
               :to="{
@@ -210,10 +198,6 @@ export default {
   display: none;
 }
 
-.add_to_cart2 {
-  display: none;
-}
-
 .overlay {
   background: rgb(128, 128, 128, 0.35);
   height: 100%;
@@ -234,19 +218,6 @@ export default {
     border-radius: 50%;
     top: 5% !important;
   } */
-  .add_to_cart2 {
-    display: block !important;
-  }
-  .image_container:hover .overlay {
-    display: none !important;
-  }
-  .image_container:hover .add_to_cart {
-    display: none !important;
-  }
-
-  .image_container:hover .view_details {
-    display: none !important;
-  }
 }
 .image_container:hover .overlay {
   display: block;
