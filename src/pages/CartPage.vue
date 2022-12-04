@@ -16,7 +16,7 @@
             <div class="relative-position image_container">
               <q-img
                 class="product_image"
-                :src="`http://165.227.74.156/${item.product.uploads[0].url}`"
+                :src="`https://moon.5pays.store/${item.product.uploads[0].url}`"
               />
               <q-btn
                 @click="this.$store.cart.removeFromCart(item.product.id)"

@@ -22,7 +22,7 @@
             <q-td class="text-left" key="name" :props="props">
               <div class="relative-position">
                 <q-img
-                  :src="`http://165.227.74.156/${props.row.uploads[0].url}`"
+                  :src="`https://moon.5pays.store/${props.row.uploads[0].url}`"
                 />
                 <!-- {{ props.row.uploads[0].src }} -->
                 <q-btn

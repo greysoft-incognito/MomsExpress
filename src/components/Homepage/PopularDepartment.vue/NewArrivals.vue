@@ -26,7 +26,7 @@
         <div class="overlay"></div>
         <img
           class="border_card image"
-          :src="`http://165.227.74.156/${product.uploads[0].url}`"
+          :src="`https://moon.5pays.store/${product.uploads[0].url}`"
         />
         <!-- <div class="add_to_cart bg-primary text-white">add to cart</div> -->
         <q-btn
