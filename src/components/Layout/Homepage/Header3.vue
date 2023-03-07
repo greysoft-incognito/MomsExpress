@@ -2,8 +2,8 @@
   <q-toolbar class="header3 big_screen_padding">
     <div class="row full-width">
       <div class="categories text-black">
+        <!-- @mouseover="showCategories = true" -->
         <q-list
-          @mouseover="showCategories = true"
           @click="showCategories = !showCategories"
         >
           <q-item clickable>
@@ -21,8 +21,8 @@
           class="categories_list"
           :class="showCategories ? 'show_category' : 'hide_category'"
           separator
-          @mouseleave="showCategories = false"
-        >
+          @blur="showCategories = false"
+          >
           <q-item
             v-for="category in getCategory"
             :key="category.id"

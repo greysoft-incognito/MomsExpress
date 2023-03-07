@@ -10,10 +10,11 @@
         </h3>
         <q-img class="small_screen" src="Images/first_image.jpg" />
         <p class="q-my-md one_long_text">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione
-          veritatis, officiis voluptatem voluptate natus sint dicta praesentium
-          illum mollitia nostrum, veniam repellendus velit quidem libero unde
-          sapiente! Inventore, aperiam odio.
+          If you're looking to build an online store, you've come to the right
+          place! 5Pays is the perfect platform for entrepreneurs, small
+          businesses, and anyone looking to sell their products or services
+          online. With 5Pays, you can easily create a professional-looking
+          online store that's tailored to your unique brand.
         </p>
         <q-btn class="q-my-md" @click="alert = true" outline label="Register" />
       </div>
@@ -90,10 +91,11 @@
         <h3 class="text-bold">Easy 4 steps to manage your products selling</h3>
         <q-img class="small_screen" src="Images/second_image.jpg" />
         <p class="q-my-md one_long_text">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione
-          veritatis, officiis voluptatem voluptate natus sint dicta praesentium
-          illum mollitia nostrum, veniam repellendus velit quidem libero unde
-          sapiente! Inventore, aperiam odio.
+          With 5Pays, managing your online store has never been easier. Our
+          platform streamlines the process of selling your products or services
+          online, giving you more time to focus on growing your business. Say
+          goodbye to complicated setups and hello to an easy, hassle-free
+          experience.
         </p>
         <div class="four_items">
           <div class="row icon_container q-my-md">

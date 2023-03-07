@@ -11,8 +11,7 @@
           class="q-mx-md text-secondary text-bold"
           to="/become_a_vendor"
           v-show="
-            $store.auth.vendorDetails === null ||
-            $store.auth.userDetails === null
+            $store.auth.userDetails !== null
           "
           >Become a vendor</router-link
         >

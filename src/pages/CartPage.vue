@@ -204,11 +204,21 @@ export default {
           );
         })
         .catch(({ response }) => {
-          this.$q.notify({
-            message: "Error creating order. Please try again.",
+          console.log(response);
+          if( response.status === 401){
+            this.$q.notify({
+            message: "You need to be Authtnticated to order.",
             color: "red",
             position: "top",
-          });
+          })
+          } else{
+
+            this.$q.notify({
+              message: "Error creating order. Please try again.",
+              color: "red",
+              position: "top",
+            });
+          }
           this.errors = response.data.errors;
         });
     },

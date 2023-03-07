@@ -35,11 +35,11 @@
             v-model="search"
             dense
             @click="search !== '' ? (result = true) : (result = false)"
-            @blur="result = false"
             @keydown="
               (result = true), search.length > 1 ? getSearch(search) : ''
-            "
+              "
           >
+          <!-- @blur="result = false" -->
             <template v-slot:prepend>
               <q-icon name="search" color="primary" />
               <q-separator class="q-ma-sm" vertical />
@@ -47,14 +47,14 @@
           </q-input>
 
           <div
-            v-if="search === '' ? (result = false) : result"
+          v-if="search === '' ? (result = false) : result"
             class="search-result text-black text-subtitle2 bg-white"
           >
             <q-list>
               <div v-if="!searchResults.length" class="flex flex-center">
                 <div class="text-subtitle1 text-secondary">No Search Found</div>
               </div>
-              <div
+              <a
                 v-else
                 class="search"
                 v-for="product in searchResults"
@@ -66,23 +66,13 @@
                   params: { name: product.slug, id: product.id },
                 }" -->
                 {{ product.name }}
-              </div>
-              <!-- </q-scroll-area> -->
+              </a>
             </q-list>
           </div>
         </div>
 
         <div class="buttons row items-center">
           <q-separator class="q-mx-xs q-my-md" vertical />
-          <!-- <div>
-            <q-btn
-              color="primary"
-              flat
-              round
-              class="q-mx-sm"
-              icon="favorite_border "
-            />
-          </div> -->
 
           <q-btn
             class="q-mr-md q-my-md"
@@ -141,6 +131,8 @@ export default {
         name: "productDetail",
         params: { name: slug, id: product_id },
       });
+      this.result = false
+      this.search = ''
     },
   },
   mounted() {
@@ -180,7 +172,7 @@ export default {
   top: 100%;
   left: 0;
   transform: translateX(-6.25%);
-  z-index: 100;
+  z-index: 1000;
   padding: 2% 5%;
   height: auto;
   box-shadow: 0px 2px 12px -5.5px;
